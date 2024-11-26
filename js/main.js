@@ -1,6 +1,112 @@
 (function ($) {
     "use strict";
-    
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Elemanları seçme
+        const adresKutusu = document.querySelector('.adres-container');
+        const adresFormu = document.querySelector('#adres-formu');
+        const yeniEkleBtn = document.querySelector('.yeni-ekle-btn');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const saveBtn = document.querySelector('.save-btn'); // Kaydet butonu
+        const adresBaslikInput = document.getElementById('adres-baslik');
+        const adSoyadInput = document.getElementById('ad-soyad');
+        const telefonInput = document.getElementById('telefon');
+        const adresInput = document.getElementById('adres');
+        const sehirInput = document.getElementById('sehir');
+        const ilceInput = document.getElementById('ilce');
+
+        const adresBaslikGoster = document.getElementById('adres-baslik-goster');
+        const adSoyadGoster = document.getElementById('ad-soyad-goster');
+        const telefonGoster = document.getElementById('telefon-goster');
+        const adresGoster = document.getElementById('adres-goster');
+        const sehirIlceGoster = document.getElementById('sehir-ilce-goster');
+        const adresBilgileri = document.getElementById('adres-bilgileri');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elemanları seçme
+            const createRequestBtn = document.querySelector('.create-request-btn');
+            const iadeFormContainer = document.getElementById('iade-form-container');
+            const cancelBtn = document.getElementById('cancelBtn');
+
+            // "Yeni Talep Oluştur" butonuna tıklama
+            createRequestBtn.addEventListener('click', () => {
+                iadeFormContainer.style.display = 'block'; // İçeriği göster
+            });
+
+            // "Vazgeç" butonuna tıklama
+            cancelBtn.addEventListener('click', () => {
+                iadeFormContainer.style.display = 'none'; // İçeriği gizle
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tutarları seçme
+            const siparisTutarElement = document.getElementById('siparisTutar');
+            const kargoUcretElement = document.getElementById('kargoUcret');
+            const sepetToplamElement = document.getElementById('sepetToplam');
+
+            console.log(siparisTutarElement.textContent); // Kontrol için
+            console.log(kargoUcretElement.textContent); // Kontrol için
+
+            // Tutarları metinden alıp sayıya çevirme
+            const siparisTutar = parseFloat(siparisTutarElement.textContent.replace('₺', '').replace(',', '.'));
+            const kargoUcret = parseFloat(kargoUcretElement.textContent.replace('₺', '').replace(',', '.'));
+
+            // Toplamı hesaplama
+            const toplam = (siparisTutar + kargoUcret).toFixed(2); // İki ondalık basamak
+
+            // Toplamı ekrana yazdır
+            sepetToplamElement.innerText = `₺${toplam}`;
+        });
+
+
+
+        // "Yeni Ekle" butonuna tıklama olayını tanımlama
+        yeniEkleBtn.addEventListener('click', () => {
+            if (adresKutusu && adresFormu) {
+                adresKutusu.style.display = 'none'; // Adres kutusunu gizle
+                adresFormu.style.display = 'block'; // Adres formunu göster
+            }
+        });
+
+        // "Vazgeç" butonuna tıklama olayını tanımlama
+        cancelBtn.addEventListener('click', () => {
+            if (adresKutusu && adresFormu) {
+                adresKutusu.style.display = 'block'; // Adres kutusunu göster
+                adresFormu.style.display = 'none'; // Adres formunu gizle
+            }
+        });
+
+        // "Kaydet" butonuna tıklama olayını tanımlama
+            saveBtn.addEventListener('click', (event) => {
+            event.preventDefault(); // Formun normalde submit edilmesini engelle
+
+            // Form verilerini al
+            const adresBaslik = adresBaslikInput.value;
+            const adSoyad = adSoyadInput.value;
+            const telefon = telefonInput.value; // Telefonu birleştir
+            const adres = adresInput.value;
+            const sehir = sehirInput.value;
+            const ilce = ilceInput.value;
+
+            // Yeni alanı göstermek için
+            adresKutusu.style.display = 'none'; // Formu gizle
+            adresBilgileri.style.display = 'block'; // Bilgileri göster
+
+            // Kullanıcı verilerini yeni alanda göster
+            adresBaslikGoster.textContent = adresBaslik;
+            adSoyadGoster.textContent = adSoyad;
+            telefonGoster.textContent = telefon;
+            adresGoster.textContent = adres;
+            sehirIlceGoster.textContent = sehir + ' / ' + ilce;
+
+            // Yeni formu göster
+            adresFormu.style.display = 'none'; // Formu gizle
+        });
+    });
+
+
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -17,8 +123,8 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
@@ -99,6 +205,6 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
-    
+
 })(jQuery);
 

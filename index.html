@@ -10,7 +10,6 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Google Web Fonts -->
@@ -30,6 +29,15 @@
 
 <body>
     <!-- Topbar Start -->
+
+    <!-- Mobil Aşağı Bar -->
+    <div class="mobile-bottom-bar d-lg-none">
+        <a href="#" class="bottom-bar-item"><i class="fa fa-bars"></i><span>Kategoriler</span></a>
+        <a href="../../giris.html" class="bottom-bar-item"><i class="fa fa-user"></i><span>Giriş Yap</span></a>
+        <a href="#" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
+        <a href="#" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
+    </div>
+
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5">
             <div class="col-lg-6 d-none d-lg-block">
@@ -42,14 +50,60 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <div class="btn-group">
+
+                    <div id="menu" class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Üye Girişi</button>
-                            <button class="dropdown-item" type="button">Üye Ol</button>
+                            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
+                            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
                         </div>
                     </div>
-<!--                    <div class="btn-group mx-2">-->
+
+                    <!-- JavaScript kodu -->
+                    <script>
+                        window.onload = function() {
+                            // Giriş yapıp yapmadığını kontrol ediyoruz
+                            const loggedIn = localStorage.getItem("loggedIn");
+                            const menu = document.getElementById("menu");
+
+                            if (loggedIn === "true") {
+                                // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
+                                menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
+            <a href="Hesabim%23/Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
+            <a href="Hesabim%23/Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
+            <a href="Hesabim%23/IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
+            <a href="index.html" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
+        </div>
+      `;
+                            } else {
+                                // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
+                                menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
+            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
+        </div>
+      `;
+                            }
+                        };
+
+                        // Güvenli çıkış işlemi
+                        document.addEventListener("click", function(event) {
+                            if (event.target.id === "logoutButton") {
+                                // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
+                                localStorage.removeItem("loggedIn");
+
+                                // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
+                                location.reload();
+                            }
+                        });
+                    </script>
+
+
+                    <!--                    <div class="btn-group mx-2">-->
 <!--                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>-->
 <!--                        <div class="dropdown-menu dropdown-menu-right">-->
 <!--                            <button class="dropdown-item" type="button">EUR</button>-->
@@ -80,7 +134,7 @@
         </div>
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="index.html" class="text-decoration-none">
                     <img src="img/logo.png" alt="Alde Home Logo" class="img-fluid" style="max-height: 60px;">
 <!--                    <span class="h1 text-uppercase text-primary bg-dark px-2">ALDE</span>-->
 <!--                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Home</span>-->
@@ -145,7 +199,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">KPSS</a>
+                            <a href="shop.html" class="nav-item nav-link">KPSS</a>
                             <a href="" class="nav-item nav-link">ALES-DGS</a>
                             <a href="" class="nav-item nav-link">YKS</a>
                             <a href="" class="nav-item nav-link">LGS</a>
@@ -156,7 +210,7 @@
 <!--                            <div class="nav-item dropdown">-->
 <!--                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>-->
 <!--                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">-->
-<!--                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>-->
+<!--                                    <a href="Sepetim.html" class="dropdown-item">Shopping Cart</a>-->
 <!--                                    <a href="checkout.html" class="dropdown-item">Checkout</a>-->
 <!--                                </div>-->
 <!--                            </div>-->
@@ -166,7 +220,7 @@
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
-                            <a href="" class="btn px-0 ml-3">
+                            <a href="Sepetim.html" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
@@ -206,10 +260,10 @@
                         <div class="carousel-item position-relative" style="height: 430px;">
                             <img class="position-absolute w-100 h-100" src="img/home-scroll-1.png" style="object-fit: cover;">
                         </div>
-
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-4">
                 <div class="product-offer mb-30" style="height: 430px;">
                     <img class="img-fluid" src="img/home-sale-1.png" alt="">
@@ -267,9 +321,39 @@
                         <img class="img-fluid w-100" src="img/yeni_gelenler_1.png" alt="">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href="detail.html"><i class="fa fa-search"></i></a>
                             <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
 
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="" style="white-space: normal; word-wrap: break-word;">
+                            2025 KPSS Türkçe Tamamı Çözümlü 6+5+7 Deneme Benim Hocam Yayınları
+                        </a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>₺209,25</h5>
+                            <h6 class="text-muted ml-2"><del>₺279,00</del></h6>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small class="fa fa-star text-primary mr-1"></small>
+                            <small>(99)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-6 pb-1">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="img/yeni_gelenler_1.png" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -416,36 +500,6 @@
                 </div>
             </div>
 
-            <div class="col-lg-2 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/yeni_gelenler_1.png" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                            <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
-
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="" style="white-space: normal; word-wrap: break-word;">
-                            2025 KPSS Türkçe Tamamı Çözümlü 6+5+7 Deneme Benim Hocam Yayınları
-                        </a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>₺209,25</h5>
-                            <h6 class="text-muted ml-2"><del>₺279,00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Ürünleri Ekle -->
@@ -457,10 +511,11 @@
     <div class="container-fluid pt-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">KATEGORİLER</span></h2>
         <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/gygk.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -470,10 +525,11 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/egitim_bilimleri.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -483,10 +539,11 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/yks.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -496,10 +553,11 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/dgs.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -509,10 +567,11 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/ales.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -522,10 +581,11 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+
+            <div class="col-lg-4 col-md-4 col-sm-6 pb-1">
                 <a class="text-decoration-none" href="">
                     <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <div class="overflow-hidden" style="width: 120px; height: 120px;">
                             <img class="img-fluid" src="img/lise.png" alt="">
                         </div>
                         <div class="flex-fill pl-3">
@@ -557,7 +617,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row">
                     <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Alışveriş Bilgileri</h5>
+                        <h5 class="text-secondary text-uppercase mb-4">ALIŞVERİŞ BİLGİLERİ</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Hesabım</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Siparişlerim</a>
@@ -568,7 +628,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Popüler Kategoriler</h5>
+                        <h5 class="text-secondary text-uppercase mb-4">POPÜLER KATEGORİLER</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Genel Yetenek Genel Kültür</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Eğitim Bilimleri</a>
@@ -579,7 +639,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Popüler Yayınevleri</h5>
+                        <h5 class="text-secondary text-uppercase mb-4">POPÜLER YAYINEVLERİ</h5>
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Benim Hocam Yayıncılık</a>
                             <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Çanta Yayıncılık</a>
