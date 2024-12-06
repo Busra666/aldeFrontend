@@ -22,6 +22,124 @@
         const sehirIlceGoster = document.getElementById('sehir-ilce-goster');
         const adresBilgileri = document.getElementById('adres-bilgileri');
 
+        // Kategori Menüsünü Aç/Kapat
+        document.getElementById("toggleCategories").addEventListener("click", function () {
+            const categoryMenu = document.getElementById("categoryMenu");
+
+            // Menüyü Görünür/Görünmez Yap
+            if (categoryMenu.classList.contains("d-none")) {
+                categoryMenu.classList.remove("d-none");
+            } else {
+                categoryMenu.classList.add("d-none");
+            }
+        });
+
+        <!-- JavaScript kodu -->
+            window.onload = function() {
+            // Giriş yapıp yapmadığını kontrol ediyoruz
+            const loggedIn = localStorage.getItem("loggedIn");
+            const menu = document.getElementById("menu");
+
+            if (loggedIn === "true") {
+            // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
+            menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
+            <a href="Hesabim%23/Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
+            <a href="Hesabim%23/Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
+            <a href="Hesabim%23/IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
+            <a href="index.html" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
+        </div>
+      `;
+        } else {
+            // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
+            menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
+            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
+        </div>
+      `;
+        }
+        };
+
+            // Güvenli çıkış işlemi
+            document.addEventListener("click", function(event) {
+            if (event.target.id === "logoutButton") {
+            // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
+            localStorage.removeItem("loggedIn");
+
+            // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
+            location.reload();
+        }
+        });
+
+
+
+        <!-- JavaScript kodu -->
+            window.onload = function() {
+            // Giriş yapıp yapmadığını kontrol ediyoruz
+            const loggedIn = localStorage.getItem("loggedIn");
+            const menu = document.getElementById("menu");
+
+            if (loggedIn === "true") {
+            // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
+            menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
+            <a href="Hesabim%23/Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
+            <a href="Hesabim%23/Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
+            <a href="Hesabim%23/IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
+            <a href="index.html" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
+        </div>
+      `;
+        } else {
+            // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
+            menu.innerHTML = `
+        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
+            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
+        </div>
+      `;
+        }
+        };
+
+            // Güvenli çıkış işlemi
+            document.addEventListener("click", function(event) {
+            if (event.target.id === "logoutButton") {
+            // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
+            localStorage.removeItem("loggedIn");
+
+            // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
+            location.reload();
+        }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Artı ve eksi butonlarını seçme
+            const btnPlus = document.querySelector('.btn-plus');
+            const btnMinus = document.querySelector('.btn-minus');
+            const quantityInput = document.querySelector('.quantity-input');
+
+            // Artı butonuna tıklama olayı
+            btnPlus.addEventListener('click', () => {
+                let currentValue = parseInt(quantityInput.value); // Mevcut değeri al
+                quantityInput.value = currentValue + 1; // Değeri bir artır
+            });
+
+            // Eksi butonuna tıklama olayı
+            btnMinus.addEventListener('click', () => {
+                let currentValue = parseInt(quantityInput.value); // Mevcut değeri al
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1; // Değeri bir azalt
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             // Elemanları seçme
             const createRequestBtn = document.querySelector('.create-request-btn');

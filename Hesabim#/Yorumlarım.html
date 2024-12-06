@@ -34,10 +34,9 @@
     <div class="mobile-bottom-bar d-lg-none">
         <a href="#" class="bottom-bar-item"><i class="fa fa-bars"></i><span>Kategoriler</span></a>
         <a href="../giris.html" class="bottom-bar-item"><i class="fa fa-user"></i><span>Giriş Yap</span></a>
-        <a href="Favorilerim.html" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
-        <a href="../Sepetim.html" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
+        <a href="#" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
+        <a href="#" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
     </div>
-
 
     <div class="container-fluid">
         <div class="row bg-secondary py-1 px-xl-5">
@@ -222,7 +221,7 @@
         <div class="sidebar">
             <ul>
                 <li>
-                    <span><i class="fas fa-user-cog active"></i><a href="hesabim.html" class="active"> Hesap Ayarlarım </a></span><i class="fas fa-chevron-down arrow-icon"></i>
+                    <span><i class="fas fa-user-cog" ></i><a href="hesabim.html"> Hesap Ayarlarım </a></span><i class="fas fa-chevron-down arrow-icon"></i>
                     <ul class="submenu">
                         <li><a href="Uyelik-bilgilerim.html">Üyelik Bilgilerim</a></li>
                         <li><a href="Sifre-Degistir.html">Şifre Değiştir</a></li>
@@ -233,27 +232,25 @@
                 <li><a href="IadeTaleplerim.html"><i class="fas fa-undo-alt"></i> İade Taleplerim</a></li>
                 <li><a href="../Sepetim.html"><i class="fas fa-shopping-cart"></i> Alışveriş Sepetim</a></li>
                 <li><a href="Favorilerim.html"><i class="fas fa-heart"></i> Favorilerim</a></li>
-                <li><a href="Yorumlarım.html"><i class="fas fa-comments"></i> Yorumlarım</a></li>
+                <li><a href="Yorumlarım.html" class="active"><i class="fas fa-comments"></i> Yorumlarım</a></li>
                 <li><a href="#"><i class="fas fa-file-alt"></i> Sözleşmelerim</a></li>
                 <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Güvenli Çıkış</a></li>
             </ul>
         </div>
 
-
-        <!-- Sağ İçerik Alanı -->
-        <div class="content">
-            <h2>MERHABA</h2>
-            <p>HOŞGELDİNİZ</p>
-            <p>"Hesabım" sayfasından siparişlerinizi ve arıza/iade/değişim işlemlerinizi takip edebilir, üyelik bilgisi güncelleme, şifre ve adres değişikliği gibi hesap ayarlarınızı kolayca yapabilirsiniz.</p>
-
-            <div class="grid-container">
-                <div class="grid-item" onclick="window.location.href='Siparislerim.html'"><i class="fas fa-bell"></i> Siparişlerim</div>
-                <div class="grid-item" onclick="window.location.href='Uyelik-bilgilerim.html'"><i class="fas fa-user"></i> Üyelik Bilgilerim</div>
-                <div class="grid-item" onclick="window.location.href='Adres-Defterim.html'"><i class="fas fa-map-marker-alt"></i> Adres Defterim</div>
-                <div class="grid-item" onclick="window.location.href='IadeTaleplerim.html'"><i class="fas fa-undo-alt"></i> İade Taleplerim</div>
-                <div class="grid-item" onclick="window.location.href='../Sepetim.html'"><i class="fas fa-shopping-cart"></i> Alışveriş Sepetim</div>
+        <!-- Sağ Taraf Form -->
+        <div class="adres-container">
+            <div class="adres-box">
+                <div class="ikon">
+                    <i class="fas fa-comment" style="color: #e80808;"></i> <!-- Kırmızı yorum simgesi -->
+                </div>
+                <h2>Yorumunuz Bulunmamaktadır.</h2>
+<!--                <p>Beğendiğin ürünü favorilere ekle, dilediğinde satın al.</p>-->
+                <a href="../index.html"><button class="yeni-ekle-btn">Alışverişe Başla</button></a>
             </div>
         </div>
+
+
     </div>
 
 

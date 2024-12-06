@@ -64,6 +64,13 @@ body {
   background-color: #F5F5F5;
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-left: 2px; /* Telefon ekranları için daha az boşluk */
+    padding-right: 2px;
+  }
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
@@ -601,10 +608,6 @@ pre code {
   width: 100%;
   justify-content: center;
   align-items: center;
-  padding-right: 30px;
-  padding-left: 30px;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 @media (min-width: 576px) {
@@ -5860,9 +5863,49 @@ a.close.disabled {
   display: none;
   float: left;
   width: 100%;
+  height: 430px; /* Varsayılan yükseklik */
   margin-right: -100%;
   backface-visibility: hidden;
   transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Görsel genişliği */
+  height: 100%; /* Görsel yüksekliği */
+  object-fit: cover; /* Görsellerin taşmasını engeller */
+}
+
+/* Tablet ve daha küçük cihazlar */
+@media (max-width: 768px) {
+  .carousel-item {
+    height: 300px; /* Yüksekliği küçült */
+  }
+
+  .carousel-item img {
+    /*height: 80%; !* Görselleri küçült *!*/
+  }
+
+  .product-offer {
+    height: 300px; /* Sağdaki indirim kısmını küçült */
+  }
+}
+
+/* Telefonlar için (daha küçük ekranlar) */
+@media (max-width: 576px) {
+  .carousel-item {
+    height: 200px; /* Daha küçük yükseklik */
+  }
+
+  .carousel-item img {
+    /*height: 200px; !* Görselleri daha da küçült *!*/
+  }
+
+  .product-offer {
+    height: 200px; /* Sağdaki indirim kısmını daha da küçült */
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -9330,6 +9373,13 @@ a.text-dark:hover, a.text-dark:focus {
   color: #1b1f22 !important;
 }
 
+/* Mobil cihazlarda yazı boyutunu değiştirme */
+@media (max-width: 767px) {
+  .text-dark {
+    font-size: 12px !important; /* Mobilde yazı boyutu */
+  }
+}
+
 .text-body {
   color: #6C757D !important;
 }
@@ -9634,6 +9684,31 @@ a.text-dark:hover, a.text-dark:focus {
   transition: .5s;
 }
 
+.product-action .btn-square {
+  width: 40px; /* Küçük butonların kare olması için genişlik ve yükseklik */
+  height: 40px;
+}
+
+.product-action .btn {
+  width: auto; /* SEPETE EKLE butonu genişliğini içeriğe göre ayarlar */
+  padding: 10px 20px; /* Daha büyük ve dikkat çekici görünmesi için */
+}
+
+/* Özel Buton Stili */
+.btn-custom {
+  background-color: #28a745; /* Arka plan rengi (örneğin, yeşil) */
+  color: white; /* Metin rengi */
+  border-color: #28a745; /* Kenarlık rengi */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Geçiş efekti */
+}
+
+.btn-custom:hover {
+  background-color: #de6320; /* Hover durumunda daha koyu yeşil */
+  border-color: #de6320; /* Hover durumunda kenarlık rengi */
+  color: white; /* Metin rengi değişmez */
+}
+
+
 .product-action a.btn {
   position: relative;
   margin: 0 3px;
@@ -9674,7 +9749,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-item .product-img img {
-  transition: .5s;
+  transition: .7s;
 }
 
 .product-item:hover .product-img img {
@@ -9703,6 +9778,13 @@ a.text-dark:hover, a.text-dark:focus {
   bottom: 30px;
   z-index: 11;
   animation: action 1s infinite alternate;
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    bottom: 60px; /* Butonun alt kısmı */
+    right: 20px;  /* Butonun sağ kısmı */
+  }
 }
 
 @keyframes action {
@@ -9764,6 +9846,9 @@ a.text-dark:hover, a.text-dark:focus {
 
 body, html {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Yalnızca dikey kaydırma yapılabilmesi için yatay kaydırma gizlenir */
 }
 
 .auth-container {
@@ -10353,6 +10438,151 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+/* Kateggoriler yanı yazıların ekran boyutuna göre ayarlanması */
+@media (min-width: 1100px) and (max-width: 1346px) {
+  .navbar-nav .nav-item {
+    font-size: 12px; /* Yazı boyutunu küçülterek yerleşimi iyileştirin */
+    padding: 0 5px;  /* Boşlukları daraltın */
+  }
+
+  .navbar-collapse {
+    justify-content: center; /* Ortaya hizalayın */
+  }
+
+  .navbar-nav.ml-auto {
+    margin-right: 10px; /* Sağ tarafa biraz boşluk bırakın */
+  }
+}
+/* Kateggoriler yanı yazıların ekran boyutuna göre ayarlanması */
+@media (min-width: 990px) and (max-width: 1100px) {
+  .navbar-nav .nav-item {
+    font-size: 10px; /* Yazı boyutunu küçülterek yerleşimi iyileştirin */
+    padding: 0 5px;  /* Boşlukları daraltın */
+  }
+
+  .navbar-collapse {
+    justify-content: center; /* Ortaya hizalayın */
+  }
+
+  .navbar-nav.ml-auto {
+    margin-right: 10px; /* Sağ tarafa biraz boşluk bırakın */
+  }
+}
+
+/* Mobilde Kategoriler Menüsü */
+/* Menü başlangıçta gizli olacak */
+.category-menu {
+  position: absolute;
+  top: -100%; /* Başlangıçta yukarıda */
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  z-index: 999;
+  transition: top 0.3s ease-in-out; /* Yumuşak bir kayma animasyonu */
+}
+
+/* Menü açıldığında yukarıya kayarak görünür olacak */
+.category-menu.show {
+  top: 0; /* Menü açıldığında yukarıya kayarak görünür olacak */
+}
+
+/* Yatay kaydırma için özel sınıf */
+.row-scroll {
+  display: flex;
+  overflow-x: auto; /* Yatay kaydırma */
+  white-space: nowrap; /* Satır içi elemanları korur */
+  gap: 8px; /* Ürünler arasındaki boşluk */
+  margin-left: 20px;
+  padding-bottom: 10px; /* Kaydırma çubuğu ile içerik arasında boşluk */
+  scroll-behavior: smooth; /* Kaydırma animasyonu */
+}
+
+/* Ürün kartlarını ayarlama */
+.row-scroll .product-item {
+  flex: 0 0 auto; /* Elemanların aynı boyutta olmasını sağlar */
+  width: 180px; /* Ürün genişliği */
+}
+
+/* Kaydırma çubuğunu özelleştirme (isteğe bağlı) */
+.row-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.row-scroll::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.row-scroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* üst navbar Kaydırma */
+/* Sticky Header */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Yüksekliğin tam olarak görünmesini sağlamak için */
+  height: auto;
+  overflow: visible;
+}
+
+/* Navbar Section */
+.navbar-section {
+  border-top: 1px solid #ddd;
+  padding-top: 0; /* İçeriğin daha fazla kaymasını sağlamak için padding */
+  position: relative; /* Sabitleme ve kayma için uygun konumlandırma */
+}
+
+/* Top Section */
+.top-section {
+  font-size: 14px;
+  padding: 10px 0; /* Yüksekliği ayarlamak için padding eklenebilir */
+}
+
+/* Dropdown Menu Style */
+#menu .dropdown-menu {
+  min-width: 200px;
+  border-radius: 5px;
+}
+
+/* Collapsible Categories */
+.navbar-vertical {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding-bottom: 20px; /* Menüye alt padding ekleyerek daha fazla alan bırakabilirsiniz */
+}
+
+/* Logo ve Arama alanı */
+.main-section {
+  padding-bottom: 15px; /* Aralarındaki mesafeyi arttırmak için */
+}
+
+/* mobilde topbarı gizle */
+@media (max-width: 768px) {
+  .top-section {
+    display: none;
+  }
+
+  .main-section {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

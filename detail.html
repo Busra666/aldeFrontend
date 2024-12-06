@@ -50,7 +50,6 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-
                 <div id="menu" class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -59,62 +58,22 @@
                     </div>
                 </div>
 
-                <!-- JavaScript kodu -->
-                <script>
-                    window.onload = function() {
-                        // Giriş yapıp yapmadığını kontrol ediyoruz
-                        const loggedIn = localStorage.getItem("loggedIn");
-                        const menu = document.getElementById("menu");
-
-                        if (loggedIn === "true") {
-                            // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
-                            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">Siparişlerim</a>
-            <a href="profil.htmll" class="dropdown-item" role="button">Favorilerim</a>
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">İade Taleplerim</a>
-            <a href="" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
-        </div>
-      `;
-                        } else {
-                            // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
-                            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
-            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
-        </div>
-      `;
-                        }
-                    };
-
-                    // Güvenli çıkış işlemi
-                    document.addEventListener("click", function(event) {
-                        if (event.target.id === "logoutButton") {
-                            // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
-                            localStorage.removeItem("loggedIn");
-
-                            // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
-                            location.reload();
-                        }
-                    });
-                </script>
 
 
                 <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-heart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                    <a href="" class="btn px-0 ml-2">
+                        <i class="fas fa-shopping-cart text-dark"></i>
+                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="index.html" class="text-decoration-none">
@@ -135,14 +94,9 @@
                 </div>
             </form>
         </div>
-        <!--            <div class="col-lg-4 col-6 text-right">-->
-        <!--                <p class="m-0">Customer Service</p>-->
-        <!--                <h5 class="m-0">+012 345 6789</h5>-->
-        <!--            </div>-->
     </div>
 </div>
 <!-- Topbar End -->
-
 
 <!-- Navbar Start -->
 <div class="container-fluid bg-dark mb-30">
@@ -239,8 +193,8 @@
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        <div class="carousel-item active">
-                            <img class="w-100 h-100" src="img/yeni_gelenler_1.png" alt="Image" style="max-width: 80%;">
+                        <div class="carousel-item active" style="height: 550px;">
+                            <img class="img-fluid w-100" src="img/yeni_gelenler_1.png" alt="Image" style="max-width: 80%;">
                         </div>
 <!--                        <div class="carousel-item">-->
 <!--                            <img class="w-100 h-100" src="img/product-2.jpg" alt="Image">-->
@@ -338,22 +292,41 @@
 <!--                        </form>-->
 <!--                    </div>-->
 
+<!--                    <div class="d-flex align-items-center mb-4 pt-2">-->
+<!--                        <div class="input-group quantity mr-3">-->
+<!--                            <div class="input-group-btn">-->
+<!--                                <button class="btn btn-primary btn-minus" style="height: 40px; width: 40px;">-->
+<!--                                    <i class="fa fa-minus"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1" style="width: 50px; height: 40px;">-->
+<!--                            <div class="input-group-btn">-->
+<!--                                <button class="btn btn-primary btn-plus" style="height: 40px; width: 40px;">-->
+<!--                                    <i class="fa fa-plus"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button class="btn btn-primary px-3 ml-3" style="height: 40px;"><i class="fa fa-shopping-cart mr-1"></i> SEPETE EKLE</button>-->
+<!--                    </div>-->
+
                     <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
+                        <!-- Artırma-Azaltma ve Miktar -->
+                        <div class="d-flex align-items-center quantity">
+                        <button class="btn btn-primary btn-minus" style="height: 40px; width: 40px;">
                                     <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
+                            </button>
+                            <input type="text" class="form-control text-center mx-2 quantity-input"
+                                   value="1"
+                                   style="width: 50px; height: 40px;" readonly>
+                            <button class="btn btn-primary btn-plus" style="height: 40px; width: 40px;">
+                                <i class="fa fa-plus"></i>
+                            </button>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> SEPETE EKLE</button>
+                        <!-- Sepete Ekle Butonu -->
+                        <button class="btn btn-primary px-3 ml-3" style="height: 40px;">
+                            <i class="fa fa-shopping-cart mr-1"></i> SEPETE EKLE</button>
                     </div>
+
 <!--                    <div class="d-flex pt-2">-->
 <!--                        <strong class="text-dark mr-2">Share on:</strong>-->
 <!--                        <div class="d-inline-flex">-->
@@ -378,7 +351,7 @@
         <div class="row px-xl-5">
             <div class="col">
                 <div class="bg-light p-30">
-                    <div class="nav nav-tabs mb-4">
+                    <div class="nav nav-tabs mb-4 mobile-font">
                         <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Ürün Özellikleri</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Yorumlar (0)</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Ödeme Seçenekleri</a>
@@ -390,7 +363,7 @@
                                 <strong>6 KOLAY - 5 ORTA - 7 ZOR - 18 DENEME</strong></p>
                         </div>
                         <div class="tab-pane fade" id="tab-pane-2">
-                            <h4 class="mb-3">Senden duymak istiyoruz!</h4>
+                            <h6 class="mb-3">Senden duymak istiyoruz!</h6>
                             <p>Bize bu ürün hakkında ne düşündüğünüzü söyleyin. Yaptığımız işte daha iyi olmamıza ve nihayetinde size daha iyi ürünler sunmamıza yardımcı olur.</p>
                             <!-- Yorum Yap Butonu -->
                             <button class="btn btn-primary mt-3">Yorum Yap</button>

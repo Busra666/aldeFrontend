@@ -50,7 +50,6 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-
                 <div id="menu" class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -59,50 +58,9 @@
                     </div>
                 </div>
 
-                <!-- JavaScript kodu -->
-                <script>
-                    window.onload = function() {
-                        // Giriş yapıp yapmadığını kontrol ediyoruz
-                        const loggedIn = localStorage.getItem("loggedIn");
-                        const menu = document.getElementById("menu");
 
-                        if (loggedIn === "true") {
-                            // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
-                            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">Siparişlerim</a>
-            <a href="profil.htmll" class="dropdown-item" role="button">Favorilerim</a>
-            <a href="scss/Hesabim%23/hesabim.html" class="dropdown-item" role="button">İade Taleplerim</a>
-            <a href="" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
-        </div>
-      `;
-                        } else {
-                            // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
-                            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
-            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
-        </div>
-      `;
-                        }
-                    };
 
-                    // Güvenli çıkış işlemi
-                    document.addEventListener("click", function(event) {
-                        if (event.target.id === "logoutButton") {
-                            // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
-                            localStorage.removeItem("loggedIn");
-
-                            // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
-                            location.reload();
-                        }
-                    });
-                </script>
-
-            <div class="d-inline-flex align-items-center d-block d-lg-none">
+             <div class="d-inline-flex align-items-center d-block d-lg-none">
                 <a href="" class="btn px-0 ml-2">
                     <i class="fas fa-heart text-dark"></i>
                     <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
@@ -111,9 +69,11 @@
                     <i class="fas fa-shopping-cart text-dark"></i>
                     <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
                 </a>
+             </div>
             </div>
         </div>
     </div>
+
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a href="index.html" class="text-decoration-none">
@@ -134,10 +94,6 @@
                 </div>
             </form>
         </div>
-        <!--            <div class="col-lg-4 col-6 text-right">-->
-        <!--                <p class="m-0">Customer Service</p>-->
-        <!--                <h5 class="m-0">+012 345 6789</h5>-->
-        <!--            </div>-->
     </div>
 </div>
 <!-- Topbar End -->
@@ -181,7 +137,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">KPSS</a>
+                        <a href="shop.html" class="nav-item nav-link">KPSS</a>
                         <a href="" class="nav-item nav-link">ALES-DGS</a>
                         <a href="" class="nav-item nav-link">YKS</a>
                         <a href="" class="nav-item nav-link">LGS</a>
@@ -385,7 +341,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                    <a class="btn btn-outline-dark btn" href="Sepetim.html">SEPETE EKLE</a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
@@ -404,6 +359,9 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
                                 </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a class="btn btn-outline-dark btn btn-custom" href="">SEPETE EKLE</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -415,7 +373,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                    <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
@@ -434,6 +391,9 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
                                 </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a class="btn btn-outline-dark btn btn-custom" href="">SEPETE EKLE</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -445,7 +405,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                    <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
@@ -464,6 +423,9 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
                                 </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a class="btn btn-outline-dark btn btn-custom" href="">SEPETE EKLE</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -475,7 +437,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                    <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
@@ -494,6 +455,9 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
                                 </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a class="btn btn-outline-dark btn btn-custom" href="">SEPETE EKLE</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -505,7 +469,6 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                    <a class="btn btn-outline-dark btn" href="">SEPETE EKLE</a>
                                 </div>
                             </div>
                             <div class="text-center py-4">
@@ -523,6 +486,9 @@
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small class="fa fa-star text-primary mr-1"></small>
                                     <small>(99)</small>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <a class="btn btn-outline-dark btn btn-custom" href="">SEPETE EKLE</a>
                                 </div>
                             </div>
                         </div>
