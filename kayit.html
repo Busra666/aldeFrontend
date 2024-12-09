@@ -41,29 +41,6 @@
     </div>
 </div>
 
-<script>
-    document.getElementById("signupForm").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Formun normal gönderimini engeller
-
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries()); // Form verilerini JSON objesine dönüştürür
-
-        try {
-            const response = await fetch("http://192.168.1.13/signup.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json(); // JSON formatında yanıt bekliyor
-            console.log(result); // Yanıtı konsolda gösterir veya gerekli işlemi yapar
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    });
-</script>
 
 </body>
 
@@ -144,7 +121,7 @@
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-
+    <script src="js/auth.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>

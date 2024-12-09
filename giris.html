@@ -44,33 +44,33 @@
 
 
 
-<script>
-    document.getElementById("loginForm").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Formun normal şekilde gönderilmesini engelle
+<!--<script>-->
+<!--    document.getElementById("loginForm").addEventListener("submit", async function (event) {-->
+<!--        event.preventDefault(); // Formun normal şekilde gönderilmesini engelle-->
 
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData.entries());
+<!--        const formData = new FormData(event.target);-->
+<!--        const data = Object.fromEntries(formData.entries());-->
 
-        try {
-            const response = await fetch("http://192.168.1.13/login.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+<!--        try {-->
+<!--            const response = await fetch("http://192.168.1.13/login.php", {-->
+<!--                method: "POST",-->
+<!--                headers: {-->
+<!--                    "Content-Type": "application/json"-->
+<!--                },-->
+<!--                body: JSON.stringify(data)-->
+<!--            });-->
 
-            const result = await response.json();
-            console.log(result); // Dönen sonucu konsola yazdır veya gerekli işlemi yap
-            if(result.status == "success"){
-                localStorage.setItem("loggedIn", "true");
-                window.location.href = "index.html";
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    });
-</script>
+<!--            const result = await response.json();-->
+<!--            console.log(result); // Dönen sonucu konsola yazdır veya gerekli işlemi yap-->
+<!--            if(result.status == "success"){-->
+<!--                localStorage.setItem("loggedIn", "true");-->
+<!--                window.location.href = "index.html";-->
+<!--            }-->
+<!--        } catch (error) {-->
+<!--            console.error("Error:", error);-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 
 
 
@@ -153,7 +153,7 @@
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-
+    <script src="js/auth.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>

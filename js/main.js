@@ -2,6 +2,8 @@
     "use strict";
 
     document.addEventListener('DOMContentLoaded', () => {
+        console.warn("DomContentLoaded")
+        getTotalProductsCount();
         // Elemanları seçme
         const adresKutusu = document.querySelector('.adres-container');
         const adresFormu = document.querySelector('#adres-formu');
@@ -22,33 +24,17 @@
         const sehirIlceGoster = document.getElementById('sehir-ilce-goster');
         const adresBilgileri = document.getElementById('adres-bilgileri');
 
-        // Kategori Menüsünü Aç/Kapat
-        document.getElementById("toggleCategories").addEventListener("click", function () {
-            const categoryMenu = document.getElementById("categoryMenu");
-
-            // Menüyü Görünür/Görünmez Yap
-            if (categoryMenu.classList.contains("d-none")) {
-                categoryMenu.classList.remove("d-none");
-            } else {
-                categoryMenu.classList.add("d-none");
-            }
-        });
-
-        <!-- JavaScript kodu -->
-            window.onload = function() {
-            // Giriş yapıp yapmadığını kontrol ediyoruz
-            const loggedIn = localStorage.getItem("loggedIn");
-            const menu = document.getElementById("menu");
-
-            if (loggedIn === "true") {
+        const loggedIn = localStorage.getItem("loggedIn");
+        const username = localStorage.getItem("username");
+        const menu = document.getElementById("menu");
+        if (loggedIn === "true") {
             // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
-            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
+            menu.innerHTML = `<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">${username}</button>
         <div class="dropdown-menu dropdown-menu-right">
-            <a href="Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
-            <a href="Hesabim%23/Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
-            <a href="Hesabim%23/Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
-            <a href="Hesabim%23/IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
+            <a href="hesabim.html" class="dropdown-item" role="button">Hesabım</a>
+            <a href="Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
+            <a href="Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
+            <a href="IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
             <a href="index.html" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
         </div>
       `;
@@ -62,50 +48,9 @@
         </div>
       `;
         }
-        };
-
-            // Güvenli çıkış işlemi
-            document.addEventListener("click", function(event) {
-            if (event.target.id === "logoutButton") {
-            // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
-            localStorage.removeItem("loggedIn");
-
-            // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
-            location.reload();
-        }
-        });
-
-
-
-        <!-- JavaScript kodu -->
-            window.onload = function() {
             // Giriş yapıp yapmadığını kontrol ediyoruz
-            const loggedIn = localStorage.getItem("loggedIn");
-            const menu = document.getElementById("menu");
 
-            if (loggedIn === "true") {
-            // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
-            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="Hesabim%23/hesabim.html" class="dropdown-item" role="button">Hesabım</a>
-            <a href="Hesabim%23/Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
-            <a href="Hesabim%23/Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
-            <a href="Hesabim%23/IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
-            <a href="index.html" id="logoutButton" class="dropdown-item" role="button">Güvenli Çıkış</a>
-        </div>
-      `;
-        } else {
-            // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
-            menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
-            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
-        </div>
-      `;
-        }
-        };
+
 
             // Güvenli çıkış işlemi
             document.addEventListener("click", function(event) {
@@ -117,6 +62,7 @@
             location.reload();
         }
         });
+
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -180,7 +126,7 @@
 
 
         // "Yeni Ekle" butonuna tıklama olayını tanımlama
-        yeniEkleBtn.addEventListener('click', () => {
+        yeniEkleBtn?.addEventListener('click', () => {
             if (adresKutusu && adresFormu) {
                 adresKutusu.style.display = 'none'; // Adres kutusunu gizle
                 adresFormu.style.display = 'block'; // Adres formunu göster
@@ -188,7 +134,7 @@
         });
 
         // "Vazgeç" butonuna tıklama olayını tanımlama
-        cancelBtn.addEventListener('click', () => {
+        cancelBtn?.addEventListener('click', () => {
             if (adresKutusu && adresFormu) {
                 adresKutusu.style.display = 'block'; // Adres kutusunu göster
                 adresFormu.style.display = 'none'; // Adres formunu gizle
@@ -196,7 +142,7 @@
         });
 
         // "Kaydet" butonuna tıklama olayını tanımlama
-            saveBtn.addEventListener('click', (event) => {
+            saveBtn?.addEventListener('click', (event) => {
             event.preventDefault(); // Formun normalde submit edilmesini engelle
 
             // Form verilerini al
@@ -323,6 +269,37 @@
         }
         button.parent().parent().find('input').val(newVal);
     });
+
+    function getTotalProductsCount() {
+        const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+        const userId = localStorage.getItem("userId");
+        const cartCountElement = document.getElementById('cart-count');
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'cart_count',
+                user_id: userId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const totalItems = data.total_items || 0; // Eğer sepet boşsa 0 döner
+                    cartCountElement.textContent = totalItems; // Sepet sayısını güncelle
+                } else {
+                    console.error('Sepet sayısı alınamadı:', data.message);
+                    cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                }
+            })
+            .catch(error => {
+                console.error('Sepet sayısı alınırken bir hata oluştu:', error);
+                cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
+            });
+    }
 
 })(jQuery);
 
