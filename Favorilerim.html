@@ -28,103 +28,55 @@
 </head>
 
 <body>
-    <!-- Topbar Start -->
+<!-- Topbar Start -->
 
-    <!-- Mobil Aşağı Bar -->
-    <div class="mobile-bottom-bar d-lg-none">
-        <a href="#" class="bottom-bar-item"><i class="fa fa-bars"></i><span>Kategoriler</span></a>
-        <a href="giris.html" class="bottom-bar-item"><i class="fa fa-user"></i><span>Giriş Yap</span></a>
-        <a href="#" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
-        <a href="#" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
-    </div>
+<!-- Mobil Aşağı Bar -->
+<div class="mobile-bottom-bar d-lg-none">
+    <a href="giris.html" class="bottom-bar-item"><i class="fa fa-user"></i><span>Giriş Yap</span></a>
+    <a href="Favorilerim.html" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
+    <a href="Sepetim.html" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
+</div>
 
-    <div class="container-fluid">
-        <div class="row bg-secondary py-1 px-xl-5">
+
+<header class="sticky-header">
+    <!-- Top Section -->
+    <div class="top-section bg-secondary py-1 px-xl-5">
+        <div class="row">
             <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center h-100">
-                    <a class="text-body mr-3" href="#"><i class="fa fa-truck"></i> Kargom Nerede?</a>
-<!--                    <a class="text-body mr-3" href="">Contact</a>-->
-<!--                    <a class="text-body mr-3" href="">Help</a>-->
-<!--                    <a class="text-body mr-3" href="">FAQs</a>-->
-                </div>
+                <a class="text-body mr-3" href="#"><i class="fa fa-truck"></i> Kargom Nerede?</a>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
-
-                    <div id="menu" class="btn-group">
-                        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
-                            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
-                        </div>
+                <div id="menu" class="btn-group">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
+                        <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
                     </div>
-
-                    <!-- JavaScript kodu -->
-                    <script>
-                        window.onload = function() {
-                            // Giriş yapıp yapmadığını kontrol ediyoruz
-                            const loggedIn = localStorage.getItem("loggedIn");
-                            const menu = document.getElementById("menu");
-
-                            if (loggedIn === "true") {
-                                // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
-                                menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">HESABIM</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="hesabim.html" class="dropdown-item" role="button">Hesabım</a>
-            <a href="Siparislerim.html" class="dropdown-item" role="button">Siparişlerim</a>
-            <a href="Favorilerim.html" class="dropdown-item" role="button">Favorilerim</a>
-            <a href="IadeTaleplerim.html" class="dropdown-item" role="button">İade Taleplerim</a>
-            <a href="index.html" class="dropdown-item" role="button">Güvenli Çıkış</a>
-        </div>
-      `;
-                            } else {
-                                // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
-                                menu.innerHTML = `
-        <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="giris.html" class="dropdown-item" role="button">Üye Girişi</a>
-            <a href="kayit.html" class="dropdown-item" role="button">Üye Ol</a>
-        </div>
-      `;
-                            }
-                        };
-
-                        // Güvenli çıkış işlemi
-                        document.addEventListener("click", function(event) {
-                            if (event.target.id === "logoutButton") {
-                                // Çıkış işlemi: localStorage'dan giriş bilgisini siliyoruz
-                                localStorage.removeItem("loggedIn");
-
-                                // Sayfayı yenileyerek giriş durumunu sıfırlıyoruz
-                                location.reload();
-                            }
-                        });
-                    </script>
-                </div>
-
-                <div class="d-inline-flex align-items-center d-block d-lg-none">
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-heart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
-                    <a href="" class="btn px-0 ml-2">
-                        <i class="fas fa-shopping-cart text-dark"></i>
-                        <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                    </a>
                 </div>
             </div>
-        </div>
 
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+            <div class="d-inline-flex align-items-center d-block d-lg-none">
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-heart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-shopping-cart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <div class="main-section bg-light py-3 px-xl-5">
+        <div class="row align-items-center">
             <div class="col-lg-4">
                 <a href="index.html" class="text-decoration-none">
                     <img src="img/logo.png" alt="Alde Home Logo" class="img-fluid" style="max-height: 60px;">
-<!--                    <span class="h1 text-uppercase text-primary bg-dark px-2">ALDE</span>-->
-<!--                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Home</span>-->
                 </a>
             </div>
-            <div class="col-lg-4 col-6 text-left">
+            <div class="col-lg-4">
                 <form action="">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Arama Yap">
@@ -136,24 +88,20 @@
                     </div>
                 </form>
             </div>
-<!--            <div class="col-lg-4 col-6 text-right">-->
-<!--                <p class="m-0">Customer Service</p>-->
-<!--                <h5 class="m-0">+012 345 6789</h5>-->
-<!--            </div>-->
         </div>
+
     </div>
     <!-- Topbar End -->
 
 
     <!-- Navbar Start -->
-    <div class="container-fluid bg-dark mb-30">
+    <div class="navbar-section bg-dark">
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
                     <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>KATEGORİLER</h6>
                     <i class="fa fa-angle-down text-dark"></i>
                 </a>
-
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                     <div class="navbar-nav w-100 category-list">
                         <!-- Kategoriler buraya dinamik olarak yüklenecek -->
@@ -162,7 +110,7 @@
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                    <a href="" class="text-decoration-none d-block d-lg-none">
+                    <a href="index.html" class="text-decoration-none d-block d-lg-none">
                         <img src="img/logo_mobil.png" alt="Alde Home Logo" class="img-fluid" style="max-height: 60px;">
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -178,22 +126,15 @@
                             <a href="shop.html?category_id=6" class="nav-item nav-link">YKSDİL</a>
                             <a href="shop.html?category_id=7" class="nav-item nav-link">İNGİLİZCE ÖN HAZIRLIK</a>
                             <a href="shop.html?category_id=8" class="nav-item nav-link">YAYINEVLERİ</a>
-<!--                            <div class="nav-item dropdown">-->
-<!--                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>-->
-<!--                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">-->
-<!--                                    <a href="Sepetim.html" class="dropdown-item">Shopping Cart</a>-->
-<!--                                    <a href="checkout.html" class="dropdown-item">Checkout</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
+                            <a href="Favorilerim.html" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                             <a href="Sepetim.html" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
-                                <span  id="cart-count" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span id="cart-count" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"></span>
                             </a>
                         </div>
                     </div>
@@ -201,7 +142,8 @@
             </div>
         </div>
     </div>
-    <!-- Navbar End -->
+</header>
+<!-- Navbar End -->
 
     <div class="container" style="display: flex; justify-content: center;  margin-left: auto; margin-right: auto;">
         <!-- Sol Kenar Menü -->
@@ -236,9 +178,45 @@
                 <a href="index.html"><button class="yeni-ekle-btn">Alışverişe Başla</button></a>
             </div>
         </div>
-
-
     </div>
+
+    <div class="favorites-container">
+        <h2>Favorilerim</h2>
+
+        <!-- Example of an item in the favorites -->
+        <div class="favorite-item">
+            <img src="img/favori-1.png" alt="Favori 1" class="item-img">
+            <span class="item-name text-center">2025 KPSS Türkçe Tamamı Çözümlü 6+5+7 Deneme Benim Hocam Yayınları</span>
+            <div class="favorite-btn">
+                <button class="go-to-product-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="add-to-cart-btn">
+                    <i class="fas fa-cart-plus"></i>
+                </button>
+                <button class="remove-btn">
+                    <i class="fas fa-heart-broken"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="favorite-item">
+            <img src="img/favori-1.png" alt="Favori 2" class="item-img">
+            <span class="item-name text-center">Ürün Adı</span>
+            <div class="favorite-btn">
+                <button class="go-to-product-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="add-to-cart-btn">
+                    <i class="fas fa-cart-plus"></i>
+                </button>
+                <button class="remove-btn">
+                    <i class="fas fa-heart-broken"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Footer Start -->

@@ -63,6 +63,13 @@
         }
         });
 
+        //Arama Yap
+        document.querySelector('.input-group').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = e.target.querySelector('input').value;
+            window.location.href = `search.html?q=${query}`;
+        });
+
 
 
         document.addEventListener('DOMContentLoaded', () => {

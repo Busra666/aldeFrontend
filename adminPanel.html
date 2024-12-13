@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #343a40;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+        .main {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        table th {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+</head>
+<body>
+<!-- Kenar Çubuğu -->
+<div class="sidebar">
+    <h2>Yönetim Paneli</h2>
+    <ul>
+        <li><a href="#" onclick="showSection('dashboard')">Gösterge Paneli</a></li>
+        <li><a href="#" onclick="showSection('orders')">Siparişler</a></li>
+        <li><a href="#" onclick="showSection('product-management')">Ürünler</a></li>
+        <li><a href="#" onclick="showSection('settings')">Ayarlar</a></li>
+    </ul>
+</div>
+
+<!-- Ana İçerik -->
+<div class="main">
+    <!-- Gösterge Paneli Bölümü -->
+    <div id="dashboard" class="content-section active">
+        <h1>Gösterge Paneli</h1>
+        <p>Yönetim paneline hoş geldiniz. Buradan kullanıcıları, siparişleri, ürünleri ve ayarları yönetebilirsiniz.</p>
+    </div>
+
+    <!-- Siparişler Bölümü -->
+    <div id="orders" class="content-section">
+        <h1>Siparişler</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Sipariş ID</th>
+                <th>Müşteri</th>
+                <th>Ürün</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>#1001</td>
+                <td>AhmetYılmaz</td>
+                <td>Ürün A</td>
+                <td>Bekliyor</td>
+                <td>
+                    <button class="btn">Görüntüle</button>
+                    <button class="btn btn-danger">İptal Et</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ürün Yönetimi Bölümü -->
+    <div id="product-management" class="content-section">
+        <h1>Ürün Yönetimi</h1>
+        <button class="btn">Ürün Ekle</button>
+        <table>
+            <thead>
+            <tr>
+                <th>Ürün ID</th>
+                <th>Adı</th>
+                <th>Kategori</th>
+                <th>Fiyat</th>
+                <th>Stok</th>
+                <th>İşlemler</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>101</td>
+                <td>Ürün A</td>
+                <td>Elektronik</td>
+                <td>₺100</td>
+                <td>50</td>
+                <td>
+                    <button class="btn">Düzenle</button>
+                    <button class="btn btn-danger">Sil</button>
+                </td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>Ürün B</td>
+                <td>Moda</td>
+                <td>₺50</td>
+                <td>100</td>
+                <td>
+                    <button class="btn">Düzenle</button>
+                    <button class="btn btn-danger">Sil</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ayarlar Bölümü -->
+    <div id="settings" class="content-section">
+        <h1>Ayarlar</h1>
+        <p>Uygulama ayarlarını buradan yapılandırabilirsiniz.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -9993,6 +9993,7 @@ body {
 }
 
 .container {
+  margin-top: 20px;
   display: flex;
   align-items: flex-start;
 }
@@ -10169,6 +10170,7 @@ button:hover {
 }
 
 .adres-box {
+  margin-top: 20px;
   text-align: center;
   background-color: white;
   padding: 3rem;
@@ -10176,6 +10178,35 @@ button:hover {
   border-radius: 100px;
   width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobil Uyumlu adres defterim Tasarım */
+@media (max-width: 768px) {
+  .adres-container {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .adres-box {
+    width: 100%;
+  }
+
+  .adres-form-container form {
+    padding: 10px;
+  }
+
+  .form-group input, .form-group select, .form-group textarea {
+    font-size: 14px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .form-buttons button {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 
 /* Konum simgesi */
@@ -10355,10 +10386,16 @@ button:hover {
 }
 
 #adres-bilgileri {
+  margin-left: 20px;
   margin-top: 20px;
   border: 1px solid #ddd;
   padding: 15px;
   background-color: #f9f9f9;
+}
+
+.new-address-button-container {
+  text-align: center;
+  margin: 20px 10px;
 }
 
 .adres-box h3 {
@@ -10575,6 +10612,172 @@ button:hover {
   }
 }
 
+/* Favori Ekranı için css */
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.favorite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px 0;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.favorite-item .item-name {
+  font-size: 18px;
+}
+
+.item-img {
+  width: 130px;  /* Genişlik */
+  height: 130px; /* Yükseklik */
+  object-fit: cover; /* Görselin kesilmesini önler ve alanı doldurur */
+}
+
+.favorite-item .remove-btn {
+  background-color: #e80808;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.favorite-item .remove-btn:hover {
+  background-color: #c00707;
+}
+
+.add-favorite-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-favorite-btn:hover {
+  background-color: #218838;
+}
+
+.favorite-btn{
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.remove-btn, .go-to-product-btn {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.go-to-product-btn {
+  background-color: green; /* Yeşil renk */
+  color: white;
+}
+
+.favorite-btn {
+  display: flex;
+  flex-direction: row; /* Butonları yan yana sıralar */
+  gap: 10px;
+}
+
+.go-to-product-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .favorites-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+
+  .favorite-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 10px 0;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex-direction: column;
+    font-size: 12px; /* Ürün adını mobilde daha küçük yapar */
+  }
+
+  .favorite-item .item-name {
+    font-size: 12px;
+  }
+}
+
+.sepet-box{
+  text-align: center;
+  background-color: white;
+  padding: 3rem;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  width: 100%;
+  margin-left: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 2000px; /* Kutunun genişliğini sınırlar */
+}
+
+/* adres defterimdeki adres kısmı için mobil ve masaüstü görünümü */
+/* Varsayılan stil (masaüstü için) */
+#adres {
+  width: 500px;
+  height: 120px;
+}
+
+/* Mobil cihazlar için stil (maksimum genişlik 768px) */
+@media (max-width: 768px) {
+  #adres {
+    width: 100%; /* Ekran genişliğine uyum sağlar */
+    height: 100px; /* Daha küçük yükseklik */
+    padding: 10px; /* Daha rahat bir kullanım için iç boşluk */
+  }
+}
+
+/* verilen siparişte adet kutusu */
+.item-quantity {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #f9f9f9;
+  cursor: not-allowed; /* Kullanıcının düzenleyemeyeceğini göstermek için */
+}
 
 
 
