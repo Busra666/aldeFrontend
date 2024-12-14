@@ -10170,6 +10170,7 @@ button:hover {
 }
 
 .adres-box {
+  margin-left: 20px;
   margin-top: 20px;
   text-align: center;
   background-color: white;
@@ -10395,7 +10396,7 @@ button:hover {
 
 .new-address-button-container {
   text-align: center;
-  margin: 20px 10px;
+  margin: 20px 100px;
 }
 
 .adres-box h3 {
