@@ -1,10 +1,11 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const adresFormu = document.querySelector("#adres-formu");
     const adresBilgileri = document.querySelector("#adres-bilgileri");
     const adresListesi = document.querySelector('#adresler-listesi');
 
     const adresKutusu = document.querySelector('.adres-container');
     const yeniEkleBtn = document.querySelector('.yeni-ekle-btn');
+    const yeniEkleBtn2 = document.querySelector('#new-address-btn');
     const cancelBtn = document.querySelector('.cancel-btn');
     const userId = localStorage.getItem('userId');
     const sehirSelect = document.querySelector("#sehir");
@@ -19,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            module:"addresses",action: 'getCities' })
+            module: "addresses", action: 'getCities'
+        })
     })
         .then(response => response.json())
         .then(data => {
@@ -28,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.cities.forEach(city => {
                     const option = document.createElement('option');
                     option.value = city.name;
-                    cityId = city.city_id;
                     option.textContent = city.name;
+                    option.setAttribute('data-city-id', city.city_id);
                     sehirSelect.appendChild(option);
                 });
             }
@@ -37,8 +39,9 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error('Şehirler yüklenirken hata oluştu:', error));
 
     // İlçe bilgilerini şehre göre doldur
-    sehirSelect.addEventListener("change", function() {
-
+    sehirSelect.addEventListener("change", function () {
+        const selectedCityOption = this.options[this.selectedIndex]; // Seçili option öğesi
+        cityId = selectedCityOption.getAttribute('data-city-id');
         if (cityId) {
             fetch('http://192.168.1.13/account.php', {
                 method: 'POST',
@@ -46,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    module:"addresses", action: 'getDistricts', city_id: cityId })
+                    module: "addresses", action: 'getDistricts', city_id: cityId
+                })
             })
                 .then(response => response.json())
                 .then(data => {
@@ -68,77 +72,149 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    /*
-    // İlçe seçeneklerini doldur
-    sehirSelect.addEventListener("change", function() {
-        const sehir = sehirSelect.value;
-        let ilceOptions = "<option value=''>İlçe Seçiniz</option>";
+    fetchAddresses();
 
-        if (sehir === "istanbul") {
-            ilceOptions += "<option value='kadikoy'>Kadıköy</option><option value='besiktas'>Beşiktaş</option>";
-        } else if (sehir === "ankara") {
-            ilceOptions += "<option value='cebeci'>Cebeci</option><option value='kocatepe'>Kocatepe</option>";
-        }
-
-        ilceSelect.innerHTML = ilceOptions;
-    });
-
-
+    /**
+     * Adresleri API'den çeken ve sayfaya yükleyen metot.
      */
-    const addressList = document.querySelector('#adresler-listesi'); // Kategorilerin yükleneceği alan
+    function fetchAddresses() {
+        const adresKutusu = document.querySelector('.adres-container');
+        const adresListesi = document.querySelector('#adres-listesi-ul');
 
-    console.warn(addressList)
-    // Kategorileri API'den çekme
-    fetch('http://192.168.1.13/account.php', {
-        method: 'POST', // POST isteği
-        headers: {
-            'Content-Type': 'application/json' // JSON gönderimi için ayarlar
-        },
-        body: JSON.stringify({
-            action: "read",
-            module:"addresses",
-            user_id: userId  // Kullanıcı ID'sini buraya ekleyin
-        }) // API'ye gönderilecek veri
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ağ veya API hatası.');
-            }
-            return response.json(); // JSON olarak dönen veriyi ayrıştır
+        // API'den adresleri çek
+        fetch('http://192.168.1.13/account.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: "read",
+                module: "addresses",
+                user_id: userId
+            })
         })
-        .then(data => {
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ağ veya API hatası.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.warn(data)
+                adresListesi.innerHTML = "";
+                if (data && data.length > 0) {
+                    adresKutusu.style.display = "none";
+                    yeniEkleBtn2.style.display = "block"
+                    adresListesi.innerHTML = "";
 
-            if (data && data.length > 0) {
-                // Clear the previous list
-                $('#adres-listesi-ul').empty();
-                // Loop through the addresses and append them as list items
-                data.forEach(function(address) {
-                    var addressItem = '<div class="adres-box">';
-                    addressItem += '<li>'
-                    addressItem += '<h4>' + address.address_title + '</h4>';
-                    addressItem += '<p>' + address.name_surname + '</p>';
-                    addressItem += '<p>' + address.phone_number + '</p>';
-                    addressItem += '<p>' + address.address + '</p>';
-                    addressItem += '<p>' + address.city + ' - ' + address.district + '</p>';
-                    addressItem += '</li>';
-                    addressItem += '</div>';
+                    // Adresleri listeye ekle
+                    data.forEach(function (address) {
+                        const addressItem = `
+                        <div class="adres-box">
+                            <li data-id="${address.id}">
+                                <h4>${address.address_title}</h4>
+                                <p>${address.name_surname}</p>
+                                <p>${address.phone_number}</p>
+                                <p>${address.address}</p>
+                                <p>${address.city} - ${address.district}</p>
+                                <div class="form-buttons">
+                                    <button type="button" class="delete-btn" data-id="${address.id}">SİL</button>
+                                    <button type="button" class="edit-btn" data-id="${address.id}">DÜZENLE</button>
+                                </div>
+                            </li>
+                        </div>`;
+                        adresListesi.innerHTML += addressItem;
+                        console.warn(adresListesi)
+                    });
 
-                    $('#adres-listesi-ul').append(addressItem);
-                });
-            } else {
-                // Display a message if no addresses are found
-                $('.adres-container').style.display = "block";
-            }
-        })
-        .catch(error => {
-            console.error('Adresler yüklenirken hata oluştu:', error);
+                    // Sil ve düzenle butonlarına event listener ekle
+                    addAddressListeners();
+                } else {
+                    adresKutusu.style.display = "block";
+                    yeniEkleBtn2.style.display = "none";
+                }
+            })
+            .catch(error => {
+                console.error('Adresler yüklenirken hata oluştu:', error);
+            });
+    }
+
+    /**
+     * Adres düzenleme ve silme için event listener ekleme.
+     */
+    function addAddressListeners() {
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const addressId = this.dataset.id;
+                console.warn('Silinecek ID:', addressId);
+
+                // API'ye silme isteği gönder
+                fetch('http://192.168.1.13/account.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: "delete",
+                        module: "addresses",
+                        id: addressId
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Silme işlemi sonucu:', data);
+                        fetchAddresses(); // Adresleri yeniden yükle
+                    })
+                    .catch(error => console.error('Silme işlemi sırasında hata oluştu:', error));
+            });
         });
-    // Formu kaydetme işlemi
+
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const addressId = this.dataset.id;
+                console.warn('Düzenlenecek ID:', addressId);
+                fetch('http://192.168.1.13/account.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: "getAddressById",
+                        module: "addresses",
+                        id: addressId // Düzenlenecek adresin ID'si
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const address = data.address;
+                            document.querySelector("#address-id").value = address.id;
+                            document.querySelector("#adres-baslik").value = address.address_title;
+                            document.querySelector("#ad-soyad").value = address.name_surname;
+                            document.querySelector("#telefon").value = address.phone_number;
+                            document.querySelector("#sehir").value = address.city;
+                            document.querySelector("#ilce").value = address.district;
+                            document.querySelector("#adres").value = address.address;
+
+                            // Formu göster
+                            document.querySelector("#adres-formu").style.display = 'block';
+                            adresListesi.style.display = 'none';
+                            yeniEkleBtn2.style.display = 'none';
+                        } else {
+                            alert("Adres bulunamadı.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                // Adres bilgilerini düzenleme formunda göster (detayları ekle)
+                // Örneğin, düzenleme işlemini açmak için bir modal ya da formu doldurabilirsiniz.
+            });
+        });
+    }
+
     document.querySelectorAll('.form-buttons .save-btn').forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
 
             // Form verilerini al
+            const addressId = document.querySelector("#address-id").value;
             const addressTitle = document.querySelector("#adres-baslik").value;
             const nameSurname = document.querySelector("#ad-soyad").value;
             const phoneNumber = document.querySelector("#telefon").value;
@@ -147,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const address = document.querySelector("#adres").value;
 
             console.warn(addressTitle, nameSurname, phoneNumber, city, district, address);
+            const actionType = addressId ? "update" : "create";
             // Postman servisinin backend API'ye form verilerini gönder
             fetch('http://192.168.1.13/account.php', {
                 method: 'POST',
@@ -154,9 +231,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    action: "create",
-                    module:"addresses",
+                    action: actionType,
+                    module: "addresses",
                     user_id: userId,  // Kullanıcı ID'sini buraya ekleyin
+                    id: addressId, // Güncelleme için id gönder
                     addressTitle: addressTitle,
                     nameSurname: nameSurname,
                     phoneNumber: phoneNumber,
@@ -167,7 +245,10 @@ document.addEventListener("DOMContentLoaded", function() {
             })
                 .then(response => response.json())
                 .then(data => {
-                        adresFormu.style.display = "none";
+                    adresFormu.style.display = "none";
+                    fetchAddresses()
+                    clearForm(adresFormu)
+                    adresListesi.style.display = 'block';
 
                 })
                 .catch(error => {
@@ -176,12 +257,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
 
         });
+        function clearForm(form) {
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'text' || input.type === 'textarea') {
+                    input.value = ''; // Text ve textarea alanlarını sıfırla
+                } else if (input.type === 'select-one') {
+                    input.selectedIndex = 0; // Select kutusunu varsayılan seçime getir
+                } else if (input.type === 'hidden') {
+                    input.value = ''; // Hidden input'u sıfırla
+                }
+            });
+        }
 
         // "Vazgeç" butonuna tıklama olayını tanımlama
         cancelBtn?.addEventListener('click', () => {
             if (adresKutusu && adresFormu) {
                 adresKutusu.style.display = 'block'; // Adres kutusunu göster
                 adresFormu.style.display = 'none'; // Adres formunu gizle
+                adresListesi.style.display = 'block';
+                fetchAddresses()
+                clearForm(adresFormu)
             }
         });
         yeniEkleBtn?.addEventListener('click', () => {
@@ -190,5 +286,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 adresFormu.style.display = 'block'; // Adres formunu göster
             }
         });
-    })
-});
+        yeniEkleBtn2?.addEventListener('click', () => {
+            if (adresKutusu && adresFormu) {
+                adresFormu.style.display = 'block'; // Adres formunu göster
+                adresListesi.style.display = 'none'
+                yeniEkleBtn2.style.display = 'none';
+            }
+        });
+    });
+})

@@ -39,33 +39,48 @@ document.addEventListener("DOMContentLoaded", function () {
     // Siparişleri ekrana listeleme
     function displayOrders(orders) {
         // Mevcut içeriği temizle
-        ordersContainer.innerHTML = "<h2>Siparişlerim</h2>";
+        console.warn(ordersContainer)
+        if (ordersContainer != null) {
 
-        orders.forEach((order) => {
-            // Sipariş detaylarını oluştur
-            const orderItem = document.createElement("div");
-            orderItem.classList.add("favorite-item");
+            ordersContainer.innerHTML = "<h2>Siparişlerim</h2>";
 
-            orderItem.innerHTML = `
-                <img src="img/favori-1.png" alt="Sipariş Görseli" class="item-img">
-                <span class="item-name text-center">${order.product_name || "Ürün Adı Belirtilmemiş"}</span>
+            var i = 1;
+            orders.forEach((order) => {
+                // Sipariş detaylarını oluştur
+                const orderItem = document.createElement("div");
+                orderItem.classList.add("favorite-item");
+
+                orderItem.innerHTML = `
+                <span class="item-name text-center">${i})</span>
+                <span class="item-name text-center">${order.order_date || "Ürün Adı Belirtilmemiş"}</span>
 
                 <div class="item-controls">
-                    <!-- Adet Kutusu -->
-                    <label for="adet" class="item-quantity-label">Adet:</label>
-                    <input type="text" id="adet" class="item-quantity" value="${order.quantity || 1}" readonly>
+                <span class="item-name text-center" style="color: red">Toplam Tutar </span>
+                    <span class="item-name text-center">${order.total_price || "Ürün Adı Belirtilmemiş"}₺</span>
                 </div>
 
                 <div class="favorite-btn">
                     <button class="go-to-product-btn">
                         <i class="fa fa-truck"></i> Kargo Takibi
                     </button>
+                    <button class="details-btn" onclick="goToDetails(${order.id})">
+                        <i class="fa fa-info-circle"></i> Detay
+                    </button>
                 </div>
             `;
 
-            ordersContainer.appendChild(orderItem);
-        });
+                i++
+                ordersContainer.appendChild(orderItem);
+            });
+
+
+        }
     }
+
+    // Detay sayfasına yönlendirme
+    window.goToDetails = function (orderId) {
+        window.location.href = `siparisdetay.html?id=${orderId}`;
+    };
 
     // Sayfa yüklendiğinde siparişleri çek
     fetchOrders();

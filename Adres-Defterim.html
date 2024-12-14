@@ -183,6 +183,7 @@
         <!-- Yeni Ekleye Tıklayınca Açılacak Form -->
         <div class="form-container" id="adres-formu" style="display: none;">
             <form>
+                <input type="hidden" id="address-id" value="">
                 <!-- Adres Başlığı -->
                 <div class="form-group">
                     <label for="adres-baslik">* Adres Başlığı</label>
@@ -248,7 +249,11 @@
         <!-- Vazgeçe Tıklayınca Sağ Taraf Formu Açılır  -->
 
         <!-- Kaydete Basınca Açılacak Olan Ekran -->
-
+        <div id="adresler-listesi">
+            <ul id="adres-listesi-ul">
+                <!-- Adresler buraya eklenecek -->
+            </ul>
+        </div>
         <!-- Bilgiler Gösterim Alanı -->
         <div id="adres-bilgileri" style="display: none;">
             <div class="favorites-container">
@@ -350,6 +355,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
+    <script src="js/address.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
