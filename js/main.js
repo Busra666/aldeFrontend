@@ -4,8 +4,10 @@
     document.addEventListener('DOMContentLoaded', () => {
         console.warn("DomContentLoaded")
         getTotalProductsCount();
+        getTotalFavCount();
         // Elemanları seçme
         const adresKutusu = document.querySelector('.adres-container');
+        const adresListesi = document.querySelector('.adresler-listesi');
         const adresFormu = document.querySelector('#adres-formu');
         const yeniEkleBtn = document.querySelector('.yeni-ekle-btn');
         const cancelBtn = document.querySelector('.cancel-btn');
@@ -128,51 +130,6 @@
 
             // Toplamı ekrana yazdır
             sepetToplamElement.innerText = `₺${toplam}`;
-        });
-
-
-
-        // "Yeni Ekle" butonuna tıklama olayını tanımlama
-        yeniEkleBtn?.addEventListener('click', () => {
-            if (adresKutusu && adresFormu) {
-                adresKutusu.style.display = 'none'; // Adres kutusunu gizle
-                adresFormu.style.display = 'block'; // Adres formunu göster
-            }
-        });
-
-        // "Vazgeç" butonuna tıklama olayını tanımlama
-        cancelBtn?.addEventListener('click', () => {
-            if (adresKutusu && adresFormu) {
-                adresKutusu.style.display = 'block'; // Adres kutusunu göster
-                adresFormu.style.display = 'none'; // Adres formunu gizle
-            }
-        });
-
-        // "Kaydet" butonuna tıklama olayını tanımlama
-            saveBtn?.addEventListener('click', (event) => {
-            event.preventDefault(); // Formun normalde submit edilmesini engelle
-
-            // Form verilerini al
-            const adresBaslik = adresBaslikInput.value;
-            const adSoyad = adSoyadInput.value;
-            const telefon = telefonInput.value; // Telefonu birleştir
-            const adres = adresInput.value;
-            const sehir = sehirInput.value;
-            const ilce = ilceInput.value;
-
-            // Yeni alanı göstermek için
-            adresKutusu.style.display = 'none'; // Formu gizle
-            adresBilgileri.style.display = 'block'; // Bilgileri göster
-
-            // Kullanıcı verilerini yeni alanda göster
-            adresBaslikGoster.textContent = adresBaslik;
-            adSoyadGoster.textContent = adSoyad;
-            telefonGoster.textContent = telefon;
-            adresGoster.textContent = adres;
-            sehirIlceGoster.textContent = sehir + ' / ' + ilce;
-
-            // Yeni formu göster
-            adresFormu.style.display = 'none'; // Formu gizle
         });
     });
 
@@ -305,6 +262,37 @@
             .catch(error => {
                 console.error('Sepet sayısı alınırken bir hata oluştu:', error);
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
+            });
+    }
+
+    function getTotalFavCount() {
+        const apiUrl = 'http://192.168.1.13/account.php'; // Backend API URL'si
+        const userId = localStorage.getItem("userId");
+        const favCountElement = document.getElementById('fav-count');
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "module": "favorites",
+                "action": "count",
+                "user_id": userId
+            })
+        })
+            .then(response => response.json()) .then(data => {
+            if (data.favorite_count !== undefined) { // Eğer favori sayısı gelirse
+                const totalItems = data.favorite_count || 0; // Favori sayısı ya da 0
+                favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz
+            } else {
+                console.error('Favori sayısı alınamadı:', data.message);
+                favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+            }
+        })
+            .catch(error => {
+                console.error('Favori sayısı alınırken bir hata oluştu:', error);
+                favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
             });
     }
 

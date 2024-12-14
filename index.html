@@ -79,7 +79,9 @@
             <div class="col-lg-4">
                 <form action="">
                     <div class="input-group">
+                        <div class="search-container">
                         <input type="text" class="form-control" placeholder="Arama Yap">
+                        </div>
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -130,7 +132,7 @@
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="Favorilerim.html" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span id="fav-count" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                             <a href="Sepetim.html" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
@@ -671,6 +673,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
+    <script src="js/search.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

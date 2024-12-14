@@ -182,5 +182,7 @@ function getTotalProductsCount() {
         });
 }
 
+
+
 // Sayfa yüklendiğinde detayları yükle
 window.onload = loadProductDetail;

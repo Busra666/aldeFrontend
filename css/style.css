@@ -10645,8 +10645,6 @@ button:hover {
 
 .favorite-item .remove-btn {
   background-color: #e80808;
-  color: #fff;
-  border: none;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -10659,8 +10657,6 @@ button:hover {
 .add-favorite-btn {
   padding: 10px 20px;
   background-color: #28a745;
-  color: white;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -10672,8 +10668,6 @@ button:hover {
 
 .favorite-btn{
   padding: 10px 20px;
-  color: white;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -10781,6 +10775,27 @@ button:hover {
 
 
 
+/* Dropdown menü stilini düzenleyin */
+.dropdown-menu1 {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  margin-top: 2px;
+  padding: 0;
+  border-radius: 4px;
+}
+
+.dropdown-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
 
 
 

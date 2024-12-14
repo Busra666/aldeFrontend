@@ -130,7 +130,7 @@
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="Favorilerim.html" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span id="fav-count" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                             <a href="Sepetim.html" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
@@ -165,21 +165,8 @@
             </ul>
         </div>
 
-        <!-- Sağ Taraf Form -->
-        <div class="adres-container">
-            <div class="adres-box">
-                <div class="ikon">
-                    <span>&#x1F4CD;</span> <!-- Konum simgesi -->
-                </div>
-                <h2>Tamamlanan siparişiniz bulunmamaktadır.</h2>
-                <p>Siparişinizi hızlı ve kolay bir şekilde oluşturabilirsiniz.</p>
-                <a href="index.html"><button class="yeni-ekle-btn">Alışverişe Başla</button></a>
-            </div>
-        </div>
-    </div>
-
         <!-- Verilen Sipariş Alanı -->
-        <div class="favorites-container">
+        <div class="favorites-container" style="width: 100%">
             <h2>Siparişlerim</h2>
 
             <!-- verilen sipariş -->
@@ -201,6 +188,19 @@
             </div>
 
         </div>
+
+        <!-- Sağ Taraf Form -->
+        <div class="adres-container" style="display: none">
+            <div class="adres-box">
+                <div class="ikon">
+                    <span>&#x1F4CD;</span> <!-- Konum simgesi -->
+                </div>
+                <h2>Tamamlanan siparişiniz bulunmamaktadır.</h2>
+                <p>Siparişinizi hızlı ve kolay bir şekilde oluşturabilirsiniz.</p>
+                <a href="index.html"><button class="yeni-ekle-btn">Alışverişe Başla</button></a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -284,6 +284,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
+    <script src="js/orders.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
