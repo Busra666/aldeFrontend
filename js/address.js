@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <p>${address.address}</p>
                                 <p>${address.city} - ${address.district}</p>
                                 <div class="form-buttons">
-                                    <button type="button" class="delete-btn" data-id="${address.id}">SİL</button>
                                     <button type="button" class="edit-btn" data-id="${address.id}">DÜZENLE</button>
+                                    <button type="button" class="delete-btn cancel-btn" data-id="${address.id}">SİL</button>
                                 </div>
                             </li>
                         </div>`;
