@@ -100,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
             })
             .then(data => {
-                console.warn(data)
                 adresListesi.innerHTML = "";
                 if (data && data.length > 0) {
                     adresKutusu.style.display = "none";
@@ -124,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             </li>
                         </div>`;
                         adresListesi.innerHTML += addressItem;
-                        console.warn(adresListesi)
                     });
 
                     // Sil ve düzenle butonlarına event listener ekle
@@ -146,7 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const addressId = this.dataset.id;
-                console.warn('Silinecek ID:', addressId);
 
                 // API'ye silme isteği gönder
                 fetch('http://192.168.1.13/account.php', {
@@ -172,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const addressId = this.dataset.id;
-                console.warn('Düzenlenecek ID:', addressId);
                 fetch('http://192.168.1.13/account.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -193,9 +189,35 @@ document.addEventListener("DOMContentLoaded", function () {
                             document.querySelector("#sehir").value = address.city;
                             document.querySelector("#ilce").value = address.district;
                             document.querySelector("#adres").value = address.address;
+                            fetch('http://192.168.1.13/account.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    module: "addresses", action: 'getDistrictsByName', city_name: address.city
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        ilceSelect.innerHTML = '<option value="">İlçe Seçiniz</option>';
+                                        data.districts.forEach(district => {
+                                            const option = document.createElement('option');
+                                            option.value = district.name;
+                                            option.textContent = district.name;
+                                            ilceSelect.appendChild(option);
 
+                                        });
+                                        ilceSelect.value = address.district;
+                                    } else {
+                                        ilceSelect.innerHTML = '<option value="">İlçe Bulunamadı</option>';
+                                    }
+                                })
+                                .catch(error => console.error('İlçeler yüklenirken hata oluştu:', error));
                             // Formu göster
                             document.querySelector("#adres-formu").style.display = 'block';
+                            document.querySelector("#adres-formu").style.marginLeft = '30px';
                             adresListesi.style.display = 'none';
                             yeniEkleBtn2.style.display = 'none';
                         } else {
@@ -222,7 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const district = ilceSelect.value;
             const address = document.querySelector("#adres").value;
 
-            console.warn(addressTitle, nameSurname, phoneNumber, city, district, address);
             const actionType = addressId ? "update" : "create";
             // Postman servisinin backend API'ye form verilerini gönder
             fetch('http://192.168.1.13/account.php', {
