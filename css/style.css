@@ -10778,15 +10778,16 @@ button:hover {
 
 /* Dropdown menü stilini düzenleyin */
 .dropdown-menu1 {
-  display: block;
-  width: 100%;
+  position: absolute; /* Arama kutusuna göre konumlanır */
+  top: 100%; /* Arama kutusunun hemen altına gelir */
+  left: 0;
   max-height: 200px;
   overflow-y: auto;
-  background-color: white;
-  border: 1px solid #ccc;
-  margin-top: 2px;
-  padding: 0;
-  border-radius: 4px;
+  width: 100%; /* Arama kutusuyla aynı genişlikte */
+  background: #fff; /* Beyaz arka plan */
+  border: 1px solid #ddd;
+  border-radius: 0 0 5px 5px; /* Sadece alt kenarları yuvarla */
+  z-index: 10; /* Önde kalmasını sağla */
 }
 
 .dropdown-item {
@@ -10799,7 +10800,13 @@ button:hover {
 }
 
 
-
+.search-container{
+  width: 100%;
+  display: flex;
+}
+.search-input{
+  width: 90%;
+}
 
 
 
