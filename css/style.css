@@ -10122,7 +10122,6 @@ form {
 }
 
 input, select {
-  width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -10807,6 +10806,156 @@ button:hover {
 .search-input{
   width: 90%;
 }
+
+/* sipariş tamamla ekranı */
+.siparis-tamamla {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Adres Bilgileri */
+.adres-bilgileri {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.baslik {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.baslik .icon {
+  margin-right: 0.5rem;
+}
+
+.adres-detaylari h3 {
+  color: #28a745;
+}
+
+.adres-secenek {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.adres-detay {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.adres-islem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.adres-islem button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.yeni-adres-ekle {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px dashed #28a745;
+  background: #fff;
+  color: #28a745;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.yeni-adres-ekle:hover {
+  background: #d32f2f;
+  color: #fff;
+}
+
+/* Kargo Seçim */
+.kargo-secim {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* Ödeme Seçenekleri */
+.odeme-secenekleri {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.odeme-secenekleri h3 {
+  color: #28a745;
+}
+
+/* Sipariş Özeti */
+.siparis-ozeti {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.siparis-ozeti h3 {
+  color: #28a745;
+}
+
+.siparis-ozeti ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.siparis-ozeti ul li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.siparis-ozeti ul li strong {
+  font-size: 1.1rem;
+}
+
+.tamamla {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: #b71c1c;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tamamla:hover {
+  background: #7c2020;
+}
+
+
+
 
 
 

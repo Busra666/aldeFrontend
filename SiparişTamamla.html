@@ -151,7 +151,7 @@
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="index.html">Anasayfa</a>
-                    <a class="breadcrumb-item text-dark" href="Sepetim.html">Sepetim</a>
+                    <a class="breadcrumb-item text-dark" href="Sepetim.html">Sipariş Tamamla</a>
                 </nav>
             </div>
         </div>
@@ -159,73 +159,58 @@
     <!-- Breadcrumb End -->
 
 
-    <!-- Cart Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-
-            <!-- Sepette Ürün Yoksa Bu ekranı Kullan -->
-            <!-- Sepet Boş Mesajı (Başlangıçta Gizli) -->
-            <div class="sepet-box">
-                <div class="ikon">
-                    <span>&#x1F6D2;</span> <!-- Alışveriş sepeti simgesi -->
-                </div>
-                <h2>Sepetinizde ürün bulunmamaktadır.</h2>
-                <p>Siparişinizi hızlı ve kolay bir şekilde oluşturabilirsiniz.</p>
-                <a href="index.html"><button class="yeni-ekle-btn">Alışverişe Başla</button></a>
-            </div>
-
-            <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
-<!--                    <thead class="thead-dark">-->
-<!--                        <tr>-->
-<!--                            <th>Products</th>-->
-<!--                            <th>Price</th>-->
-<!--                            <th>Quantity</th>-->
-<!--                            <th>Total</th>-->
-<!--                            <th>Remove</th>-->
-<!--                        </tr>-->
-<!--                    </thead>-->
-                    <tbody class="align-middle" id="cart-list">
-                        <!-- Sepete eklenen ürünler -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-lg-4">
-                <form class="mb-30" action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0 p-4" placeholder="Hediye Çekleri">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">Ekle</button>
-                        </div>
+<div class="siparis-tamamla">
+    <!-- Adres Bilgileri -->
+    <div class="adres-bilgileri">
+        <div class="baslik">
+            <span class="icon">📍</span>
+            <span>Adres Bilgileri</span>
+        </div>
+        <div class="adres-detaylari">
+            <h3>Teslimat Adresi</h3>
+            <div class="adres-secenek">
+                <input type="checkbox" id="adres1" name="adres" checked>
+                <label for="adres1">
+                    <b>evim</b>
+                    <div class="adres-detay">
+                        Büşra PEHLİVAN<br>
+                        güzlekent mahallesi 510.sokak ipek sitesi no:2a/1 eryaman<br>
+                        Etimesgut Ankara Türkiye<br>
+                        Tel: 905542950219
                     </div>
-                </form>
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3"></span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Sipariş Tutarı</h6>
-                            <h6 id="siparisTutar"></h6>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Kargo Ücreti</h6>
-                            <h6 id="kargoUcret"></h6>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Sepet Toplamı</h5>
-                            <h5 id="sepetToplam"></h5>
-                        </div>
-                        <a href="SiparişTamamla.html"><button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Siparişi Tamamla</button></a>
-                    </div>
+                </label>
+                <div class="adres-islem">
+                    <button class="duzenle">✏️</button>
+                    <button class="sil">❌</button>
                 </div>
             </div>
+            <button class="yeni-adres-ekle">+ Yeni Adres Ekle</button>
+        </div>
+        <div class="kargo-secim">
+            <input type="checkbox" id="kargo" name="kargo" checked>
+            <label for="kargo">Aras Kargo</label>
+            <span class="kargo-ucret">₺49,90</span>
         </div>
     </div>
-    <!-- Cart End -->
 
+    <!-- Ödeme Seçenekleri -->
+    <div class="odeme-secenekleri">
+        <h3>Ödeme Seçenekleri</h3>
+        <p>Ödemenizi güvenle yapabilirsiniz</p>
+    </div>
 
+    <!-- Sipariş Özeti -->
+    <div class="siparis-ozeti">
+        <h3>Sipariş Özeti</h3>
+        <ul>
+            <li>Sipariş Tutarı <span>₺209,25</span></li>
+            <li>Kargo Tutarı <span>₺49,90</span></li>
+            <li><strong>Genel Toplam <span>₺259,15</span></strong></li>
+        </ul>
+        <button class="tamamla">Siparişi Tamamla</button>
+    </div>
 
+</div>
 
 
 <!-- Footer Start -->
