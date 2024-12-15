@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const cartList = document.getElementById('cart-list'); // Sepet ürünlerini listeleyeceğimiz alan
+    const cartTotal = document.getElementById('sepet-toplam'); // Sepet ürünlerini listeleyeceğimiz alan
+    const cartListDiv = document.getElementById('sepetim'); // Sepet ürünlerini listeleyeceğimiz alan
+    const emptyCart = document.getElementById('sepet-box'); // Sepet ürünlerini listeleyeceğimiz alan
     const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
 
     const userId = localStorage.getItem("userId");
@@ -19,11 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 cartList.innerHTML = ''; // Önce mevcut listeyi temizle
-                if (data.length === 0) {
-                    cartList.innerHTML = '<p>Sepetiniz boş.</p>';
+                if (data.status === "error") {
+                    emptyCart.style.display = 'block';
+                    cartListDiv.style.display = 'none';
+                    cartTotal.style.display = 'none';
                     getTotalProductsCount(); // Sepet boşsa sayıyı 0 yap
                     return;
                 }
+                emptyCart.style.display = 'none';
 
                 // Ürünleri listele
                 data?.data?.forEach(item => {
@@ -113,9 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Sepete Ekleme/Çıkarma İşlemi
     function handleCartUpdate(event) {
-        console.warn(event)
         const action = event.target.dataset.action;
-        console.log(`Tıklanan butonun aksiyonu: ${action}`); // Butonun aksiyonunu console'a basıyoruz
 
         const productId = event.target.dataset.productId;
         let quantity = event.target.dataset?.quantity * -1;
@@ -123,8 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
             quantity = action === 'add' ? 1 : -1;
         }
 
-        // Burada quantity ve action ile işlemi gerçekleştirebilirsiniz
-        console.log(`Product ID: ${productId}, Quantity: ${quantity}`);
         fetch(apiUrl, {
             method: 'POST',
             headers: {
