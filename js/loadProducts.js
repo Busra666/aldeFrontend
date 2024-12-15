@@ -74,12 +74,26 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                     <h5>₺${product.price}</h5>
                                 </div>
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                            <button id="add-to-cart-btn" class="btn btn-outline-dark btn btn-custom add-to-cart" data-product-id="${product.id}">SEPETE EKLE</a>
+                        </div>
                             </div>
                         </div>
+                        
                     `;
                     productList.appendChild(productCard);
-                });
+                })
 
+                const addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+                // Her butona tıklama olayı ekle
+                addToCartButtons.forEach(button => {
+                    button.addEventListener("click", function () {
+                        const productId = this.getAttribute("data-product-id")
+                        console.warn(productId)
+                        handleAddToCart(productId);
+                    });
+                });
                 bindFavoriteButtons();
             })
             .catch(error => {
@@ -170,5 +184,79 @@ document.addEventListener('DOMContentLoaded', function () {
                 favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
             });
     }
+
+// Sepete ekleme butonuna tıklama olayını yönetme
+    function handleAddToCart(productId) {
+        const quantity = 1 // Kullanıcının seçtiği miktar
+
+        if (isNaN(quantity) || quantity <= 0) {
+            alert('Lütfen geçerli bir miktar seçin.');
+            return;
+        }
+
+        // Sepete ekleme servisini çağır
+        addToCart(productId, quantity);
+    }
+
+// Sepete Ekle Servisini Çağır
+    function addToCart(productId, quantity) {
+        const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+        const userId = localStorage.getItem("userId");
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'add_to_cart',
+                user_id: userId,
+                product_id: productId,
+                quantity: quantity
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('Ürün sepete eklendi:', data.message);
+                    getTotalProductsCount(); // Sepet sayısını güncelle
+                } else {
+                    console.error('Ürün eklenemedi:', data.message);
+                }
+            })
+            .catch(error => console.error('Sepet ekleme sırasında bir hata oluştu:', error));
+    }
+
+    function getTotalProductsCount() {
+        const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+        const userId = localStorage.getItem("userId");
+        const cartCountElement = document.getElementById('cart-count');
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'cart_count',
+                user_id: userId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const totalItems = data.total_items || 0; // Eğer sepet boşsa 0 döner
+                    cartCountElement.textContent = totalItems; // Sepet sayısını güncelle
+                } else {
+                    console.error('Sepet sayısı alınamadı:', data.message);
+                    cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                }
+            })
+            .catch(error => {
+                console.error('Sepet sayısı alınırken bir hata oluştu:', error);
+                cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
+            });
+    }
+
 
 });
