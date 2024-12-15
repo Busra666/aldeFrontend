@@ -169,23 +169,23 @@
 
         <!-- Sağ Taraf Form -->
         <div class="form-container">
-            <form>
+            <form id="password-change-form">
                 <!-- Eski Şifre -->
                 <div class="form-row">
-                    <label for="eski-sifre">Eski Şifre</label>
-                    <input type="password" id="eski-sifre" placeholder="Eski Şifre">
+                    <label for="eski-sifre">Eski Şifre*</label>
+                    <input type="password" id="eski-sifre" placeholder="Eski Şifre" required>
                 </div>
 
                 <!-- Yeni Şifre -->
                 <div class="form-row">
-                    <label for="yeni-sifre">Yeni Şifre</label>
-                    <input type="password" id="yeni-sifre" placeholder="Yeni Şifre">
+                    <label for="yeni-sifre">Yeni Şifre*</label>
+                    <input type="password" id="yeni-sifre" placeholder="Yeni Şifre" required>
                 </div>
 
                 <!-- Yeni Şifre (tekrar) -->
                 <div class="form-row">
-                    <label for="yeni-sifre-tekrar">Yeni Şifre (tekrar)</label>
-                    <input type="password" id="yeni-sifre-tekrar" placeholder="Yeni Şifre (tekrar)">
+                    <label for="yeni-sifre-tekrar">Yeni Şifre (tekrar)*</label>
+                    <input type="password" id="yeni-sifre-tekrar" placeholder="Yeni Şifre (tekrar)" required>
                 </div>
 
 <!--                &lt;!&ndash; Güvenlik Kodu &ndash;&gt;-->
@@ -283,6 +283,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
+    <script src="js/changePassword.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
