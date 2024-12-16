@@ -10972,7 +10972,20 @@ button:hover {
 }
 
 
+/* e posta doğrulama */
+.form-container, .verification-container {
+  width: 350px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
 
+.verification-container {
+  display: none; /* Başlangıçta gizli */
+}
 
 
 

@@ -31,16 +31,33 @@
 
 <div class="auth-container">
     <img src="img/arka_plan.png" alt="Arka Plan" class="background-img">
-    <div class="auth-box">
+    <div class="auth-box" id="formContainer">
         <h2>Üye Ol</h2>
       <form action="#" method="post">
         <input type="text" placeholder="Adınız" name="ad" required>
         <input type="text" placeholder="Soyadınız" name="soyad" required>
+        <input type="text" placeholder="Kullanıcı Adı" name="Kullanıcı Adı" required>
         <input type="email" placeholder="E-posta Adresiniz" name="email" required>
         <input type="password" placeholder="Şifre" name="sifre" required>
-        <div>
-            <input type="tel" placeholder="Telefon Numarası" name="telefon" required>
-        </div>
+          <div>
+              <input
+                      type="tel"
+                      placeholder="Telefon Numarası"
+                      name="telefon"
+                      required
+                      id="telefon"
+                      pattern="[0-9]+"
+                      title="Sadece rakam girebilirsiniz."
+              >
+          </div>
+
+          <script>
+              // Yalnızca rakam girişini kontrol etmek için
+              document.getElementById("telefon").addEventListener("input", function (e) {
+                  // Kullanıcının girdiği değeri kontrol eder ve rakam olmayan karakterleri kaldırır
+                  e.target.value = e.target.value.replace(/[^0-9]/g, '');
+              });
+          </script>
 
         <select name="cinsiyet" required>
             <option value="">Cinsiyet</option>
@@ -49,14 +66,14 @@
             <option value="diger">Belirtmek İstemiyorum</option>
         </select>
 
-        <div>
-            <select name="sehir" required>
-                <option value="">Şehir Seçiniz</option>
-            </select>
-            <select name="ilce" required>
-                <option value="">İlçe Seçiniz</option>
-            </select>
-        </div>
+<!--        <div>-->
+<!--            <select name="sehir" required>-->
+<!--                <option value="">Şehir Seçiniz</option>-->
+<!--            </select>-->
+<!--            <select name="ilce" required>-->
+<!--                <option value="">İlçe Seçiniz</option>-->
+<!--            </select>-->
+<!--        </div>-->
 
 
           <div class="checkbox-container">
@@ -80,10 +97,40 @@
         </div>
 
         <div class="button-container">
-            <button type="submit">Üye Ol</button>
+            <button type="button" id="uyeOlButton">Üye Ol</button>
         </div>
+
+
       </form>
     </div>
+
+    <!-- E-posta Doğrulama Ekranı -->
+    <div class="verification-container" id="verificationContainer">
+        <h2>E-posta Doğrulama</h2>
+        <p>Lütfen e-posta adresinize gönderilen doğrulama kodunu girin:</p>
+        <input type="text" placeholder="Doğrulama Kodu" id="verificationCode">
+        <button type="button" id="verifyButton">Doğrula</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Üye Ol butonuna tıklanınca doğrulama ekranı açılır
+        document.getElementById("uyeOlButton").addEventListener("click", function() {
+            document.getElementById("formContainer").style.display = "none";
+            document.getElementById("verificationContainer").style.display = "block";
+        });
+
+        // Doğrula butonu
+        document.getElementById("verifyButton").addEventListener("click", function() {
+            let code = document.getElementById("verificationCode").value;
+            if (code === "123456") { // Örnek doğrulama kodu
+                alert("Doğrulama başarılı! Üyeliğiniz tamamlandı.");
+            } else {
+                alert("Hatalı kod! Lütfen tekrar deneyin.");
+            }
+        });
+    </script>
+
 </div>
 
 <!--<div class="auth-container">-->
