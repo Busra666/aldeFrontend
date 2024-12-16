@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     favList.innerHTML = ''; // Önce mevcut listeyi temizle
                     console.warn(data)
-                    if (data.status === "error") {
+                    if (data.length === 0) {
                         emptyFavori.style.display = 'block';
                         favListDiv.style.display = 'none';
                         return;
