@@ -27,22 +27,78 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body><div class="auth-container">
+<body>
+
+<div class="auth-container">
     <img src="img/arka_plan.png" alt="Arka Plan" class="background-img">
     <div class="auth-box">
         <h2>Üye Ol</h2>
-        <form id="signupForm">
-            <input type="text" placeholder="Kullanıcı Adı" name="username" required>
-            <input type="email" placeholder="E-posta" name="email" required>
-            <input type="password" placeholder="Şifre" name="password" required>
-            <button type="submit">Kayıt Ol</button>
-            <p>Zaten bir hesabınız var mı? <a href="giris.html">Giriş Yap</a></p>
-        </form>
+      <form action="#" method="post">
+        <input type="text" placeholder="Adınız" name="ad" required>
+        <input type="text" placeholder="Soyadınız" name="soyad" required>
+        <input type="email" placeholder="E-posta Adresiniz" name="email" required>
+        <input type="password" placeholder="Şifre" name="sifre" required>
+        <div>
+            <input type="tel" placeholder="Telefon Numarası" name="telefon" required>
+        </div>
+
+        <select name="cinsiyet" required>
+            <option value="">Cinsiyet</option>
+            <option value="erkek">Erkek</option>
+            <option value="kadin">Kadın</option>
+            <option value="diger">Belirtmek İstemiyorum</option>
+        </select>
+
+        <div>
+            <select name="sehir" required>
+                <option value="">Şehir Seçiniz</option>
+            </select>
+            <select name="ilce" required>
+                <option value="">İlçe Seçiniz</option>
+            </select>
+        </div>
+
+
+          <div class="checkbox-container">
+              <label>
+                  <input type="checkbox" name="kampanya_email">
+                  Kampanya, duyuru, bilgilendirmelerden e-posta ile haberdar olmak istiyorum.
+              </label>
+          </div>
+
+          <div class="checkbox-container">
+              <label>
+            <input type="checkbox" name="kampanya_sms">
+            Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.
+              </label>
+        </div>
+
+        <div class="checkbox-container">
+            <label>
+            <input type="checkbox" name="uyelik_sartlari" required>
+            Üyelik koşullarını ve <a href="#">kişisel verilerimin korunmasını</a> kabul ediyorum.</label>
+        </div>
+
+        <div class="button-container">
+            <button type="submit">Üye Ol</button>
+        </div>
+      </form>
     </div>
 </div>
 
-
-</body>
+<!--<div class="auth-container">-->
+<!--    <img src="img/arka_plan.png" alt="Arka Plan" class="background-img">-->
+<!--    <div class="auth-box">-->
+<!--        <h2>Üye Ol</h2>-->
+<!--        <form id="signupForm">-->
+<!--            <input type="text" placeholder="Kullanıcı Adı" name="username" required>-->
+<!--            <input type="email" placeholder="E-posta" name="email" required>-->
+<!--            <input type="password" placeholder="Şifre" name="password" required>-->
+<!--            <button type="submit">Kayıt Ol</button>-->
+<!--            <p>Zaten bir hesabınız var mı? <a href="giris.html">Giriş Yap</a></p>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">

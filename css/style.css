@@ -9871,6 +9871,7 @@ body, html {
 
 /* Form Kutusu Stili */
 .auth-box {
+  margin-top: 25px;
   position: absolute; /* Formu görselin üstüne yerleştirir */
   top: 50%; /* Sayfanın ortasında yerleştirir */
   left: 50%;
@@ -9878,7 +9879,7 @@ body, html {
   background-color: rgba(255, 255, 255, 0.8); /* Hafif opak beyaz arka plan */
   padding: 30px;
   width: 100%;
-  max-width: 400px;
+  max-width: 410px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -10953,6 +10954,24 @@ button:hover {
 .tamamla:hover {
   background: #7c2020;
 }
+
+/* üye ol checkbox */
+.checkbox-container label {
+  display: flex;
+  align-items: center; /* Checkbox ve yazıyı dikey hizalar */
+  gap: 8px; /* Checkbox ile yazı arasındaki boşluk */
+  font-size: 14px; /* Yazı boyutunu ayarlar */
+  cursor: pointer; /* Checkbox üzerine geldiğinde imleci değiştirir */
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0; /* Varsayılan boşluğu kaldırır */
+  cursor: pointer;
+}
+
+
 
 
 
