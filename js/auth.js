@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Signup işlemi
     const signup = async (name, surname, username, email, password, phoneNumber, gender, campaignEmail, memberCondition) => {
+        gender = gender == "erkek" ? "male" : gender == "kadın" ? "female" : "other";
         try {
             const response = await fetch('http://192.168.1.13/signup.php', {
                 method: 'POST',
@@ -46,12 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({ name, surname ,username, email, password, phoneNumber, gender, campaignEmail, memberCondition }),
             });
 
+            console.warn(response)
             if (!response.ok) {
                 throw new Error('Kayıt başarısız. Lütfen bilgilerinizi kontrol edin.');
             }
 
             const result = await response.json();
+            console.warn(result)
             if (result.status == "success") {
+
                 // Başarı mesajı göster ve giriş sayfasına yönlendir
                 showSuccessMessage('Kayıt başarılı! Şimdi giriş yapabilirsiniz.');
                 document.getElementById("formContainer").style.display = "none";
@@ -61,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const data = {
                         module : "users",
                         action : "verification",
-                        user_id: result.userId,
+                        userId: result.userId,
                         verificationCode: code,
                     };
 
