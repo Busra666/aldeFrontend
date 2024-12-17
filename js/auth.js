@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Signup işlemi
-    const signup = async (username, email, password) => {
+    const signup = async (name, surname, username, email, password, phoneNumber, gender, campaignEmail, memberCondition) => {
         try {
             const response = await fetch('http://192.168.1.13/signup.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, email, password }),
+                body: JSON.stringify({ name, surname ,username, email, password, phoneNumber, gender, campaignEmail, memberCondition }),
             });
 
             if (!response.ok) {
@@ -54,9 +54,41 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result.status == "success") {
                 // Başarı mesajı göster ve giriş sayfasına yönlendir
                 showSuccessMessage('Kayıt başarılı! Şimdi giriş yapabilirsiniz.');
-                setTimeout(() => {
-                    window.location.href = 'giris.html';
-                }, 3000); // 3 saniye sonra yönlendirme
+                document.getElementById("formContainer").style.display = "none";
+                document.getElementById("verificationContainer").style.display = "block";
+                document.getElementById("verifyButton").addEventListener("click", function() {
+                    let code = document.getElementById("verificationCode").value;
+                    const data = {
+                        module : "users",
+                        action : "verification",
+                        user_id: result.userId,
+                        verificationCode: code,
+                    };
+
+                    // AJAX isteği gönder
+                    fetch("http://192.168.1.13/account.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.message) {
+                                alert(result.message); // Başarı mesajını göster
+                                setTimeout(() => {
+                                    window.location.href = 'giris.html';
+                                }, 3000); // 3 saniye sonra yönlendirme
+                            } else if (result.error) {
+                                alert(result.error); // Hata mesajını göster
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Hata:", error);
+                            alert("Bir hata oluştu, lütfen tekrar deneyin.");
+                        });
+                });
             } else {
                 alert(result.message || 'Kayıt işlemi başarısız.');
             }
@@ -97,11 +129,18 @@ document.addEventListener('DOMContentLoaded', function () {
         signupForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(signupForm);
-            const username = formData.get('username');
+            const name = formData.get('ad');
+            const surname = formData.get('soyad');
+            const username = formData.get('Kullanıcı Adı');
             const email = formData.get('email');
-            const password = formData.get('password');
+            const password = formData.get('sifre');
+            const phoneNumber = formData.get('telefon');
+            const gender = formData.get('cinsiyet');
+            const campaignEmail = formData.get('kampanya_email');
+            const memberCondition = formData.get('uyelik_sartlari');
 
-            signup(username, email, password);
+            console.warn(name, surname, username, email, password, phoneNumber, gender, campaignEmail, memberCondition)
+            signup(name, surname, username, email, password, phoneNumber, gender, campaignEmail, memberCondition);
         });
     }
 });

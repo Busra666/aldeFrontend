@@ -33,7 +33,7 @@
     <img src="img/arka_plan.png" alt="Arka Plan" class="background-img">
     <div class="auth-box" id="formContainer">
         <h2>Üye Ol</h2>
-      <form action="#" method="post">
+      <form action="#" method="post" id="signupForm">
         <input type="text" placeholder="Adınız" name="ad" required>
         <input type="text" placeholder="Soyadınız" name="soyad" required>
         <input type="text" placeholder="Kullanıcı Adı" name="Kullanıcı Adı" required>
@@ -83,12 +83,12 @@
               </label>
           </div>
 
-          <div class="checkbox-container">
-              <label>
-            <input type="checkbox" name="kampanya_sms">
-            Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.
-              </label>
-        </div>
+<!--          <div class="checkbox-container">-->
+<!--              <label>-->
+<!--            <input type="checkbox" name="kampanya_sms">-->
+<!--            Kampanya, duyuru, bilgilendirmelerden sms ile haberdar olmak istiyorum.-->
+<!--              </label>-->
+<!--        </div>-->
 
         <div class="checkbox-container">
             <label>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="button-container">
-            <button type="button" id="uyeOlButton">Üye Ol</button>
+            <button type="submit" id="uyeOlButton">Üye Ol</button>
         </div>
 
 
@@ -114,11 +114,11 @@
 
     <!-- JavaScript -->
     <script>
+        /*
         // Üye Ol butonuna tıklanınca doğrulama ekranı açılır
         document.getElementById("uyeOlButton").addEventListener("click", function() {
-            document.getElementById("formContainer").style.display = "none";
-            document.getElementById("verificationContainer").style.display = "block";
         });
+
 
         // Doğrula butonu
         document.getElementById("verifyButton").addEventListener("click", function() {
@@ -129,6 +129,9 @@
                 alert("Hatalı kod! Lütfen tekrar deneyin.");
             }
         });
+
+
+         */
     </script>
 
 </div>

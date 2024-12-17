@@ -42,6 +42,9 @@
       `;
         } else {
             // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
+            if(menu == null) {
+                return
+            }
             menu.innerHTML = `
         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
         <div class="dropdown-menu dropdown-menu-right">
@@ -253,15 +256,21 @@
             .then(data => {
                 if (data.status === 'success') {
                     const totalItems = data.total_items || 0; // Eğer sepet boşsa 0 döner
-                    cartCountElement.textContent = totalItems; // Sepet sayısını güncelle
+                    if(cartCountElement != null) {
+                        cartCountElement.textContent = totalItems; // Sepet sayısını güncelle
+                    }
                 } else {
                     console.error('Sepet sayısı alınamadı:', data.message);
-                    cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                    if(cartCountElement != null) {
+                        cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                    }
                 }
             })
             .catch(error => {
                 console.error('Sepet sayısı alınırken bir hata oluştu:', error);
-                cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
+                if(cartCountElement != null) {
+                    cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                }
             });
     }
 
@@ -284,15 +293,21 @@
             .then(response => response.json()) .then(data => {
             if (data.favorite_count !== undefined) { // Eğer favori sayısı gelirse
                 const totalItems = data.favorite_count || 0; // Favori sayısı ya da 0
-                favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz
+                if(favCountElement != null) {
+                    favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz
+                }
             } else {
                 console.error('Favori sayısı alınamadı:', data.message);
-                favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+                if(favCountElement != null) {
+                    favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+                }
             }
         })
             .catch(error => {
                 console.error('Favori sayısı alınırken bir hata oluştu:', error);
-                favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
+                if(favCountElement != null) {
+                    favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+                }
             });
     }
 
