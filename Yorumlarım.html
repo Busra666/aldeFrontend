@@ -25,6 +25,10 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+
+
+
 </head>
 
 <body>
@@ -159,35 +163,33 @@
     <!-- Breadcrumb End -->
 
 <!-- Yorumlar Start -->
+<!-- Sipariş Seçim ve Değerlendirme Bölümü -->
+<div class="order-review-container">
+    <h2>Sipariş Seç</h2>
+    <select id="orderSelect">
+        <option value="" selected disabled>Siparişinizi Seçin</option>
+        <option value="1">Sipariş #12345 - Ürün A</option>
+        <option value="2">Sipariş #12346 - Ürün B</option>
+        <option value="3">Sipariş #12347 - Ürün C</option>
+    </select>
+    <button onclick="showReviewForm()">Seçimi Onayla</button>
 
-<!-- Sipariş Seçim Bölümü -->
-<div class="container" style="flex-direction: column; margin: 10px auto; /* Sayfa ortasına almak */">
-<h2>Sipariş Seç</h2>
-<select id="orderSelect">
-    <option value="" selected disabled>Siparişinizi Seçin</option>
-    <option value="1">Sipariş #12345 - Ürün A</option>
-    <option value="2">Sipariş #12346 - Ürün B</option>
-    <option value="3">Sipariş #12347 - Ürün C</option>
-</select>
-<button onclick="showReviewForm()">Seçimi Onayla</button>
-
-<!-- Ürün Değerlendirme Bölümü -->
-<div id="reviewForm" class="hidden" style="flex-direction: column; margin: 10px auto; /* Sayfa ortasına almak */">
-    <h3>Ürünü Değerlendiriniz</h3>
-    <div class="star-rating">
-        <span class="star" onclick="rateStar(1)"></span>
-        <span class="star" onclick="rateStar(2)"></span>
-        <span class="star" onclick="rateStar(3)"></span>
-        <span class="star" onclick="rateStar(4)"></span>
-        <span class="star" onclick="rateStar(5)"></span>
+    <!-- Ürün Değerlendirme Bölümü -->
+    <div id="reviewForm" class="hidden">
+        <h3>Ürünü Değerlendiriniz</h3>
+        <div class="star-rating">
+            <span class="star" onclick="rateStar(1)"></span>
+            <span class="star" onclick="rateStar(2)"></span>
+            <span class="star" onclick="rateStar(3)"></span>
+            <span class="star" onclick="rateStar(4)"></span>
+            <span class="star" onclick="rateStar(5)"></span>
+        </div>
+        <textarea id="userComment" placeholder="Ürünle ilgili yorumlarınızı buraya yazabilirsiniz."></textarea>
+        <button id="submitComment" onclick="submitReview()">Yorumu Gönder</button>
+        <p id="commentConfirmation" style="display:none; color:green; margin-top:10px;">
+            Yorumunuz başarıyla gönderildi!
+        </p>
     </div>
-    <p></p>
-    <textarea id="userComment" placeholder="Ürünle ilgili yorumlarınızı buraya yazabilirsiniz."></textarea>
-    <button id="submitComment" onclick="submitReview()">Yorumu Gönder</button>
-    <p id="commentConfirmation" style="display:none; color:green; margin-top:10px;">
-        Yorumunuz başarıyla gönderildi!
-    </p>
-</div>
 </div>
 
 <script>

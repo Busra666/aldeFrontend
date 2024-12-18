@@ -10998,17 +10998,6 @@ h3, h4 {
   display: none;
 }
 
-select, button {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
 .star-rating {
   display: flex;
   gap: 10px;
@@ -11045,6 +11034,83 @@ textarea {
   margin-bottom: 10px;
   font-size: 14px;
 }
+
+/* Yalnızca order-review-container içinde etkili CSS */
+/* Sipariş Seçim ve Değerlendirme Bölümü için */
+.order-review-container {
+  width: 90%; /* Sayfanın genişliğinin %90'ı kadar */
+  max-width: 600px; /* Maksimum genişlik belirledim */
+  margin: 30px auto; /* Üstten ve alttan boşluk, ortalamak için auto */
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* İçeriği ortalamak için */
+}
+
+.order-review-container select,
+.order-review-container button,
+.order-review-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px auto;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #f9f9f9; /* Açık arkaplan */
+}
+
+.order-review-container h2,
+.order-review-container h3 {
+  color: #444;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.order-review-container .star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.order-review-container .star {
+  width: 36px;
+  height: 36px;
+  background: url('https://cdn-icons-png.flaticon.com/512/1828/1828970.png') no-repeat center/contain;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.order-review-container .star:hover,
+.order-review-container .star.active {
+  opacity: 1;
+}
+
+.order-review-container textarea {
+  height: 120px;
+  resize: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.order-review-container button {
+  background-color: #4CAF50; /* Yeşil buton */
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.order-review-container button:hover {
+  background-color: #45a049;
+}
+
+
 
 
 
