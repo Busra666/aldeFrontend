@@ -27,8 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .then(response => response.json())
         .then(data => {
-            console.warn("asdasd")
-                console.warn(data)
                 favoriteProducts = data.map(fav => fav.product_id);
                 console.log(favoriteProducts);
         })
@@ -91,11 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCartButtons.forEach(button => {
                     button.addEventListener("click", function () {
                         const productId = this.getAttribute("data-product-id")
-                        console.warn(productId)
                         handleAddToCart(productId);
                     });
                 });
-                console.warn("123123")
                 bindFavoriteButtons();
             })
             .catch(error => {
@@ -105,10 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function bindFavoriteButtons() {
-        console.warn("123123aaa")
         document.querySelectorAll('.favorite-btn').forEach(button => {
             button.addEventListener('click', function (e) {
-                console.warn("123123123")
                 e.preventDefault();
                 const productId = this.id.split('-')[2];
                 const isFavorite = this.querySelector('i').classList.contains('text-danger');
@@ -132,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             icon.classList.toggle('far');
                             icon.classList.toggle('text-danger');
                             updateFavoriteStatus(productId);
-                            console.warn(data)
                     })
                     .catch(error => console.error('Favori işlemi sırasında hata oluştu:', error));
             });
@@ -141,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateFavoriteStatus(productId) {
         const favoriteBtn = document.getElementById(`favorite-btn-${productId}`);
-        console.warn(favoriteBtn);
         // İkonu değiştir
         if (favoriteBtn) {
             const icon = favoriteBtn.querySelector('i');

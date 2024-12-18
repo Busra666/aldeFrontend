@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.warn(favList)
                 if(favList != null) {
 
                     favList.innerHTML = ''; // Önce mevcut listeyi temizle
