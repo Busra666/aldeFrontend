@@ -178,11 +178,11 @@
     <div id="reviewForm" class="hidden">
         <h3>Ürünü Değerlendiriniz</h3>
         <div class="star-rating">
-            <span class="star" onclick="rateStar(1)"></span>
-            <span class="star" onclick="rateStar(2)"></span>
-            <span class="star" onclick="rateStar(3)"></span>
-            <span class="star" onclick="rateStar(4)"></span>
-            <span class="star" onclick="rateStar(5)"></span>
+            <span class="star" data-value="1"></span>
+            <span class="star" data-value="2"></span>
+            <span class="star" data-value="3"></span>
+            <span class="star" data-value="4"></span>
+            <span class="star" data-value="5"></span>
         </div>
         <textarea id="userComment" placeholder="Ürünle ilgili yorumlarınızı buraya yazabilirsiniz."></textarea>
         <button id="submitComment" onclick="submitReview()">Yorumu Gönder</button>
@@ -190,6 +190,39 @@
             Yorumunuz başarıyla gönderildi!
         </p>
     </div>
+
+<script>
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach((star, index) => {
+        // Mouse üzerine geldiğinde geçici yıldız dolumu
+        star.addEventListener('mouseover', () => highlightStars(index));
+
+        // Mouse çıktıktan sonra önceki aktif duruma dön
+        star.addEventListener('mouseout', () => highlightStars(-1));
+
+        // Yıldıza tıklayınca kalıcı olarak doldur
+        star.addEventListener('click', () => {
+            setActiveStars(index);
+        });
+    });
+
+    function highlightStars(count) {
+        stars.forEach((star, idx) => {
+            if (idx <= count) star.classList.add('hovered');
+            else star.classList.remove('hovered');
+        });
+    }
+
+    function setActiveStars(count) {
+        stars.forEach((star, idx) => {
+            if (idx <= count) star.classList.add('active');
+            else star.classList.remove('active');
+        });
+    }
+
+</script>
+
 </div>
 
 <script>
