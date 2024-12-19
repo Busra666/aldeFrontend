@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
+                if(cartList == null) {
+                    return;
+                }
                 cartList.innerHTML = ''; // Önce mevcut listeyi temizle
                 if (data.status === "error") {
                     emptyCart.style.display = 'block';
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 emptyCart.style.display = 'none';
 
+                localStorage.setItem("cartItems",JSON.stringify(data.data));
                 // Ürünleri listele
                 data?.data?.forEach(item => {
                     const cartItem = document.createElement('tr');
@@ -103,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     const sepetToplam = siparisTutar + kargoUcreti;
 
                     // DOM öğelerini güncelle
+                    if(siparisTutarElement == null || kargoUcretElement == null || sepetToplamElement == null) {
+                        return
+                    }
                     siparisTutarElement.textContent = `₺${siparisTutar.toFixed(2)}`;
                     kargoUcretElement.textContent = `₺${kargoUcreti.toFixed(2)}`;
                     sepetToplamElement.textContent = `₺${sepetToplam.toFixed(2)}`;
@@ -183,5 +190,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
             });
     }
+    document.getElementById('complete-order-btn').addEventListener('click', function(event) {
+        // Eğer herhangi bir ekstra işlem yapmak isterseniz, burada kod ekleyebilirsiniz.
+
+        // Sayfayı SiparişTamamla.html sayfasına yönlendiriyoruz.
+        window.location.href = "SiparişTamamla.html";
+    });
 
 });

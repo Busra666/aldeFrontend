@@ -1,0 +1,139 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+    const userId = localStorage.getItem("userId");
+    let selectedAddress = null
+
+    // Adresleri getir ve listele
+    async function fetchOrderSummary() {
+        try {
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: 'total_cart_price',
+                    user_id: userId
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+
+                        let shippingFee = 39.99;
+                        let totalPrice = parseFloat(data.total_price || 0);
+                        totalPrice == 0 || totalPrice > 1000 ? shippingFee = 0 : shippingFee = 39.99;
+                        const result_price = totalPrice + shippingFee;
+                        try {
+                            const summaryContainer = document.querySelector(".siparis-ozeti ul");
+                            summaryContainer.innerHTML = `
+        <li>Sipariş Tutarı <span>₺${totalPrice.toFixed(2)}</span></li>
+        <li>Kargo Tutarı <span>₺${shippingFee !== 0 ? shippingFee : 0}</span></li>
+        <li><strong>Genel Toplam <span>₺${result_price}</span></strong></li>
+      `;
+                        } catch (error) {
+                            console.error("Sipariş özeti yüklenirken bir hata oluştu:", error);
+                        }
+                    } else {
+                        console.error('Sepet toplamı alınamadı:', data.message);
+                    }
+                })
+                .catch(error => console.error('Sepet toplamı alınırken bir hata oluştu:', error));
+        } catch (error) {
+          console.error('Sepet toplamı alınırken bir hata oluştu:', error)
+        }
+    }
+
+    // Sipariş özeti bilgilerini getir ve güncelle
+    async function fetchAddresses() {
+
+        // API'den adresleri çek
+        fetch('http://192.168.1.13/account.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: "read",
+                module: "addresses",
+                user_id: userId
+            })
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Ağ veya API hatası.');
+            }
+            return response.json();
+        })
+            .then(data => {
+                console.warn(data)
+                const addressContainer = document.querySelector(".adres-detaylari");
+                addressContainer.innerHTML = "<h3>Teslimat Adresi</h3>";
+                data.forEach((address, index) => {
+                    const addressHtml = `
+                         <div class="adres-secenek">
+                           <input type="radio" style="width:2%" id="adres${index}" name="adres" ${index === 0 ? "checked" : ""}>
+                           <label for="adres${index}">
+                             <b>${address.address_title}</b>
+                             <div class="adres-detay">
+                               ${address.name_surname}<br>
+                               ${address.address}<br>
+                               ${address.district} ${address.city}<br>
+                               Tel: ${address.phone_number}
+                             </div>
+                           </label>
+                <div class="adres-islem">
+                </div>
+            `;
+                    if (index === 0) {
+                        selectedAddress = address; // İlk adresi seçili olarak ayarla
+                    }
+                    addressContainer.innerHTML += addressHtml;
+                });
+
+                addressContainer.innerHTML += `<button class="yeni-adres-ekle">+ Yeni Adres Ekle</button></div>`
+
+                addressContainer.addEventListener("change", (event) => {
+                    if (event.target.name === "adres") {
+                        const selectedIndex = Array.from(addressContainer.querySelectorAll('input[name="adres"]')).indexOf(event.target);
+                        selectedAddress = data[selectedIndex]; // Seçili adresi güncelle
+                        console.log("Seçili adres güncellendi:", selectedAddress);
+                    }
+                });
+
+                // Yeni adres ekleme butonuna tıklama
+                addressContainer.addEventListener("click", (event) => {
+                    if (event.target.classList.contains("yeni-adres-ekle")) {
+                        window.location.href = "Adres-Defterim.html";
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Adresler yüklenirken hata oluştu:', error);
+            });
+    }
+
+    async function completeOrder() {
+        if (!selectedAddress) {
+            alert("Lütfen bir teslimat adresi seçin.");
+            return;
+        }
+
+        try {
+            // Ödeme için gerekli bilgileri al
+            const totalPriceElement = document.querySelector(".siparis-ozeti ul li:nth-child(3) strong span");
+            const totalPrice = totalPriceElement.textContent.replace("₺", "").trim(); // Toplam fiyatı alın
+
+            // Kullanıcıyı payment.html sayfasına yönlendir
+            const paymentUrl = `payment.html?totalPrice=${totalPrice}&addressId=${selectedAddress.id}&addressTitle=${encodeURIComponent(selectedAddress.address_title)}`;
+            window.location.href = paymentUrl;
+        } catch (error) {
+            console.error("Siparişi tamamlarken hata oluştu:", error);
+        }
+    }
+
+    document.querySelector(".tamamla").addEventListener("click", completeOrder);
+
+    // İlk yükleme
+    fetchOrderSummary();
+    fetchAddresses();
+});

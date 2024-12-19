@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme Sayfası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .order-summary {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Ödeme Sayfası</h1>
+
+<div class="order-summary">
+    <h3>Sipariş Özeti</h3>
+    <p><strong>Adres:</strong> <span id="addressTitle"></span></p>
+    <p><strong>Toplam Tutar:</strong> <span id="totalPrice"></span> ₺</p>
+</div>
+
+<form id="payment-form">
+    <label for="card-holder-name">Kart Sahibinin Adı</label>
+    <input type="text" id="card-holder-name" name="cardHolderName" required>
+
+    <label for="card-number">Kart Numarası</label>
+    <input type="text" id="card-number" name="cardNumber" maxlength="16" required>
+
+    <label for="expiry-date">Son Kullanma Tarihi (AA/YY)</label>
+    <input type="text" id="expiry-date" name="expiryDate" placeholder="MM/YY" required>
+
+    <label for="cvc">CVC</label>
+    <input type="text" id="cvc" name="cvc" maxlength="3" required>
+
+    <button type="submit">Ödemeyi Tamamla</button>
+</form>
+
+<script>
+    // URL'den gelen parametreleri al
+    const urlParams = new URLSearchParams(window.location.search);
+    const totalPrice = urlParams.get("totalPrice");
+    const addressTitle = urlParams.get("addressTitle");
+
+    // Sipariş özetini doldur
+    document.getElementById("totalPrice").textContent = totalPrice;
+    document.getElementById("addressTitle").textContent = decodeURIComponent(addressTitle);
+
+    // Form submit işlemi
+    const form = document.getElementById("payment-form");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        let cartItems = localStorage.getItem("cartItems");
+        if (cartItems) {
+            cartItems = JSON.parse(cartItems); // JSON verisini nesneye dönüştür
+        } else {
+            cartItems = []; // Eğer hiç item yoksa boş dizi olarak başlat
+        }
+        const shippingCost = totalPrice < 1000 ? 39.99 : 0;
+        // Form bilgilerini al
+        const paymentData = {
+            totalPrice: totalPrice,
+            cardHolderName: document.getElementById("card-holder-name").value,
+            cardNumber: document.getElementById("card-number").value,
+            expiryMonth: document.getElementById("expiry-date").value.split('/')[0],
+            expiryYear: document.getElementById("expiry-date").value.split('/')[1],
+            cvc: document.getElementById("cvc").value,
+            basketItems: cartItems.map(item => ({
+                id: item.cart_id,
+                name: item.name,
+                category1: "kitap",
+                itemType: "PHYSICAL",
+                price: item.price,
+            })),
+            billingAddress: {
+                contactName: document.getElementById("card-holder-name").value,
+                city: "İstanbul", // Bu veriler dinamik olarak kullanıcıdan alınabilir
+                country: "Turkey",
+                address: "Beşiktaş, Barbaros Bulvarı",
+                zipCode: "34000"
+            },
+            shippingAddress: {
+                contactName: document.getElementById("card-holder-name").value,
+                city: "İstanbul", // Aynı şekilde teslimat adresi de kullanıcıdan alınabilir
+                country: "Turkey",
+                address: "Beşiktaş, Barbaros Bulvarı",
+                zipCode: "34000"
+            },
+            shippingCost:shippingCost
+        };
+
+        console.log("Ödeme bilgileri alındı:", paymentData);
+
+        // Backend'e ödeme bilgilerini gönder
+        const response = await fetch("http://192.168.1.13/paymentt.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(paymentData)
+        });
+
+        const result = await response.json();
+        console.log("Ödeme sonucu:", result);
+
+        if (result.status === "success") {
+            alert("Ödeme başarılı!");
+            window.location.href = "siparis-tamamlandi.html"; // Başarılıysa yönlendirme
+        } else {
+            alert("Ödeme başarısız: " + result.message);
+        }
+    });
+</script>
+</body>
+</html>
