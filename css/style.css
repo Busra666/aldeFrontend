@@ -9872,7 +9872,7 @@ body, html {
 /* Form Kutusu Stili */
 .auth-box {
   margin-top: 25px;
-  position: absolute; /* Formu görselin üstüne yerleştirir */
+  position: relative; /* Formu görselin üstüne yerleştirir */
   top: 50%; /* Sayfanın ortasında yerleştirir */
   left: 50%;
   transform: translate(-50%, -50%); /* Tam olarak ortalamak için */
@@ -9880,10 +9880,31 @@ body, html {
   padding: 30px;
   width: 100%;
   max-width: 410px;
+  overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu ekler */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
   z-index: 1; /* Formun görselin üstünde olmasını sağlar */
+}
+
+/* Media Query - 1000px ve altındaki ekranlar için */
+@media (max-height: 1000px) {
+  .auth-box {
+    top: 55%; /* Daha aşağıya kaydırır */
+    width: 90%; /* Form genişliğini daha küçük yapar */
+    max-width: 400px; /* Formun maksimum genişliğini azaltır */
+    max-height: 1000px;
+  }
+}
+
+/* Media Query - 600px ve altındaki ekranlar için */
+@media (max-height: 600px) {
+  .auth-box {
+    top: 50%; /* Daha fazla aşağıya kaydırır */
+    width: 95%; /* Formu ekran genişliğine daha uygun yapar */
+    max-width: 350px; /* Formun maksimum genişliğini daha da küçültür */
+    max-height: 500px;
+  }
 }
 
 /* Başlık Stili */
