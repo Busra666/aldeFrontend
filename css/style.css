@@ -10898,16 +10898,16 @@ button:hover {
   display: block;
   width: 100%;
   padding: 0.5rem;
-  border: 2px dashed #28a745;
+  border: 2px dashed #4CAF50;
   background: #fff;
-  color: #28a745;
+  color: #4CAF50;
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .yeni-adres-ekle:hover {
-  background: #d32f2f;
+  background: #357a36;
   color: #fff;
 }
 
@@ -10965,16 +10965,17 @@ button:hover {
   display: block;
   width: 100%;
   padding: 0.8rem;
-  background: #b71c1c;
+  background: linear-gradient(135deg, #6be585, #4CAF50);
   color: #fff;
   font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
 .tamamla:hover {
-  background: #7c2020;
+  background: linear-gradient(135deg, #4CAF50, #3e8c42);
+  transform: scale(1.01);
 }
 
 /* üye ol checkbox */

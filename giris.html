@@ -27,7 +27,8 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body><div class="auth-container">
+<body>
+<div class="auth-container">
     <img src="img/arka_plan.png" alt="Arka Plan" class="background-img">
     <div class="auth-box">
         <h2>Üye Giriş</h2>
@@ -40,37 +41,6 @@
         </form>
     </div>
 </div>
-
-
-
-
-<!--<script>-->
-<!--    document.getElementById("loginForm").addEventListener("submit", async function (event) {-->
-<!--        event.preventDefault(); // Formun normal şekilde gönderilmesini engelle-->
-
-<!--        const formData = new FormData(event.target);-->
-<!--        const data = Object.fromEntries(formData.entries());-->
-
-<!--        try {-->
-<!--            const response = await fetch("http://192.168.1.13/login.php", {-->
-<!--                method: "POST",-->
-<!--                headers: {-->
-<!--                    "Content-Type": "application/json"-->
-<!--                },-->
-<!--                body: JSON.stringify(data)-->
-<!--            });-->
-
-<!--            const result = await response.json();-->
-<!--            console.log(result); // Dönen sonucu konsola yazdır veya gerekli işlemi yap-->
-<!--            if(result.status == "success"){-->
-<!--                localStorage.setItem("loggedIn", "true");-->
-<!--                window.location.href = "index.html";-->
-<!--            }-->
-<!--        } catch (error) {-->
-<!--            console.error("Error:", error);-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 
 
 

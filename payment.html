@@ -1,47 +1,129 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ödeme Sayfası</title>
+
+    <head>
+        <meta charset="utf-8">
+        <title>ALDE Home</title>
+        <link rel="icon" href="img/favicon.png" type="image/png">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        h1 {
-            text-align: center;
-        }
-        .order-summary {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input, button {
+
+        .payment-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            max-width: 450px;
+        }
+
+        .payment-container h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .order-summary {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-summary h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .order-summary p {
+            margin: 5px 0;
             font-size: 16px;
+            color: #555;
         }
+
+        label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 95%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #4CAF50;
+        }
+
         button {
-            background-color: #4CAF50;
-            color: white;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            color: #fff;
+            background: linear-gradient(135deg, #6be585, #4CAF50);
             border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
         }
+
         button:hover {
-            background-color: #45a049;
+            background: linear-gradient(135deg, #4CAF50, #3e8c42);
+            transform: scale(1.02);
+        }
+
+        /* Bulanık Arka Plan */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/arka_plan_1.png') no-repeat center center/cover;
+            filter: blur(6px); /* Bulanıklaştırma efekti */
+            z-index: -1; /* Arka planda kalmasını sağlar */
+        }
+
+        @media (max-width: 480px) {
+            .payment-container {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-<h1>Ödeme Sayfası</h1>
+<div class="background"></div> <!-- Bulanık arka plan -->
+
+<div class="payment-container">
+    <h1>Kart ile Ödeme</h1>
 
 <div class="order-summary">
     <h3>Sipariş Özeti</h3>
@@ -51,19 +133,20 @@
 
 <form id="payment-form">
     <label for="card-holder-name">Kart Sahibinin Adı</label>
-    <input type="text" id="card-holder-name" name="cardHolderName" required>
+    <input type="text" id="card-holder-name" name="cardHolderName" placeholder="Ad Soyad" required>
 
     <label for="card-number">Kart Numarası</label>
-    <input type="text" id="card-number" name="cardNumber" maxlength="16" required>
+    <input type="text" id="card-number" name="cardNumber" maxlength="16" placeholder="1111 2222 3333 4444" required>
 
     <label for="expiry-date">Son Kullanma Tarihi (AA/YY)</label>
     <input type="text" id="expiry-date" name="expiryDate" placeholder="MM/YY" required>
 
     <label for="cvc">CVC</label>
-    <input type="text" id="cvc" name="cvc" maxlength="3" required>
+    <input type="text" id="cvc" name="cvc" maxlength="3" placeholder="123" required>
 
     <button type="submit">Ödemeyi Tamamla</button>
 </form>
+</div>
 
 <script>
     // URL'den gelen parametreleri al
