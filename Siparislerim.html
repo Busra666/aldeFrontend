@@ -165,31 +165,6 @@
             </ul>
         </div>
 
-        <!-- Verilen Sipariş Alanı -->
-        <div class="favorites-container" style="width: 100%">
-            <h2>Siparişlerim</h2>
-
-            <!-- verilen sipariş -->
-            <div class="favorite-item">
-                <img src="img/favori-1.png" alt="Favori 1" class="item-img">
-                <span class="item-name text-center">2025 KPSS Türkçe Tamamı Çözümlü 6+5+7 Deneme Benim Hocam Yayınları</span>
-
-                <div class="item-controls">
-                    <!-- Adet Kutusu -->
-                    <label for="adet" class="item-quantity-label">Adet:</label>
-                    <input type="text" id="adet" class="item-quantity" value="1" readonly>
-                </div>
-
-                <div class="favorite-btn">
-                    <button class="go-to-product-btn">
-                        <i class="fa fa-truck"></i> Kargo Takibi
-                    </button>
-                </div>
-            </div>
-        </div>
-
-
-
         <!-- Sağ Taraf Form -->
         <div class="adres-container" style="display: none">
             <div class="adres-box">
@@ -212,21 +187,37 @@
         <img src="img/favori-1.png" alt="Favori 1" class="item-img">
         <span class="item-name text-center">2025 KPSS Türkçe Tamamı Çözümlü 6+5+7 Deneme Benim Hocam Yayınları</span>
 
-        <div class="item-controls">
-            <!-- Adet Kutusu -->
-            <label for="adet" class="item-quantity-label">Adet:</label>
-            <input type="text" id="adet" class="item-quantity" value="1" readonly>
+        <div class="order-details text-center">
+            <!-- Tarih ve Saat -->
+            <div class="order-date-time">
+                <span class="order-date">Tarih: 23-12-2024</span>
+                <span class="order-time">Saat: 21:06:46</span>
+            </div>
+
+            <!-- Toplam Tutar -->
+            <div class="order-total item-controls">
+                <span class="total-label" style="color: red; font-weight: bold;">Toplam Tutar:</span>
+                <span class="total-amount">250.50 TL</span>
+            </div>
         </div>
+
+
 
         <div class="favorite-btn">
             <button class="go-to-product-btn">
                 <i class="fa fa-truck"></i> Kargo Takibi
             </button>
+
             <!-- Yorum Yap Butonu -->
             <button class="leave-review-btn">
                 <i class="fa fa-pencil"></i> Yorum Yap
             </button>
+
+            <button class="details-btn" onclick="goToDetails(5)">
+                <i class="fa fa-info-circle"></i> Detay
+            </button>
         </div>
+
     </div>
 </div>
 
@@ -313,7 +304,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
-    <script src="js/orders.js"></script>
+<!--    <script src="js/orders.js"></script>-->
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

@@ -11287,6 +11287,38 @@ textarea#fatura-adresi-text {
   cursor: pointer;
 }
 
+.order-details {
+  margin: 15px auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.order-date-time {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.order-date-time span {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.order-total {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.total-label {
+  margin-right: 5px;
+  color: red;
+  font-weight: bold;
+}
+
+.total-amount {
+  font-weight: bold;
+}
+
 
 
 
