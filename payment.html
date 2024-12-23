@@ -205,14 +205,18 @@
         console.log("Ödeme bilgileri alındı:", paymentData);
 
         // Backend'e ödeme bilgilerini gönder
-        const response = await fetch("http://192.168.1.13/paymentt.php", {
+        const response = await fetch("http://192.168.1.13/payment.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(paymentData)
         });
-
+        const htmlContent = await response.text(); // HTML içeriği al
+        const newWindow = window.open("", "_blank"); // Yeni bir pencere aç
+        newWindow.document.write(htmlContent); // HTML içeriğini yazdır
+        newWindow.document.close(); // Pencereyi kapat
+        /*
         const result = await response.json();
         console.log("Ödeme sonucu:", result);
 
@@ -222,6 +226,8 @@
         } else {
             alert("Ödeme başarısız: " + result.message);
         }
+
+         */
     });
 </script>
 </body>

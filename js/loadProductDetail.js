@@ -3,6 +3,7 @@ function getProductIdFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id'); // 'id' parametresini döner
 }
+
 // Ürün miktarını değiştirme butonlarına tıklama işlemi
 function updateQuantity(action, inputElement) {
     let currentValue = parseInt(inputElement.value, 10) || 1;
@@ -64,8 +65,9 @@ function handleAddToCart() {
 
 // Sayfa yüklendiğinde detayları yükle
 function loadProductDetail() {
+    getTotalFavCount();
     const productId = getProductIdFromURL();
-    const container = document.getElementById("product-detail-container");
+    const container = document.getElementById("only-product-detail");
 
     if (!productId) {
         container.innerHTML = `<div class="alert alert-danger">Ürün ID bulunamadı!</div>`;
@@ -78,13 +80,23 @@ function loadProductDetail() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ action: "read", id: productId })
+        body: JSON.stringify({action: "read", id: productId})
     })
         .then(response => response.json())
         .then(data => {
             if (data.error) {
                 container.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
                 return;
+            }
+
+
+            let replace = null;
+            if (data.image_path != null) {
+                replace = data.image_path.replace("C:\\xampp\\htdocs/", "");
+            }
+            let imageUrl = "";
+            if (replace != null) {
+                imageUrl = 'http://192.168.1.13/' + replace;
             }
 
             // Ürün detaylarını ekle
@@ -94,7 +106,7 @@ function loadProductDetail() {
                         <div id="product-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner bg-light">
                                 <div class="carousel-item active">
-                                    <img class="w-100 h-100" src="img/yeni_gelenler_1.png" alt="Image" style="max-width: 80%;">
+                                    <img class="w-100 h-100" src="${data.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="Image" style="max-width: 100%;object-fit: contain">
                                 </div>
                             </div>
                         </div>
@@ -104,7 +116,7 @@ function loadProductDetail() {
                         <div class="h-100 bg-light p-30">
                             <h3>${data.name}</h3>
                             <h3 class="font-weight-semi-bold mb-4">₺${data.price}</h3>
-                            <p class="mb-4">${data?.features?.replace(/\n/g, "<br>")}</p>
+                            <p class="mb-4">${data?.description}</p>
                             <div class="d-flex align-items-center mb-4 pt-2">
                                 <div class="input-group quantity mr-3" style="width: 130px;">
                                     <div class="input-group-btn">
@@ -182,7 +194,204 @@ function getTotalProductsCount() {
         });
 }
 
+function getTotalFavCount() {
+    const apiUrl = 'http://192.168.1.13/account.php'; // Backend API URL'si
+    const userId = localStorage.getItem("userId");
+    const favCountElement = document.getElementById('fav-count');
 
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "module": "favorites",
+            "action": "count",
+            "user_id": userId
+        })
+    })
+        .then(response => response.json()).then(data => {
+        console.warn(data)
+        if (data.favorite_count !== undefined) { // Eğer favori sayısı gelirse
+            const totalItems = data.favorite_count || 0; // Favori sayısı ya da 0
+            favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz
+        } else {
+            console.error('Favori sayısı alınamadı:', data.message);
+            favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+        }
+    })
+        .catch(error => {
+            console.error('Favori sayısı alınırken bir hata oluştu:', error);
+            favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
+        });
+}
+
+document.querySelector('.clickable-stars').addEventListener('click', function () {
+    // Yorum bölümüne kaydırma
+    const commentsSection = document.querySelector('#tab-pane-2');
+    commentsSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+
+});
+
+let selectedRating = 0;
+console.warn("a1")
+
+document.addEventListener("DOMContentLoaded", function () {
+
+console.warn(document.querySelectorAll('.stars'))
+})
+document.querySelectorAll('.stars .star').forEach(star => {
+    console.warn("a2")
+    console.warn(star)
+    star.addEventListener('click', function () {
+        console.warn("a3")
+        selectedRating = this.getAttribute('data-value'); // Seçilen puanı sakla
+        const stars = this.parentElement.querySelectorAll('.star');
+
+        // Yıldızları doldur/temizle
+        stars.forEach(s => {
+            if (s.getAttribute('data-value') <= selectedRating) {
+                s.classList.add('filled'); // Yıldızları altın rengiyle doldur
+            } else {
+                s.classList.remove('filled'); // Diğer yıldızları boş bırak
+            }
+        });
+    });
+});
+
+renderComments()
+function renderComments() {
+    const commentsList = document.getElementById("comments-list");
+
+    const productId = getProductIdFromURL();
+    const requestData = {
+        action: "read",
+        product_id: productId,
+    };
+
+    // Fetch ile POST isteği yap
+    fetch('http://localhost/product-review.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            commentsList.innerHTML = "";
+            if (data.error) {
+                alert(`Hata: ${data.error}`);
+                return;
+            }
+
+            data.forEach(comment => {
+                // Yıldızları oluştur
+                const stars = generateStars(comment.rating);
+
+                // Tarihi formatlama
+                const formattedDate = new Date(comment.created_at).toLocaleDateString("tr-TR", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+                // Adın ilk harfi büyük, kalan harfleri küçük
+                const formattedName = comment.name.charAt(0).toUpperCase() + comment.name.slice(1).toLowerCase();
+
+                // Soyadının ilk harfi
+                const surnameInitial = comment.surname.charAt(0).toUpperCase();
+
+                const commentTab = document.getElementById("comments-tab");
+                const commentCount = data.length;
+
+                // Yorum sayısını güncelle
+                commentTab.textContent = `Yorumlar (${commentCount})`;
+                const commentHTML = `
+            <div class="comment-item" style="border-bottom: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+                <p style="color: #3a3d41; margin: 0;"><strong>${formattedName} ${surnameInitial}.</strong></p>
+                <p style="color: #616469; margin: 5px 0;">${comment.comment}</p>
+                <div class="star-rating" style="margin-bottom: 5px; color: lightgray">${stars}</div>
+                <div style="text-align: right; color: #999; font-size: 12px;">${formattedDate}</div>
+            </div>
+        `;
+
+                commentsList.innerHTML += commentHTML;
+            });
+        })
+        .catch(error => {
+            alert(`Bir hata oluştu: ${error.message}`);
+        });
+
+}
+function generateStars(rating) {
+    let stars = "";
+    for (let i = 1; i <= 5; i++) {
+        stars += i <= rating ? "⭐" : "☆"; // Dolu yıldız için '⭐', boş yıldız için '☆'
+    }
+    return stars;
+}
+
+document.querySelector('.add-comment-btn').addEventListener('click', function () {
+    const comment = document.querySelector('.comment-input').value.trim();
+    const feedbackMessage = document.querySelector('.feedback-message');
+    const productId = getProductIdFromURL(); // URL'den ürün ID'sini al
+    const userId = localStorage.getItem("userId");
+
+    // Yorum ve puan kontrolü
+    if (!comment || selectedRating === 0) {
+        alert("Lütfen bir puan seçin ve yorumunuzu yazın.");
+        return;
+    }
+
+    // POST isteği için veri oluştur
+    const requestData = {
+        action: "create",
+        product_id: productId,
+        user_id: userId,
+        rating: selectedRating,
+        comment: comment
+    };
+
+    // Fetch ile POST isteği yap
+    fetch('http://localhost/product-review.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(`Hata: ${data.error}`);
+                return;
+            }
+
+            // Yorum başarı mesajını göster
+            feedbackMessage.style.display = 'block';
+            feedbackMessage.textContent = "Yorum başarıyla yapıldı!";
+
+            renderComments()
+            // 3 saniye sonra mesajı gizle
+            setTimeout(() => {
+                feedbackMessage.style.display = 'none';
+            }, 3000);
+
+            // Yorum alanını temizle
+            document.querySelector('.comment-input').value = '';
+            selectedRating = 0;
+            document.querySelectorAll('.stars .star').forEach(star => {
+                star.classList.remove('filled');
+            });
+        })
+        .catch(error => {
+            alert(`Bir hata oluştu: ${error.message}`);
+        });
+});
 
 // Sayfa yüklendiğinde detayları yükle
 window.onload = loadProductDetail;

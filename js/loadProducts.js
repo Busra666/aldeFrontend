@@ -48,10 +48,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                data.forEach(product => {
+                data?.forEach(product => {
                     const isFavorite = favoriteProducts.map(Number).includes(product.id);
                     const productCard = document.createElement('div');
                     productCard.className = 'col-lg-4 col-md-6 col-sm-6 pb-1';
+
+
+                    let replace = null;
+                    if(product.image_path != null) {
+                        replace = product.image_path.replace("C:\\xampp\\htdocs/","");
+                    }
+                    let imageUrl = "";
+                    if(replace != null) {
+                        imageUrl = 'http://192.168.1.13/' + replace;
+                    }
 
                     productCard.innerHTML = `
                         <div class="product-item bg-light mb-4">

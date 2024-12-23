@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
             .then(data => {
-                console.warn(data)
                 const addressContainer = document.querySelector(".adres-detaylari");
                 addressContainer.innerHTML = "<h3>Teslimat Adresi</h3>";
                 data.forEach((address, index) => {

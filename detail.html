@@ -130,7 +130,7 @@
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="Favorilerim.html" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span id="fav-count" class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                             <a href="Sepetim.html" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
@@ -164,7 +164,7 @@
 
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5" id="product-detail-container">
-        <div class="row px-xl-5">
+        <div id="only-product-detail" class="row px-xl-5">
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
@@ -328,8 +328,7 @@
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4 mobile-font">
 <!--                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Ürün Özellikleri</a>-->
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-2">Yorumlar (0)</a>
-                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Ödeme Seçenekleri</a>
+                        <a id="comments-tab" class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-2">Yorumlar (0)</a>
                     </div>
                     <div class="tab-content">
 <!--                        <div class="tab-pane fade show active" id="tab-pane-1">-->
@@ -340,17 +339,8 @@
                         <div class="tab-pane fade show active" id="tab-pane-2">
                             <!-- Yorumlar Kutusu -->
                             <div class="comments-container">
-                                <div class="comments-scroll">
+                                <div class="comments-scroll" id="comments-list">
 
-                                    <div class="comment-item">
-                                        <p style="color: #3a3d41"><strong>Ahmet Y.</strong></p>
-                                            <p style="color: #616469">Çok kaliteli bir ürün, tavsiye ederim!</p>
-                                        <div class="star-rating">
-                                            ⭐⭐⭐⭐⭐
-                                        </div>
-                                    </div>
-
-                                    </div>
                                 </div>
                                 <!-- Yıldız ve Yorum Ekleme Alanı -->
                                 <div class="rating-input">
@@ -370,89 +360,7 @@
                         </div>
 
 
-                    <script>
-                        // Tıklanabilir yıldızlar için event listener
-                        document.querySelector('.clickable-stars').addEventListener('click', function () {
-                            // Yorum bölümüne kaydırma
-                            const commentsSection = document.querySelector('#tab-pane-2');
-                            commentsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                        });
-
-                    let selectedRating = 0;
-
-                    document.querySelectorAll('.stars .star').forEach(star => {
-                    star.addEventListener('click', function () {
-                    selectedRating = this.getAttribute('data-value'); // Seçilen puanı sakla
-                    const stars = this.parentElement.querySelectorAll('.star');
-
-                    // Yıldızları doldur/temizle
-                    stars.forEach(s => {
-                    if (s.getAttribute('data-value') <= selectedRating) {
-                    s.classList.add('filled'); // Yıldızları altın rengiyle doldur
-                    } else {
-                    s.classList.remove('filled'); // Diğer yıldızları boş bırak
-                    }
-                    });
-                    });
-                    });
-
-                    document.querySelector('.add-comment-btn').addEventListener('click', function () {
-                    const comment = document.querySelector('.comment-input').value.trim();
-                    const feedbackMessage = document.querySelector('.feedback-message');
-
-                    // Yorum ve puan kontrolü
-                    if (!comment || selectedRating === 0) {
-                    alert("Lütfen bir puan seçin ve yorumunuzu yazın.");
-                    return;
-                    }
-
-                        // Yeni yorum elemanı oluştur
-                        const newComment = document.createElement('div');
-                        newComment.classList.add('comment-item');
-
-                        // Yorum içeriği
-                        newComment.innerHTML = `
-            <p style="color: #3a3d41"><strong>Yeni Kullanıcı</strong></p>
-            <p style="color: #616469">${comment}</p>
-            <div class="star-rating">${'⭐'.repeat(selectedRating)}</div>
-        `;
-
-                        // Yorumlar listesine ekle
-                        document.querySelector('.comments-scroll').appendChild(newComment);
-
-                        // Yorum başarı mesajını göster
-                        feedbackMessage.style.display = 'block';
-                        feedbackMessage.textContent = "Yorum başarıyla yapıldı!";
-
-                        // 3 saniye sonra mesajı gizle
-                        setTimeout(() => {
-                            feedbackMessage.style.display = 'none';
-                        }, 3000);
-
-                        // Yorum alanını temizle
-                        document.querySelector('.comment-input').value = '';
-                        selectedRating = 0;
-                        document.querySelectorAll('.stars .star').forEach(star => {
-                            star.classList.remove('filled');
-                        });
-                    });</script>
-
-
-
-                    <div class="tab-pane fade" id="tab-pane-3">
-                            <div class="row">
-
-                                <!-- Kredi Kartı Tek Çekim buton stili -->
-                                <span class="button-look">Kredi Kartı Tek Çekim ₺209,25</span>
-
-                                <!-- Kapıda Ödeme Nakit buton stili -->
-                                <span class="button-look">Kapıda Ödeme Nakit ₺248,25</span>
-
-
-                            </div>
-                        </div>
-                  </div>
 
                 </div>
             </div>
@@ -677,7 +585,7 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
 <script src="js/loadCategories.js"></script>
-<!--<script src="js/loadProductDetail.js"></script>-->
+<script src="js/loadProductDetail.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

@@ -39,8 +39,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 data?.data?.forEach(item => {
                     const cartItem = document.createElement('tr');
 
+                    let replace = null;
+                    if(item.image_path != null) {
+                        replace = item.image_path.replace("C:\\xampp\\htdocs/","");
+                    }
+                    let imageUrl = "";
+                    if(replace != null) {
+                        imageUrl = 'http://192.168.1.13/' + replace;
+                    }
                     cartItem.innerHTML = `
-                    <td class="align-middle"><img src="img/yeni_gelenler_1.png" alt="" style="width: 90px;">
+                    <td class="align-middle"><img src="${item.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="" style="width: 90px;">
                         <p>${item.name}</p></td>
                     <td class="align-middle">₺${item.price}</td>
                     <td class="align-middle">
@@ -190,11 +198,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
             });
     }
-    document.getElementById('complete-order-btn').addEventListener('click', function(event) {
-        // Eğer herhangi bir ekstra işlem yapmak isterseniz, burada kod ekleyebilirsiniz.
+    let elementById = document.getElementById('complete-order-btn');
+    if(elementById != null) {
+        elementById.addEventListener('click', function(event) {
+            // Eğer herhangi bir ekstra işlem yapmak isterseniz, burada kod ekleyebilirsiniz.
 
-        // Sayfayı SiparişTamamla.html sayfasına yönlendiriyoruz.
-        window.location.href = "SiparişTamamla.html";
-    });
+            // Sayfayı SiparişTamamla.html sayfasına yönlendiriyoruz.
+            window.location.href = "SiparişTamamla.html";
+        });
+    }
 
 });
