@@ -2372,8 +2372,7 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #212529;
-  background-color: #FFD333;
-  border-color: #FFD333;
+  background: linear-gradient(135deg, #6be585, #4CAF50);
 }
 
 .btn-primary:hover {
@@ -11237,6 +11236,57 @@ textarea {
   font-size: 14px;
   font-weight: bold;
 }
+
+.fatura-adresi {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+textarea#fatura-adresi-text {
+  width: 100%;
+  height: 80px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  resize: none;
+}
+
+.fatura-adresi-secenek label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.fatura-adresi-secenek input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+.adres-defteri {
+  margin: 15px 0;
+  font-family: Arial, sans-serif;
+}
+
+.adres-defteri label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#adres-dropdown {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
 
 
 

@@ -186,6 +186,41 @@
             </div>
             <button class="yeni-adres-ekle">+ Yeni Adres Ekle</button>
         </div>
+
+        <!-- Fatura Adresi Seçeneği -->
+        <div class="fatura-adresi-secenek">
+            <label for="fatura-adresi-farkli" style="display: flex; align-items: center;">
+                <input type="checkbox" id="fatura-adresi-farkli" name="fatura-adresi-farkli" onclick="toggleFaturaAdresi()" style="margin-right: 8px;">
+                Fatura Adresi ile Teslimat Adresi farklı olsun
+            </label>
+        </div>
+
+        <!-- Buraya adres defterimdeki diğer adresler seçenek olarak gelebilir -->
+        <div class="adres-defteri">
+            <label for="adres-dropdown">Fatura Adresim:</label>
+            <select id="adres-dropdown" name="adres-dropdown">
+                <option value="" disabled selected>Adres seçin</option>
+                <option value="adres1">
+                    Büşra PEHLİVAN - Güzlekent Mahallesi 510. Sokak İpek Sitesi No:2A/1, Eryaman, Etimesgut, Ankara, Türkiye
+                </option>
+                <option value="adres2">
+                    İş Yeri - Çankaya, Ankara, Türkiye
+                </option>
+                <option value="adres3">
+                    Yazlık - Bodrum, Muğla, Türkiye
+                </option>
+            </select>
+        </div>
+
+
+        <script>
+    function toggleFaturaAdresi() {
+        const faturaAdresi = document.querySelector('.fatura-adresi');
+        const checkbox = document.getElementById('fatura-adresi-farkli');
+        faturaAdresi.style.display = checkbox.checked ? 'block' : 'none';
+        }</script>
+
+
     </div>
 
     <!-- Ödeme Seçenekleri -->
@@ -202,7 +237,7 @@
             <li>Kargo Tutarı <span id = "cargo-price">₺49,90</span></li>
             <li><strong>Genel Toplam <span id="cart-total">₺259,15</span></strong></li>
         </ul>
-        <button class="tamamla">Siparişi Tamamla</button>
+        <button class="tamamla">Ödeme Sayfasına Geç</button>
     </div>
 
 </div>
