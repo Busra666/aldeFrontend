@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="img/yeni_gelenler_1.png" alt="${product.name}">
-                                <div class="product-action">
+                                <div class="product-action" onclick="window.location.href='detail.html?id=${product.id}'">
                                     <a id="favorite-btn-${product.id}" class="btn btn-outline-dark btn-square favorite-btn" href="#">
                                         <i class="${isFavorite ? 'fa fa-heart text-danger' : 'far fa-heart'}"></i>
                                     </a>

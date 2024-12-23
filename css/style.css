@@ -9697,15 +9697,14 @@ a.text-dark:hover, a.text-dark:focus {
 
 /* Özel Buton Stili */
 .btn-custom {
-  background-color: #28a745; /* Arka plan rengi (örneğin, yeşil) */
+  background: linear-gradient(135deg, #6be585, #4CAF50);
   color: white; /* Metin rengi */
   border-color: #28a745; /* Kenarlık rengi */
   transition: background-color 0.3s ease, color 0.3s ease; /* Geçiş efekti */
 }
 
 .btn-custom:hover {
-  background-color: #de6320; /* Hover durumunda daha koyu yeşil */
-  border-color: #de6320; /* Hover durumunda kenarlık rengi */
+  background: linear-gradient(135deg, #4CAF50, #3e8c42);
   color: white; /* Metin rengi değişmez */
 }
 
@@ -9758,7 +9757,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-item .btn:hover {
-  color: #FFD333 !important;
+  color: #ffffff !important;
 }
 
 .table.table-borderless thead tr,
@@ -10562,7 +10561,7 @@ button:hover {
 /* Ürün kartlarını ayarlama */
 .row-scroll .product-item {
   flex: 0 0 auto; /* Elemanların aynı boyutta olmasını sağlar */
-  width: 180px; /* Ürün genişliği */
+  width: 200px; /* Ürün genişliği */
 }
 
 /* Kaydırma çubuğunu özelleştirme (isteğe bağlı) */
@@ -11238,6 +11237,8 @@ textarea {
   font-size: 14px;
   font-weight: bold;
 }
+
+
 
 
 
