@@ -65,6 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         })
             .then(data => {
+                const addressContainer2 = document.querySelector(".adres-detaylari");
+                const selectDropdown = document.getElementById("adres-dropdown"); // Adres dropdown menüsü
+
+                // Adresleri select listesine ekleyelim
+                selectDropdown.innerHTML = "<option value='' disabled selected>Adres seçin</option>"; // Başlangıç seçeneği
+
+                data.forEach((address, index) => {
+                    // Adreslerin her biri için yeni bir option öğesi ekleyelim
+                    const option = document.createElement("option");
+                    option.value = address.id;
+                    option.textContent = `${address.name_surname} - ${address.address} - ${address.district}, ${address.city}`;
+                    selectDropdown.appendChild(option);
+
+                    if (index === 0) {
+                        selectedAddress = address; // İlk adresi seçili olarak ayarla
+                    }
+                });
                 const addressContainer = document.querySelector(".adres-detaylari");
                 addressContainer.innerHTML = "<h3>Teslimat Adresi</h3>";
                 data.forEach((address, index) => {
@@ -129,7 +146,13 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Siparişi tamamlarken hata oluştu:", error);
         }
     }
+    const faturaAdresiButton = document.getElementById("fatura-adresi-farkli");
 
+    faturaAdresiButton.addEventListener("click", () => {
+        const faturaAdresi = document.querySelector('.adres-defteri');
+        const checkbox = document.getElementById('fatura-adresi-farkli');
+        faturaAdresi.style.display = checkbox.checked ? 'block' : 'none';
+    });
     document.querySelector(".tamamla").addEventListener("click", completeOrder);
 
     // İlk yükleme

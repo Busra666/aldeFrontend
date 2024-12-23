@@ -179,10 +179,6 @@
                         Tel: 905542950219
                     </div>
                 </label>
-                <div class="adres-islem">
-                    <button class="duzenle">✏️</button>
-                    <button class="sil">❌</button>
-                </div>
             </div>
             <button class="yeni-adres-ekle">+ Yeni Adres Ekle</button>
         </div>
@@ -190,13 +186,13 @@
         <!-- Fatura Adresi Seçeneği -->
         <div class="fatura-adresi-secenek">
             <label for="fatura-adresi-farkli" style="display: flex; align-items: center;">
-                <input type="checkbox" id="fatura-adresi-farkli" name="fatura-adresi-farkli" onclick="toggleFaturaAdresi()" style="margin-right: 8px;">
+                <input type="checkbox" id="fatura-adresi-farkli" name="fatura-adresi-farkli" style="margin-right: 8px;">
                 Fatura Adresi ile Teslimat Adresi farklı olsun
             </label>
         </div>
 
         <!-- Buraya adres defterimdeki diğer adresler seçenek olarak gelebilir -->
-        <div class="adres-defteri">
+        <div class="adres-defteri" style="display: none">
             <label for="adres-dropdown">Fatura Adresim:</label>
             <select id="adres-dropdown" name="adres-dropdown">
                 <option value="" disabled selected>Adres seçin</option>
@@ -214,11 +210,7 @@
 
 
         <script>
-    function toggleFaturaAdresi() {
-        const faturaAdresi = document.querySelector('.fatura-adresi');
-        const checkbox = document.getElementById('fatura-adresi-farkli');
-        faturaAdresi.style.display = checkbox.checked ? 'block' : 'none';
-        }</script>
+    </script>
 
 
     </div>
