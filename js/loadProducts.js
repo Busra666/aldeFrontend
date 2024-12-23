@@ -62,34 +62,49 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(replace != null) {
                         imageUrl = 'http://192.168.1.13/' + replace;
                     }
+                    let rating = product.average_rating ? parseFloat(product.average_rating) : 0;
+                    let reviewCount = product.review_count || 0;
+                    let fullStars = Math.floor(rating); // Tam yıldız sayısı
+                    let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0; // Yarı yıldız kontrolü
+                    let emptyStars = 5 - fullStars - halfStar; // Boş yıldız sayısı
 
                     productCard.innerHTML = `
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="${product.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="${product.name}">
-                                <div class="product-action" onclick="window.location.href='detail.html?id=${product.id}'">
-                                    <a id="favorite-btn-${product.id}" class="btn btn-outline-dark btn-square favorite-btn" href="#">
-                                        <i class="${isFavorite ? 'fa fa-heart text-danger' : 'far fa-heart'}"></i>
-                                    </a>
-                                    <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}" style="white-space: normal; word-wrap: break-word;">
-                                    ${product.name}
-                                </a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>₺${product.price}</h5>
-                                </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <button id="add-to-cart-btn" class="btn btn-outline-dark btn btn-custom add-to-cart" data-product-id="${product.id}">SEPETE EKLE</a>
-                        </div>
-                            </div>
-                        </div>
-                        
-                    `;
+    <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden" onclick="window.location.href='detail.html?id=${product.id}'">
+            <img class="img-fluid w-100" src="${product.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="${product.name}">
+            <div class="product-action">
+                <!-- İncele Butonu -->
+                <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}"><i class="fa fa-search"></i></a>
+            </div>
+        </div>
+        <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="detail.html?id=${product.id}" style="white-space: normal; word-wrap: break-word;">
+                ${product.name}
+            </a>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+                <h5>₺${product.price}</h5>
+<!--                <h6 class="text-muted ml-2"><del>₺${product.old_price || 0}</del></h6>-->
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+                        ${[...Array(fullStars)].map(() => '<small class="fa fa-star text-primary mr-1"></small>').join('')}
+                        ${halfStar ? '<small class="fa fa-star-half-alt text-primary mr-1"></small>' : ''}
+                        ${[...Array(emptyStars)].map(() => '<small class="fa fa-star text-muted mr-1"></small>').join('')}
+                        <small>(${reviewCount})</small>
+                    </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+                <a class="btn btn-outline-dark btn btn-custom add-to-cart" href="#" data-product-id="${product.id}">
+                    <i class="fas fa-shopping-cart" style="margin-right: 5px;"></i> SEPETE EKLE
+                </a>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+                <a  id="favorite-btn-${product.id}" class="btn btn-outline-dark btn favorite-btn" href="#">
+                    <i class="${isFavorite ? 'fa fa-heart text-danger' : 'far fa-heart'}" style="margin-right: 5px;"></i>${isFavorite ? 'Favoriden Çıkar' : 'Favorilere Ekle'}
+                </a>
+            </div>
+        </div>
+    </div>
+`;
+
                     productList.appendChild(productCard);
                 })
 
@@ -141,25 +156,31 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-
     function updateFavoriteStatus(productId) {
         const favoriteBtn = document.getElementById(`favorite-btn-${productId}`);
-        // İkonu değiştir
         if (favoriteBtn) {
             const icon = favoriteBtn.querySelector('i');
-            getTotalFavCount()
-            if (icon.classList.contains('far')) {
-                // Favori oldu: far fa-heart yerine fa fa-heart text-danger
-                icon.classList.remove('fa', 'fa-heart', 'text-danger'); // Mevcut sınıfları kaldır
-                icon.classList.add('far', 'fa-heart'); // Yeni sınıfları ekle
+            const isFavorite = icon.classList.contains('far');
 
+            // Favori durumunu kontrol et ve metni ve ikonu güncelle
+            if (isFavorite) {
+                // Favoriden çıkar
+                icon.classList.remove('fa', 'fa-heart', 'text-danger');
+                icon.classList.add('far', 'fa-heart');
+                favoriteBtn.innerHTML = `<i class="far fa-heart" style="margin-right: 5px;"></i> Favorilere Ekle`; // Metni güncelle
             } else {
-                icon.classList.remove('far', 'fa-heart'); // Mevcut sınıfları kaldır
-                icon.classList.add('fa', 'fa-heart', 'text-danger'); // Yeni sınıfları ekle
-                // Favori kaldırıldı: fa fa-heart text-danger yerine far fa-heart
+                // Favoriye ekle
+                icon.classList.remove('far', 'fa-heart');
+                icon.classList.add('fa', 'fa-heart', 'text-danger');
+                favoriteBtn.innerHTML = `<i class="fa fa-heart text-danger" style="margin-right: 5px;"></i> Favoriden Çıkar`; // Metni güncelle
             }
+
+            // Favori sayısını güncelle
+            getTotalFavCount();
         }
     }
+
+
 
     function getTotalFavCount() {
         const apiUrl = 'http://192.168.1.13/account.php'; // Backend API URL'si
