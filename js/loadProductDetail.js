@@ -270,7 +270,7 @@ function renderComments() {
     };
 
     // Fetch ile POST isteği yap
-    fetch('http://localhost/product-review.php', {
+    fetch('http://192.168.1.13/product-review.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -357,7 +357,7 @@ document.querySelector('.add-comment-btn').addEventListener('click', function ()
     };
 
     // Fetch ile POST isteği yap
-    fetch('http://localhost/product-review.php', {
+    fetch('http://192.168.1.13/product-review.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
