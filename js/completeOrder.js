@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         let shippingFee = 39.99;
                         let totalPrice = parseFloat(data.total_price || 0);
-                        totalPrice == 0 || totalPrice > 1000 ? shippingFee = 0 : shippingFee = 39.99;
+                        totalPrice == 0 || totalPrice > 200 ? shippingFee = 0 : shippingFee = 39.99;
                         const result_price = totalPrice + shippingFee;
                         try {
                             const summaryContainer = document.querySelector(".siparis-ozeti ul");

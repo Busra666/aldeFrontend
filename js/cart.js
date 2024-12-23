@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.status === 'success') {
                     const siparisTutar = parseFloat(data.total_price || 0);
-                    siparisTutar == 0 || siparisTutar > 1000 ? kargoUcreti = 0 : kargoUcreti = 39.99;
+                    siparisTutar == 0 || siparisTutar > 200 ? kargoUcreti = 0 : kargoUcreti = 39.99;
                     const sepetToplam = siparisTutar + kargoUcreti;
 
                     // DOM öğelerini güncelle
