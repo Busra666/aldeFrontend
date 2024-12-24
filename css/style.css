@@ -11328,7 +11328,7 @@ textarea#fatura-adresi-text {
 /* Carousel içindeki resimleri düzenle */
 .carousel-inner img {
   object-fit: cover; /* Resmi kırpmadan, alanı dolduracak şekilde ölçeklendir */
-  height: 400px; /* Carousel yüksekliğini belirleyin */
+  height: 420px; /* Carousel yüksekliğini belirleyin */
   max-height: 1500px; /* Fazla uzamayı önleyin */
 }
 
