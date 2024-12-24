@@ -11319,6 +11319,24 @@ textarea#fatura-adresi-text {
   font-weight: bold;
 }
 
+.carousel-control-prev i,
+.carousel-control-next i {
+  font-size: 24px;
+  color: #000; /* İkon rengini değiştirin */
+}
+
+/* Carousel içindeki resimleri düzenle */
+.carousel-inner img {
+  object-fit: cover; /* Resmi kırpmadan, alanı dolduracak şekilde ölçeklendir */
+  height: 400px; /* Carousel yüksekliğini belirleyin */
+  max-height: 1500px; /* Fazla uzamayı önleyin */
+}
+
+
+
+
+
+
 
 
 
