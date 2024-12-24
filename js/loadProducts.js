@@ -69,9 +69,36 @@ document.addEventListener('DOMContentLoaded', function () {
                     let emptyStars = 5 - fullStars - halfStar; // Boş yıldız sayısı
 
                     productCard.innerHTML = `
+
+
+
     <div class="product-item bg-light mb-4">
-        <div class="product-img position-relative overflow-hidden" onclick="window.location.href='detail.html?id=${product.id}'">
-            <img class="img-fluid w-100" src="${product.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="${product.name}">
+        <div class="product-img position-relative overflow-hidden" >
+                        <div id="carouselExample${product.id}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
+                        <img src="img/yeni_gelenler_1.png" class="img-fluid w-100" alt="Resim 1">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
+                        <img src="img/home-sale-1.png" class="img-fluid w-100" alt="Resim 2">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
+                        <img src="img/favori-1.png" class="img-fluid w-100" alt="Resim 3">
+                    </a>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExample${product.id}" role="button" data-bs-slide="prev">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#carouselExample${product.id}" role="button" data-bs-slide="next">
+                <i class="fa-solid fa-chevron-right"></i>
+            </a>
+<!--            <img class="img-fluid w-100" src="${product.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="${product.name}">-->
             <div class="product-action">
                 <!-- İncele Butonu -->
                 <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}"><i class="fa fa-search"></i></a>
