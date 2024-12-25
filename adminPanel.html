@@ -246,38 +246,37 @@
         </button>
         <!-- Ürün Ekleme Formu -->
         <div id="add-product-form" class="content-section" style="display: none; border: 1px solid #ddd; padding: 20px; background-color: #fff;">
-            <h2>Yeni Ürün Ekle</h2>
-            <form id="productForm" onsubmit="addProduct(event)">
+            <h2 id="form-title">Yeni Ürün Ekle</h2>
+            <form id="productForm" action="process_product.php" method="POST" enctype="multipart/form-data">
                 <div style="margin-bottom: 15px;">
-                    <label for="productName">Ürün ID:</label><br>
-                    <input type="text" id="ID" name="productName" placeholder="Ürün ID girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                    <label for="productName">Ürün Adı:</label><br>
+                    <input type="text" id="productName" name="name" placeholder="Ürün adı girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                 </div>
                 <div style="margin-bottom: 15px;">
-                    <label for="productName">Ürün ID:</label><br>
-                    <input type="text" id="productName" name="productName" placeholder="Ürün adı girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                    <label for="productDescription">Açıklama:</label><br>
+                    <textarea id="productDescription" name="description" placeholder="Açıklama girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;"></textarea>
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label for="productCategory">Kategori:</label><br>
-                    <select id="productCategory" name="productCategory" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                    <select id="productCategory" name="category_id" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
                         <option value="">Kategori seçin</option>
-                        <option value="KPSS">KPSS</option>
-                        <option value="LGS">LGS</option>
-                        <option value="ALES">ALES</option>
                     </select>
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label for="productPrice">Fiyat (₺):</label><br>
-                    <input type="number" id="productPrice" name="productPrice" placeholder="Fiyat girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                    <input type="number" id="productPrice" name="price" placeholder="Fiyat girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;" step="0.01">
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label for="productImage">Görsel Yükle:</label><br>
-                    <input type="file" id="productImage" name="productImage" accept="image/*" required style="width: 100%; padding: 10px;">
+                    <input type="file" id="productImage" name="image" accept="image/*" required style="width: 100%; padding: 10px;">
                 </div>
+                <input type="hidden" name="action" value="create">
                 <div>
-                    <button type="submit" class="btn" style="background-color: #28a745; color: #fff;">Ekle</button>
+                    <button type="submit" id="submit-button" class="btn" style="background-color: #28a745; color: #fff;">Ekle</button>
                     <button type="button" class="btn btn-danger" onclick="cancelAddProduct()">İptal</button>
                 </div>
             </form>
+
         </div>
         <script>
             // Yeni ürün ekleme formunu gösterir
@@ -329,56 +328,14 @@
                 <th>Ürün ID</th>
                 <th>Ürün Görselleri</th>
                 <th>Adı</th>
+                <th>Açıklama</th>
                 <th>Kategori</th>
                 <th>Fiyat</th>
                 <th>İşlemler</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>101</td>
-                <td>
-                    <div class="product-images">
-                        <!-- Görsel için link -->
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal101">
-                            <img src="img/yeni_gelenler_1.png" alt="Ürün A" class="img-thumbnail" style="width: 50px; height: 50px;">
-                        </a>
-                        <!-- Görsel için link -->
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal101">
-                            <img src="img/yeni_gelenler_1.png" alt="Ürün A" class="img-thumbnail" style="width: 50px; height: 50px;">
-                        </a>
-                        <!-- Görsel için link -->
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal101">
-                            <img src="img/yeni_gelenler_1.png" alt="Ürün A" class="img-thumbnail" style="width: 50px; height: 50px;">
-                        </a>
-                    </div>
-                </td>
-                <td>Ürün A</td>
-                <td>KPSS</td>
-                <td>₺100</td>
-                <td>
-                    <button class="btn" style="border: 2px solid #459125; background-color: #41af13; color: white;">Düzenle</button>
-                    <button class="btn btn-danger">Sil</button>
-                </td>
-            </tr>
-            <tr>
-                <td>102</td>
-                <td>
-                    <div class="product-images">
-                        <!-- Görsel için link -->
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal102">
-                            <img src="img/favori-1.png" alt="Ürün B" class="img-thumbnail" style="width: 50px; height: 50px;">
-                        </a>
-                    </div>
-                </td>
-                <td>Ürün B</td>
-                <td>LGS</td>
-                <td>₺50</td>
-                <td>
-                    <button class="btn" style="border: 2px solid #459125; background-color: #41af13; color: white;">Düzenle</button>
-                    <button class="btn btn-danger">Sil</button>
-                </td>
-            </tr>
+            <tbody id="product-list">
+            <!-- Satırlar burada dinamik olarak eklenecek -->
             </tbody>
         </table>
     </div>
@@ -460,5 +417,7 @@
         <p>Uygulama ayarlarını buradan yapılandırabilirsiniz.</p>
     </div>
 </div>
+
+<script src="js/admin.js"></script>
 </body>
 </html>

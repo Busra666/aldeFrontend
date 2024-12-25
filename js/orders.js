@@ -46,13 +46,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var i = 1;
             orders.forEach((order) => {
+                console.warn(order);
                 // Sipariş detaylarını oluştur
                 const orderItem = document.createElement("div");
                 orderItem.classList.add("favorite-item");
 
                 orderItem.innerHTML = `
                 <span class="item-name text-center">${i})</span>
-                <span class="item-name text-center">${order.order_date || "Ürün Adı Belirtilmemiş"}</span>
+                
+            <div class="order-date-time">
+                <span class="order-date">Tarih: ${formatDate(order.order_date.split(" ")[0])}</span>
+                <span class="order-time">Saat: ${order.order_date.split(" ")[1]}</span>
+            </div>
 
                 <div class="item-controls">
                 <span class="item-name text-center" style="color: red">Toplam Tutar </span>
@@ -77,6 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function formatDate(date) {
+        const [year, month, day] = date.split('-');
+        return `${day}-${month}-${year}`;
+    }
     // Detay sayfasına yönlendirme
     window.goToDetails = function (orderId) {
         window.location.href = `siparisdetay.html?id=${orderId}`;
