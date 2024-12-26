@@ -50,8 +50,6 @@ document.getElementById('productForm').addEventListener('submit', async function
 
     // Eğer existingImages bir string (dosya yolları) ise, virgülle ayırarak diziye dönüştür
     const existingImagesArray = existingImages ? existingImages.split(',') : [];
-    console.log(name, description, price, categoryId);
-    console.log(images); // Çoklu dosyalar burada olacak
 
     // FormData oluştur
     const formData = new FormData();
