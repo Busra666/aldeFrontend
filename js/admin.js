@@ -44,8 +44,12 @@ document.getElementById('productForm').addEventListener('submit', async function
     const action = document.getElementById('submit-button').textContent == "Güncelle" ? "update" : "create"; // Action değerini kontrol et
 
     // Çoklu dosya seçimi
-    const images = document.getElementById('productImage').files;
 
+    const images = document.getElementById('productImage').files;
+    const existingImages = document.getElementById('productImage').getAttribute('data-image');
+
+    // Eğer existingImages bir string (dosya yolları) ise, virgülle ayırarak diziye dönüştür
+    const existingImagesArray = existingImages ? existingImages.split(',') : [];
     console.log(name, description, price, categoryId);
     console.log(images); // Çoklu dosyalar burada olacak
 
@@ -58,18 +62,14 @@ document.getElementById('productForm').addEventListener('submit', async function
     formData.append('action', action);
 
     // Çoklu dosyaları FormData'ya ekle
-    Array.from(document.getElementById('productImage').files).forEach(image => {
-        formData.append('images[]', image); // Yeni seçilen dosyalar
+
+    formData.append('existing_images', JSON.stringify(existingImagesArray));
+
+    // Yeni eklenen dosyaları ekle
+    Array.from(images).forEach(image => {
+        formData.append('images[]', image);
     });
 
-    // Mevcut dosyalar (selectedFiles dizisindeki "existing" türündeki görseller)
-    selectedFiles.forEach(file => {
-        if (file.type === "existing") {
-            formData.append('existing_images[]', file.path); // Mevcut görsel yolları
-        }
-    });
-
-    console.warn(formData);
 
     try {
         let url = 'http://192.168.1.13/products.php'; // Varsayılan servis URL
@@ -91,7 +91,8 @@ document.getElementById('productForm').addEventListener('submit', async function
             console.log('Sonuç:', result);
             fetchProducts(); // Ürünleri tekrar yükle
             document.getElementById('productForm').reset();  // Formu sıfırla
-
+            selectedFiles = [];
+            renderImagePreviews()
             document.getElementById('add-product-form').style.display = 'none';
             // Modal'ı kapat
         } else {
@@ -284,8 +285,9 @@ function getProductById(productId) {
 }
 
 // Düzenle butonuna tıklandığında
+let deletedImages = []; // Silinen görselleri tutacak dizi
+
 function editProduct(productId) {
-    // Ürünün detaylarını servisten alalım
     getProductById(productId).then(product => {
         if (!product) {
             console.error("Ürün bulunamadı!");
@@ -298,11 +300,9 @@ function editProduct(productId) {
         document.getElementById('productDescription').value = product.description;
         document.getElementById('productPrice').value = product.price;
 
-        // Kategorileri güncelle
         const dropdown = document.getElementById('productCategory');
         dropdown.innerHTML = '<option value="">Kategori seçin</option>';  // İlk seçenek
 
-        // Kategorileri dropdown'a ekleyelim
         categoriesCache.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
@@ -310,18 +310,61 @@ function editProduct(productId) {
             dropdown.appendChild(option);
         });
 
-        // Mevcut kategoriyi seçili yap
         dropdown.value = product.category_id;
-        // Görseli de mevcutsa göster
-        if (product.image_path) {
-            document.getElementById('productImage').setAttribute('data-image', product.image_path);
+
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        imagePreviewContainer.innerHTML = '';  // Önizleme alanını temizle
+
+        let currentImages = product.image_path ? product.image_path.split(',') : [];
+
+        if (currentImages.length > 0) {
+            currentImages.forEach(imagePath => {
+                const previewWrapper = document.createElement('div');
+                previewWrapper.style.position = "relative";
+                previewWrapper.style.display = "inline-block";
+                previewWrapper.style.marginRight = "10px";
+
+                const imgElement = document.createElement('img');
+                imgElement.src = imagePath.trim();
+                imgElement.alt = "Ürün görseli";
+                imgElement.style.width = "100px";
+                imgElement.style.height = "100px";
+                imgElement.style.objectFit = "cover";
+                imgElement.style.border = "1px solid #ddd";
+                imgElement.style.borderRadius = "5px";
+
+                const closeButton = document.createElement('button');
+                closeButton.textContent = "X";
+                closeButton.style.position = "absolute";
+                closeButton.style.top = "5px";
+                closeButton.style.right = "5px";
+                closeButton.style.backgroundColor = "#ff4d4f";
+                closeButton.style.color = "#fff";
+                closeButton.style.border = "none";
+                closeButton.style.borderRadius = "50%";
+                closeButton.style.width = "20px";
+                closeButton.style.height = "20px";
+                closeButton.style.cursor = "pointer";
+
+                // Silme butonuna tıklanınca görseli kaldır
+                closeButton.addEventListener('click', () => {
+                    imagePreviewContainer.removeChild(previewWrapper);
+                    deletedImages.push(imagePath.trim()); // Silinen görseli tut
+                    // Görselleri güncelle
+                    currentImages = currentImages.filter(path => path.trim() !== imagePath.trim());
+                    document.getElementById('productImage').setAttribute('data-image', currentImages.join(','));
+                });
+
+                previewWrapper.appendChild(imgElement);
+                previewWrapper.appendChild(closeButton);
+                imagePreviewContainer.appendChild(previewWrapper);
+            });
+            document.getElementById('productImage').setAttribute('data-image', currentImages.join(','));
         }
 
-        document.getElementById('form-title').textContent = "Ürün Düzenle";  // Başlık
+        document.getElementById('form-title').textContent = "Ürün Düzenle";
         document.getElementById('submit-button').textContent = "Güncelle";
-        // Formu görünür hale getir
         document.getElementById('add-product-form').style.display = 'block';
-
     });
 }
 
@@ -366,12 +409,10 @@ function deleteProduct(productId) {
         });
 }
 
-
-
 let selectedFiles = []; // Yüklenen dosyaları tutacak dizi
 
 // Dosya yükleme işlemi
-document.getElementById('productImage').addEventListener('change', function(e) {
+document.getElementById('productImage').addEventListener('change', function (e) {
     const files = e.target.files;
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
 
@@ -380,68 +421,64 @@ document.getElementById('productImage').addEventListener('change', function(e) {
         selectedFiles.push(file);
     });
 
-    // Resimleri önizleme alanında göster
-    renderImagePreviews();
+    // Eski görselleri (data-image'den) al
+    const existingImages = document.getElementById('productImage').getAttribute('data-image');
+    const existingImagesArray = existingImages ? existingImages.split(',') : [];
+
+    // Görselleri yeniden render et (hem eski hem yeni)
+    renderImagePreviews(existingImagesArray);
 });
 
-// Resim önizlemeleri için fonksiyon
-function renderImagePreviews() {
+// Resim önizlemeleri ve X butonları için işlev
+function renderImagePreviews(existingImagesArray) {
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-    imagePreviewContainer.innerHTML = ''; // Önizlemeleri temizle
+    imagePreviewContainer.innerHTML = ''; // Önizleme alanını temizle
 
-    // Yüklenen tüm dosyaları göster
-    selectedFiles.forEach((file, index) => {
-        const reader = new FileReader();
-
-        reader.onload = function(event) {
-            const imagePreview = document.createElement('div');
-            imagePreview.classList.add('image-preview');
-
-            const img = document.createElement('img');
-            img.src = event.target.result;
-
-            const removeBtn = document.createElement('button');
-            removeBtn.classList.add('remove-btn');
-            removeBtn.textContent = 'X';
-
-            // "X" butonuna tıklanınca resmi sil
-            removeBtn.addEventListener('click', function() {
-                removeFile(index); // Dosyayı diziden ve önizlemeden sil
-            });
-
-            // Resmi ekle
-            imagePreview.appendChild(img);
-            imagePreview.appendChild(removeBtn);
-
-            // Resim önizlemesini göster
-            imagePreviewContainer.appendChild(imagePreview);
-        };
-
-        reader.readAsDataURL(file);
+    // Eski görselleri önizleme alanına ekle
+    existingImagesArray?.forEach(imagePath => {
+        const imgElement = document.createElement('img');
+        imgElement.src = imagePath;
+        imgElement.classList.add('image-preview');
+        imgElement.setAttribute('data-image', imagePath);  // Görsel yolunu veri olarak tut
+        imgElement.innerHTML = `<span class="remove-img-btn">X</span>`;  // Kapatma butonu
+        imagePreviewContainer.appendChild(imgElement);
     });
-}
 
-// Dosya silme işlemi
-function removeFile(index) {
-    // selectedFiles dizisinden ilgili dosyayı sil
-    selectedFiles.splice(index, 1);
-
-    // input alanındaki dosya listesini güncelle
-    const input = document.getElementById('productImage');
-    const dataTransfer = new DataTransfer();
-
-    // Silinen dosya hariç tüm dosyaları yeniden input alanına ekle
+    // Yeni dosyaları önizlemeye ekle
     selectedFiles.forEach(file => {
-        dataTransfer.items.add(file);
+        const imgElement = document.createElement('img');
+        imgElement.src = URL.createObjectURL(file);
+        imgElement.classList.add('image-preview');
+        imgElement.setAttribute('data-image', file.name); // Dosya adını veri olarak tut
+        imgElement.innerHTML = `<span class="remove-img-btn">X</span>`;  // Kapatma butonu
+        imagePreviewContainer.appendChild(imgElement);
     });
 
-    // Güncellenmiş dosyaları input alanına geri aktar
-    input.files = dataTransfer.files;
+    // Kapatma butonuna tıklama işlemi
+    const removeButtons = document.querySelectorAll('.remove-img-btn');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const parent = button.closest('img');
+            const imagePath = parent.getAttribute('data-image');
 
-    // Resim önizlemelerini yeniden render et
-    renderImagePreviews();
+            // Seçilen dosyayı diziden kaldır
+            selectedFiles = selectedFiles.filter(file => file.name !== imagePath);
+            parent.remove();  // Görseli DOM'dan kaldır
+        });
+    });
 }
 
+// Eski görselleri yüklerken `productImage`'ın data-image özelliğine eski görselleri eklemek
+function loadExistingImages(product) {
+    if (product.image_path) {
+        // Eski görselleri formda göster
+        document.getElementById('productImage').setAttribute('data-image', product.image_path);
+
+        // Görselleri render et
+        const existingImages = product.image_path.split(',');
+        renderImagePreviews(existingImages);
+    }
+}
 // Sayfa Yüklendiğinde Kategorileri Getir
 document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
