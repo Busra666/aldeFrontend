@@ -151,8 +151,37 @@
 
     <!-- Siparişler Bölümü -->
     <div id="orders" class="content-section">
+        <div id="update-order-form" class="content-section" style="display: none; border: 1px solid #ddd; padding: 20px; background-color: #fff;">
+            <h2 id="order-form-title">Sipariş Güncelle</h2>
+            <form id="orderForm" action="process_order.php" method="POST">
+                <div style="margin-bottom: 15px;">
+                    <label for="orderId">Sipariş ID:</label><br>
+                    <input type="text" id="orderId" name="order_id" placeholder="Sipariş ID'sini girin" required style="width: 100%; padding: 10px; border: 1px solid #ccc;" readonly>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="orderStatus">Sipariş Durumu:</label><br>
+                    <select id="orderStatus" name="status" required style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                        <option value="">Durum seçin</option>
+                        <option value="pending">Beklemede</option>
+                        <option value="processing">İşleniyor</option>
+                        <option value="shipped">Kargolandı</option>
+                        <option value="delivered">Teslim Edildi</option>
+                        <option value="canceled">İptal Edildi</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="shipmentId">Kargo ID:</label><br>
+                    <input type="text" id="shipmentId" name="shipment_id" placeholder="Kargo ID'sini girin" style="width: 100%; padding: 10px; border: 1px solid #ccc;">
+                </div>
+                <input type="hidden" name="action" value="update">
+                <div>
+                    <button type="submit" id="order-submit-button" class="btn" style="background-color: #28a745; color: #fff;">Güncelle</button>
+                    <button type="button" class="btn btn-danger" onclick="cancelUpdateOrder()">İptal</button>
+                </div>
+            </form>
+        </div>
         <h1>Siparişler</h1>
-        <table>
+        <table id="ordersTable">
             <thead>
             <tr>
                 <th>Sipariş ID</th>
@@ -164,20 +193,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>#1001</td>
-                <td>AhmetYılmaz</td>
-                <td>Ürün A</td>
-                <td>Bekliyor</td>
-                <td>Kargo ID girilecek</td>
-                <td>
-                    <button class="btn">Görüntüle</button>
-                    <button class="btn btn-danger">İptal Et</button>
-                </td>
-            </tr>
+            <!-- Sipariş verileri burada dinamik olarak eklenecek -->
             </tbody>
         </table>
     </div>
+
 
 <!--    &lt;!&ndash; Ürün Yönetimi Bölümü &ndash;&gt;-->
 <!--    <div id="product-management" class="content-section">-->
@@ -366,6 +386,11 @@
             function cancelAddProduct() {
                 document.getElementById('productForm').reset();
                 document.getElementById('add-product-form').style.display = 'none';
+            }
+            // Formu gizler
+            function cancelUpdateOrder() {
+                document.getElementById('orderForm').reset();
+                document.getElementById('update-order-form').style.display = 'none';
             }
 
         </script>

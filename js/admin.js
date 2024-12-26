@@ -33,6 +33,45 @@ function populateDropdown(categories) {
     });
 }
 
+
+document.getElementById('orderForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Sayfanın yeniden yüklenmesini engelle
+
+    const formData = new FormData(this);
+    const jsonData = {
+        action: 'update', // Specify your action here
+        module: 'orders'  // Specify your module here
+    };
+
+    // Convert FormData to JSON
+    formData.forEach((value, key) => {
+        jsonData[key] = value;
+    });
+
+
+    // Send the JSON data using fetch
+    fetch('http://192.168.1.13/account.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('orderForm').reset();  // Formu sıfırla
+            selectedFiles = [];
+            renderImagePreviews()
+            document.getElementById('update-order-form').style.display = 'none';
+            fetchOrders()
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+})
+
 document.getElementById('productForm').addEventListener('submit', async function (event) {
     event.preventDefault(); // Sayfanın yeniden yüklenmesini engelle
 
@@ -107,7 +146,7 @@ document.getElementById('productForm').addEventListener('submit', async function
 
 function fetchProducts() {
     const url = 'http://192.168.1.13/products.php'; // Servis URL
-    const data = { action: 'read_all' }; // Gönderilecek parametre
+    const data = {action: 'read_all'}; // Gönderilecek parametre
 
     // AJAX isteği (fetch kullanarak)
     fetch(url, {
@@ -123,6 +162,7 @@ function fetchProducts() {
         })
         .catch(error => console.error('Veri çekme hatası:', error));
 }
+
 function updateTable(products) {
     const tableBody = document.getElementById('product-list');
     tableBody.innerHTML = ''; // Önceki veriyi temizle
@@ -179,7 +219,7 @@ function updateTable(products) {
 
         // İşlemler (Düzenle ve Sil butonları)
         const actionsCell = document.createElement('td');
-        if(product.is_deleted == 0) {
+        if (product.is_deleted == 0) {
             actionsCell.innerHTML = `
             <button class="btn" style="border: 2px solid #459125; background-color: #41af13; color: white;" onclick="editProduct(${product.id})">Düzenle</button>
             <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Pasif Et</button>
@@ -263,7 +303,7 @@ function updateTable(products) {
 // Ürün ID'sine göre ürün verisini alma
 function getProductById(productId) {
     const url = 'http://192.168.1.13/products.php';  // API URL
-    const data = { action: 'read', id: productId };  // Parametreler
+    const data = {action: 'read', id: productId};  // Parametreler
 
     return fetch(url, {
         method: 'POST',  // POST isteği
@@ -366,13 +406,6 @@ function editProduct(productId) {
     });
 }
 
-// Kategorileri Dropdown'a Yükleme
-function updateCategoryDropdown() {
-    const dropdown = document.getElementById('productCategory');
-    // Dropdown'u temizle
-    dropdown.innerHTML = '<option value="">Kategori seçin</option>';
-    fetchCategories()
-}
 
 let categoriesCache = []; // Kategorileri önceden bir değişkende tutacağız
 // Sil butonuna tıklandığında
@@ -466,19 +499,122 @@ function renderImagePreviews(existingImagesArray) {
     });
 }
 
-// Eski görselleri yüklerken `productImage`'ın data-image özelliğine eski görselleri eklemek
-function loadExistingImages(product) {
-    if (product.image_path) {
-        // Eski görselleri formda göster
-        document.getElementById('productImage').setAttribute('data-image', product.image_path);
+// API'den veri almak için fonksiyon
+function fetchOrders() {
 
-        // Görselleri render et
-        const existingImages = product.image_path.split(',');
-        renderImagePreviews(existingImages);
-    }
+    const apiUrl = "http://192.168.1.13/account.php";
+    // Siparişleri tabloya ekle
+    const tableBody = document.querySelector('#ordersTable tbody');
+
+    // Tabloyu temizle (önceki verileri sil)
+    tableBody.innerHTML = '';
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            module: "orders",
+            action: "read_all"
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.warn(data)
+            data.forEach(order => {
+                const row = document.createElement('tr');
+
+                // Sipariş ID'si
+                const orderId = document.createElement('td');
+                orderId.textContent = order.order_id;
+                row.appendChild(orderId);
+
+                // Müşteri adı
+                const customer = document.createElement('td');
+                customer.textContent = order.customer_name + order.customer_surname;
+                row.appendChild(customer);
+
+                // Ürün
+                const product = document.createElement('td');
+                product.textContent = order.products;
+                row.appendChild(product);
+
+                // Durum
+                const status = document.createElement('td');
+                status.textContent = order.order_status;
+                row.appendChild(status);
+
+                // Kargo ID'si
+                const shippingId = document.createElement('td');
+                shippingId.textContent = order.shipping_id ? order.shipping_id : 'Kargo ID girilecek';
+                row.appendChild(shippingId);
+
+                // İşlemler butonları
+                const actions = document.createElement('td');
+                actions.innerHTML = `
+                <button class="btn btn-info" onclick="showOrders(${order.order_id})">Görüntüle</button>
+                <button onclick="showUpdateOrderForm(${order.order_id},'${order.order_status}',${order.shipping_id})" class="btn btn-warning">Düzenle</button>
+                <button class="btn btn-danger" onclick="canceledUpdateOrder(${order.order_id})">İptal Et</button>
+            `;
+                row.appendChild(actions);
+
+                // Satırı tabloya ekle
+                tableBody.appendChild(row);
+            });
+        }).catch(error => console.error("Hata:", error));
+
 }
+
+function showUpdateOrderForm(orderId, currentStatus, currentShippingId) {
+    console.warn(currentShippingId)
+    console.warn(currentStatus)
+    document.getElementById('update-order-form').style.display = 'block';
+    document.getElementById('orderId').value = orderId; // Sipariş ID'yi doldur
+    document.getElementById('orderStatus').value = currentStatus;
+    document.getElementById('shipmentId').value = currentShippingId ? currentShippingId : '';
+
+}
+
+function canceledUpdateOrder(orderId) {
+
+    const jsonData = {
+        action: 'update', // Specify your action here
+        module: 'orders',  // Specify your module here
+        order_id: orderId,  // Specify your module here
+        status: 'canceled',  // Specify your module here
+        shipment_id : ''
+    };
+
+
+    // Send the JSON data using fetch
+    fetch('http://192.168.1.13/account.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(jsonData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('orderForm').reset();  // Formu sıfırla
+            document.getElementById('update-order-form').style.display = 'none';
+            fetchOrders()
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+}
+
+function showOrders(orderId) {
+    window.location.href = "siparisdetay.html?id=" + orderId;
+    document.getElementById('update-order-form').style.display = 'none';
+}
+
 // Sayfa Yüklendiğinde Kategorileri Getir
 document.addEventListener("DOMContentLoaded", () => {
     fetchProducts();
     fetchCategories();
+    fetchOrders();
 });
