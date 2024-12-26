@@ -11,6 +11,39 @@
             padding: 0;
             background-color: #f4f4f9;
         }
+        #imagePreviewContainer {
+            display: flex;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 100px; /* Resimlerin küçük boyutta gösterilmesi */
+            height: 100px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview .remove-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+        }
+
         .sidebar {
             width: 200px;
             background-color: #343a40;
@@ -80,6 +113,12 @@
         }
         .btn-danger:hover {
             background-color: #a71d2a;
+        }
+        .btn-blue {
+            background-color: dodgerblue;
+        }
+        .btn-blue:hover {
+            background-color: darkblue;
         }
     </style>
     <script>
@@ -268,8 +307,14 @@
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label for="productImage">Görsel Yükle:</label><br>
-                    <input type="file" id="productImage" name="image" accept="image/*" required style="width: 100%; padding: 10px;">
+                    <input type="file" id="productImage" name="images[]" accept="image/*" style="width: 100%; padding: 10px;" multiple>
                 </div>
+
+                <div id="imagePreviewContainer" style="display: flex; flex-wrap: wrap;"></div>
+                <!--                <div style="margin-bottom: 15px;">-->
+<!--                    <label for="productImage">Görsel Yükle:</label><br>-->
+<!--                    <input type="file" id="productImage" name="image" accept="image/*" style="width: 100%; padding: 10px;">-->
+<!--                </div>-->
                 <input type="hidden" name="action" value="create">
                 <div>
                     <button type="submit" id="submit-button" class="btn" style="background-color: #28a745; color: #fff;">Ekle</button>
@@ -318,6 +363,7 @@
 
             // Formu gizler
             function cancelAddProduct() {
+                document.getElementById('productForm').reset();
                 document.getElementById('add-product-form').style.display = 'none';
             }
 

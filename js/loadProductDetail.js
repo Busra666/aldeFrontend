@@ -84,6 +84,7 @@ function loadProductDetail() {
     })
         .then(response => response.json())
         .then(data => {
+            console.warn(data)
             if (data.error) {
                 container.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
                 return;
@@ -98,7 +99,7 @@ function loadProductDetail() {
             if (replace != null) {
                 imageUrl = 'http://192.168.1.13/' + replace;
             }
-
+            console.warn(data)
             // Ürün detaylarını ekle
             container.innerHTML = `
                 <div class="row px-xl-5">
@@ -118,28 +119,42 @@ function loadProductDetail() {
                             <h3 class="font-weight-semi-bold mb-4">₺${data.price}</h3>
                             <p class="mb-4">${data?.description}</p>
                             <div class="d-flex align-items-center mb-4 pt-2">
-                                <div class="input-group quantity mr-3" style="width: 130px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <button id="add-to-cart-btn" class="btn btn-primary px-3">
-                                    <i class="fa fa-shopping-cart mr-1"></i> SEPETE EKLE
-                                </button>
-                            </div>
+    <div class="input-group quantity mr-3" style="width: 130px;">
+        <div class="input-group-btn">
+            <button class="btn btn-primary btn-minus">
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+        <div class="input-group-btn">
+            <button class="btn btn-primary btn-plus">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <button id="add-to-cart-btn" class="btn btn-primary px-3">
+        <i class="fa fa-shopping-cart mr-1"></i> SEPETE EKLE
+    </button>
+    <p id="stock-status" class="ml-3 text-danger" style="display: none;"></p> <!-- Stok durumu için alan -->
+</div>
                         </div>
                     </div>
                 </div>
             `;
 
+            var addToCartButton = document.getElementById('add-to-cart-btn');
+            var stockStatus = document.getElementById('stock-status');
+
+// Eğer ürün stokta yoksa
+            if (data.is_deleted == 1) {
+                console.warn(data)
+                addToCartButton.disabled = true; // Sepete ekle butonunu devre dışı bırak
+                stockStatus.style.display = 'block'; // Stok durumu mesajını göster
+                stockStatus.textContent = 'Tükenmiştir'; // "Tükenmiştir" mesajını göster
+            } else {
+                addToCartButton.disabled = false;
+                stockStatus.style.display = 'none'; // Stok durumu mesajını gizle
+            }
             // Miktar değişim butonları için olay dinleyicileri ekle
             document.querySelector('.btn-plus').addEventListener('click', function () {
                 const quantityInput = document.querySelector('.quantity input');
