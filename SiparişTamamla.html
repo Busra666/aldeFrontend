@@ -208,9 +208,52 @@
             </select>
         </div>
 
+        <!-- Kurumsal/Bireysel Fatura Seçeneği -->
+        <div class="fatura-tipi-secenek" style="margin-top: 15px;">
+            <label for="fatura-tipi">Fatura Tipi:</label>
+            <select id="fatura-tipi" name="fatura-tipi" style="width: 100%; padding: 8px;">
+                <option value="bireysel" selected>Bireysel</option>
+                <option value="kurumsal">Kurumsal</option>
+            </select>
+        </div>
 
-        <script>
-    </script>
+
+        <!-- Kurumsal Fatura Bilgileri -->
+        <div id="kurumsal-fatura-bilgileri" style="display: none; margin-top: 20px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+            <h3 style="font-size: 1.5em; color: #333; text-align: center; margin-bottom: 20px;">Kurumsal Fatura Bilgileri</h3>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Fatura Türü:</label>
+                <div style="display: flex; gap: 50px;">
+                    <label style="display: flex; flex-direction: column; align-items: center;">
+                        <input type="radio" name="fatura-turu" value="e-arsiv" style="margin-right: 5px;"> E-Arşiv
+                    </label>
+                    <label style="display: flex; flex-direction: column; align-items: center;">
+                        <input type="radio" name="fatura-turu" value="e-fatura" style="margin-right: 5px;"> E-Fatura
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="unvan" style="font-weight: bold; display: block; margin-bottom: 5px;">Ünvan:</label>
+                <input type="text" id="unvan" name="unvan" placeholder="Şirket Adınızı Girin" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="vergi-numarasi" style="font-weight: bold; display: block; margin-bottom: 5px;">Vergi Numarası:</label>
+                <input type="text" id="vergi-numarasi" name="vergi-numarasi" placeholder="Vergi Numaranızı Girin" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="vergi-dairesi" style="font-weight: bold; display: block; margin-bottom: 5px;">Vergi Dairesi:</label>
+                <input type="text" id="vergi-dairesi" name="vergi-dairesi" placeholder="Vergi Dairesi Adı" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="eposta" style="font-weight: bold; display: block; margin-bottom: 5px;">E-Posta Adresi:</label>
+                <input type="email" id="eposta" name="eposta" placeholder="E-posta Adresinizi Girin" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            </div>
+        </div>
 
 
     </div>
@@ -234,6 +277,20 @@
 
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const faturaTipiSelect = document.getElementById('fatura-tipi');
+        const kurumsalFaturaBilgileri = document.getElementById('kurumsal-fatura-bilgileri');
+
+        faturaTipiSelect.addEventListener('change', function () {
+            if (faturaTipiSelect.value === 'kurumsal') {
+                kurumsalFaturaBilgileri.style.display = 'block';
+            } else {
+                kurumsalFaturaBilgileri.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
