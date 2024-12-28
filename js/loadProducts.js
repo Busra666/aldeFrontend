@@ -54,51 +54,46 @@ document.addEventListener('DOMContentLoaded', function () {
                     productCard.className = 'col-lg-4 col-md-6 col-sm-6 pb-1';
 
 
-                    let replace = null;
+                    let imageUrl = null;
                     if(product.image_path != null) {
-                        replace = product.image_path.replace("C:\\xampp\\htdocs/","");
+                        imageUrl = product.image_path.replaceAll("C:\\xampp\\htdocs/","http://192.168.1.13/");
                     }
-                    let imageUrl = "";
-                    if(replace != null) {
-                        imageUrl = 'http://192.168.1.13/' + replace;
-                    }
+                    console.warn(product)
                     let rating = product.average_rating ? parseFloat(product.average_rating) : 0;
                     let reviewCount = product.review_count || 0;
                     let fullStars = Math.floor(rating); // Tam yıldız sayısı
                     let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0; // Yarı yıldız kontrolü
                     let emptyStars = 5 - fullStars - halfStar; // Boş yıldız sayısı
-
+                    console.warn(imageUrl)
                     productCard.innerHTML = `
-
-
-
     <div class="product-item bg-light mb-4">
-        <div class="product-img position-relative overflow-hidden" >
-                        <div id="carouselExample${product.id}" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
-                        <img src="img/yeni_gelenler_1.png" class="img-fluid w-100" alt="Resim 1">
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
-                        <img src="img/home-sale-1.png" class="img-fluid w-100" alt="Resim 2">
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
-                        <img src="img/favori-1.png" class="img-fluid w-100" alt="Resim 3">
-                    </a>
-                </div>
+        <div class="product-img position-relative overflow-hidden">
+            <div id="carouselExample${product.id}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+    ${imageUrl && imageUrl.length > 0 ? imageUrl.split(',').map((image, index) => {
+                        console.warn(image); // Her bir resim URL'sini konsola yazdır
+                        return `
+            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
+                    <img src="${image.trim()}" class="img-fluid w-100" alt="Resim ${index + 1}">
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#carouselExample${product.id}" role="button" data-bs-slide="prev">
-                <i class="fa-solid fa-chevron-left"></i>
+        `;
+                    }).join('') : `
+        <div class="carousel-item active">
+            <a href="detail.html?id=${product.id}" style="display: block; overflow: hidden;">
+                <img src="img/default_image.png" class="img-fluid w-100" alt="Varsayılan Resim">
             </a>
-            <a class="carousel-control-next" href="#carouselExample${product.id}" role="button" data-bs-slide="next">
-                <i class="fa-solid fa-chevron-right"></i>
-            </a>
-<!--            <img class="img-fluid w-100" src="${product.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="${product.name}">-->
+        </div>
+    `}
+</div>
+                <a class="carousel-control-prev" href="#carouselExample${product.id}" role="button" data-bs-slide="prev">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#carouselExample${product.id}" role="button" data-bs-slide="next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
             <div class="product-action">
                 <!-- İncele Butonu -->
                 <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}"><i class="fa fa-search"></i></a>
@@ -110,14 +105,13 @@ document.addEventListener('DOMContentLoaded', function () {
             </a>
             <div class="d-flex align-items-center justify-content-center mt-2">
                 <h5>₺${product.price}</h5>
-<!--                <h6 class="text-muted ml-2"><del>₺${product.old_price || 0}</del></h6>-->
             </div>
             <div class="d-flex align-items-center justify-content-center mb-1">
-                        ${[...Array(fullStars)].map(() => '<small class="fa fa-star text-primary mr-1"></small>').join('')}
-                        ${halfStar ? '<small class="fa fa-star-half-alt text-primary mr-1"></small>' : ''}
-                        ${[...Array(emptyStars)].map(() => '<small class="fa fa-star text-muted mr-1"></small>').join('')}
-                        <small>(${reviewCount})</small>
-                    </div>
+                ${[...Array(fullStars)].map(() => '<small class="fa fa-star text-primary mr-1"></small>').join('')}
+                ${halfStar ? '<small class="fa fa-star-half-alt text-primary mr-1"></small>' : ''}
+                ${[...Array(emptyStars)].map(() => '<small class="fa fa-star text-muted mr-1"></small>').join('')}
+                <small>(${reviewCount})</small>
+            </div>
             <div class="d-flex align-items-center justify-content-center mb-1">
                 <a class="btn btn-outline-dark btn btn-custom add-to-cart" href="#" data-product-id="${product.id}">
                     <i class="fas fa-shopping-cart" style="margin-right: 5px;"></i> SEPETE EKLE
@@ -131,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     </div>
 `;
+
 
                     productList.appendChild(productCard);
                 })

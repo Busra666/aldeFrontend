@@ -30,10 +30,26 @@
     <!-- Topbar Start -->
 
     <!-- Mobil Aşağı Bar -->
+
     <div class="mobile-bottom-bar d-lg-none">
-        <a href="giris.html" class="bottom-bar-item"><i class="fa fa-user"></i><span>Giriş Yap veya Üye Ol</span></a>
-        <a href="#" class="bottom-bar-item"><i class="fa fa-heart"></i><span>Favoriler</span></a>
-        <a href="#" class="bottom-bar-item"><i class="fa fa-shopping-cart"></i><span>Sepetim</span></a>
+        <a href="giris.html" id="authLink" class="bottom-bar-item">
+            <i class="fa fa-user"></i>
+            <span id="authText">Giriş Yap veya Üye Ol</span>
+        </a>
+        <a href="Favorilerim.html" class="bottom-bar-item2 position-relative text-center">
+            <!-- Kalp İkonu -->
+            <i class="fa fa-heart" style="font-size: 20px;"></i>
+            <!-- Favori Sayısı -->
+            <span id="fav-count-1" class="badge border border-secondary rounded-circle position-absolute">0</span>
+            <!-- Favoriler Metni -->
+            <span style="display: block; font-size: 14px; margin-top: 5px;">Favoriler</span>
+        </a>
+
+        <a href="Sepetim.html" class="bottom-bar-item2 position-relative text-center">
+            <i class="fa fa-shopping-cart" style="font-size: 20px;"></i>
+            <span id="cart-count-1" class="badge border border-secondary rounded-circle position-absolute">0</span>
+            <span style="display: block; font-size: 14px; margin-top: 5px;">Sepetim</span>
+        </a>
     </div>
 
     <div class="container-fluid">

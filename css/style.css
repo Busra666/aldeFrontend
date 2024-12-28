@@ -11351,6 +11351,33 @@ textarea#fatura-adresi-text {
 
 
 
+.bottom-bar-item2 {
+  position: relative;
+  color: #333;
+  flex: 1;
+  text-align: center;
+  display: inline-block;
+}
+
+.bottom-bar-item2 i {
+  font-size: 20px;
+}
+
+.bottom-bar-item2 .badge {
+  position: absolute;
+  top: -10px; /* Kalbin üstüne taşımak için */
+  right: 40px; /* Kalpten sağa kaydırmak için */
+  background-color: white;
+  color: black;
+  padding: 5px 7px;
+  font-size: 12px;
+}
+
+.bottom-bar-item2 span:last-child {
+  display: block;
+  font-size: 14px; /* "Favoriler" yazısının boyutu */
+  margin-top: 5px; /* Kalbin altına boşluk eklemek için */
+}
 
 
 

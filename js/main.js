@@ -29,7 +29,15 @@
         const loggedIn = localStorage.getItem("loggedIn");
         const username = localStorage.getItem("username");
         const menu = document.getElementById("menu");
+
+        const authLink = document.getElementById("authLink");
+        const authText = document.getElementById("authText");
+
         if (loggedIn === "true") {
+            if(authLink != null && authText != null) {
+                authLink.href = "hesabim.html"; // Linki değiştir
+                authText.textContent = username; // Kullanıcı adını yazdır
+            }
             // Kullanıcı giriş yaptıysa, "HESABIM" menüsünü gösteriyoruz
             menu.innerHTML = `<button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">${username}</button>
         <div class="dropdown-menu dropdown-menu-right">
@@ -44,6 +52,11 @@
             // Eğer giriş yapılmadıysa, "Üye Girişi veya Üye Ol" menüsünü gösteriyoruz
             if(menu == null) {
                 return
+            }
+
+            if(authLink != null && authText != null) {
+                authLink.href = "giris.html"; // Varsayılan link
+                authText.textContent = "Giriş Yap veya Üye Ol"; // Varsayılan metin
             }
             menu.innerHTML = `
         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Üye Girişi veya Üye Ol</button>
@@ -241,6 +254,7 @@
         const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
+        const cartCountElement1 = document.getElementById('cart-count-1');
 
         fetch(apiUrl, {
             method: 'POST',
@@ -259,10 +273,16 @@
                     if(cartCountElement != null) {
                         cartCountElement.textContent = totalItems; // Sepet sayısını güncelle
                     }
+                    if(cartCountElement1 != null) {
+                        cartCountElement1.textContent = totalItems; // Sepet sayısını güncelle
+                    }
                 } else {
                     console.error('Sepet sayısı alınamadı:', data.message);
                     if(cartCountElement != null) {
                         cartCountElement.textContent = '0'; // Hata durumunda 0 göster
+                    }
+                    if(cartCountElement1 != null) {
+                        cartCountElement1.textContent = '0'; // Hata durumunda 0 göster
                     }
                 }
             })
@@ -271,6 +291,9 @@
                 if(cartCountElement != null) {
                     cartCountElement.textContent = '0'; // Hata durumunda 0 göster
                 }
+                if(cartCountElement1 != null) {
+                    cartCountElement1.textContent = '0'; // Hata durumunda 0 göster
+                }
             });
     }
 
@@ -278,6 +301,7 @@
         const apiUrl = 'http://192.168.1.13/account.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
+        const favCountElement1 = document.getElementById('fav-count-1');
 
         fetch(apiUrl, {
             method: 'POST',
@@ -294,12 +318,19 @@
             if (data.favorite_count !== undefined) { // Eğer favori sayısı gelirse
                 const totalItems = data.favorite_count || 0; // Favori sayısı ya da 0
                 if(favCountElement != null) {
-                    favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz
+                    favCountElement.textContent = totalItems; // Favori sayısını DOM'da güncelliyoruz // Favori sayısını DOM'da güncelliyoruz
+                }
+                if(favCountElement1 != null) {
+                    favCountElement1.textContent = totalItems;
                 }
             } else {
                 console.error('Favori sayısı alınamadı:', data.message);
                 if(favCountElement != null) {
                     favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
+                }
+
+                if(favCountElement1 != null) {
+                    favCountElement1.textContent = '0';
                 }
             }
         })
