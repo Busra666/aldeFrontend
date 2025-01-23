@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // AJAX isteği gönder
-        fetch("http://192.168.1.13/account.php", {
+        fetch("https://aldekitap.com/backend/account.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

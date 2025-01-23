@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let cityId;
 
     // Şehirleri API'den çek
-    fetch('http://192.168.1.13/account.php', {
+    fetch('https://aldekitap.com/backend/account.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedCityOption = this.options[this.selectedIndex]; // Seçili option öğesi
         cityId = selectedCityOption.getAttribute('data-city-id');
         if (cityId) {
-            fetch('http://192.168.1.13/account.php', {
+            fetch('https://aldekitap.com/backend/account.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const adresListesi = document.querySelector('#adres-listesi-ul');
 
         // API'den adresleri çek
-        fetch('http://192.168.1.13/account.php', {
+        fetch('https://aldekitap.com/backend/account.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const addressId = this.dataset.id;
 
                 // API'ye silme isteği gönder
-                fetch('http://192.168.1.13/account.php', {
+                fetch('https://aldekitap.com/backend/account.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const addressId = this.dataset.id;
-                fetch('http://192.168.1.13/account.php', {
+                fetch('https://aldekitap.com/backend/account.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             document.querySelector("#sehir").value = address.city;
                             document.querySelector("#ilce").value = address.district;
                             document.querySelector("#adres").value = address.address;
-                            fetch('http://192.168.1.13/account.php', {
+                            fetch('https://aldekitap.com/backend/account.php', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const actionType = addressId ? "update" : "create";
             // Postman servisinin backend API'ye form verilerini gönder
-            fetch('http://192.168.1.13/account.php', {
+            fetch('https://aldekitap.com/backend/account.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
