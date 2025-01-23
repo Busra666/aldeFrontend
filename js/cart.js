@@ -39,18 +39,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 data?.data?.forEach(item => {
                     const cartItem = document.createElement('tr');
 
+
                     let replace = null;
-                    if(item.image_path != null) {
-                        replace = item.image_path.replace("C:\\xampp\\htdocs/","");
+                    if (item.image_path != null) {
+                        replace = item.image_path.replace("C:\\xampp\\htdocs/", "");
                     }
-                    let imageUrl = "";
+
+                    let imageUrl= replace;
                     if(replace != null) {
+                        imageUrl= replace.split(",")[0];
+                    }
+                    if (replace != null && !replace.includes("https")) {
                         imageUrl = 'http://192.168.1.13/' + replace;
                     }
                     cartItem.innerHTML = `
-                    <td class="align-middle"><img src="${item.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="" style="width: 90px;">
-                        <p>${item.name}</p></td>
-                    <td class="align-middle">₺${item.price}</td>
+                    <td class="align-middle">
+    <img src="${item.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="" style="width: 90px;">
+    <a href="detail.html?id=${item.product_id}" class="product-name">${item.name}</a>
+</td>
+<td class="align-middle">₺${item.price}</td>
                     <td class="align-middle">
                         <div class="input-group quantity mx-auto" style="width: 100px;">
                             <div class="input-group-btn">

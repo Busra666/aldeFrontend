@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
     let selectedAddress = null
+    let billingAddressId = null
 
     // Adresleri getir ve listele
     async function fetchOrderSummary() {
@@ -127,11 +128,53 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error('Adresler yüklenirken hata oluştu:', error);
             });
     }
-
     async function completeOrder() {
         if (!selectedAddress) {
             alert("Lütfen bir teslimat adresi seçin.");
             return;
+        }
+
+        const faturaTipi = document.getElementById("fatura-tipi").value;
+
+        let faturaParams = ""; // Fatura bilgilerini URL'ye eklemek için kullanılacak
+        let selectedBillingAddress = selectedAddress; // Varsayılan olarak teslimat adresi, fatura adresidir
+
+        // Eğer fatura adresi farklı seçildiyse, fatura adresini alın
+        const isBillingAddressDifferent = document.getElementById("fatura-adresi-farkli").checked;
+        if (isBillingAddressDifferent) {
+            billingAddressId = document.getElementById("adres-dropdown").value;
+            if (!billingAddressId) {
+                alert("Lütfen bir fatura adresi seçin.");
+                return;
+            }
+            console.warn(billingAddressId)
+        }
+
+        if (faturaTipi === "kurumsal") {
+            const unvan = document.getElementById("unvan").value.trim();
+            const vergiNumarasi = document.getElementById("vergi-numarasi").value.trim();
+            const vergiDairesi = document.getElementById("vergi-dairesi").value.trim();
+            const eposta = document.getElementById("eposta").value.trim();
+            const faturaTuru = document.querySelector('input[name="fatura-turu"]:checked');
+
+            // Alanların doğruluğunu kontrol et
+            if (!unvan || !vergiNumarasi || !vergiDairesi || !eposta || !faturaTuru) {
+                alert("Kurumsal fatura seçeneği için tüm alanları doldurmanız gerekmektedir.");
+                return false; // İşlemi durdur
+            }
+
+            // E-posta doğrulama kontrolü
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(eposta)) {
+                alert("Lütfen geçerli bir e-posta adresi giriniz.");
+                return false; // İşlemi durdur
+            }
+
+            // Fatura bilgilerini URL parametrelerine ekle
+            faturaParams = `&faturaTipi=${faturaTipi}&unvan=${encodeURIComponent(unvan)}&vergiNumarasi=${encodeURIComponent(vergiNumarasi)}&vergiDairesi=${encodeURIComponent(vergiDairesi)}&eposta=${encodeURIComponent(eposta)}&faturaTuru=${encodeURIComponent(faturaTuru.value)}`;
+        } else {
+            // Bireysel fatura tipini ekle
+            faturaParams = `&faturaTipi=${faturaTipi}`;
         }
 
         try {
@@ -140,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const totalPrice = totalPriceElement.textContent.replace("₺", "").trim(); // Toplam fiyatı alın
 
             // Kullanıcıyı payment.html sayfasına yönlendir
-            const paymentUrl = `payment.html?totalPrice=${totalPrice}&addressId=${selectedAddress.id}&addressTitle=${encodeURIComponent(selectedAddress.address_title)}`;
+            const paymentUrl = `payment.html?totalPrice=${totalPrice}&&addressId=${selectedAddress.id}&addressTitle=${encodeURIComponent(selectedAddress.address_title)}&billingAddressId=${billingAddressId}${faturaParams}`;
             window.location.href = paymentUrl;
         } catch (error) {
             console.error("Siparişi tamamlarken hata oluştu:", error);

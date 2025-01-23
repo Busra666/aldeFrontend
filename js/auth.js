@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem("loggedIn", "true");
                 localStorage.setItem("userId", result?.userId);
                 localStorage.setItem("username", result?.username);
+                localStorage.setItem("eposta", result?.eposta);
                 window.location.href = 'index.html';
             } else {
                 alert(result.message || 'Hatalı giriş bilgileri.');

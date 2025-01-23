@@ -1,6 +1,12 @@
 // API URL
 const apiUrl = "http://192.168.1.13/categories.php";
 
+let eposta = localStorage.getItem("eposta");
+console.warn(eposta)
+if (eposta != null && eposta != "aldeogrencikafasi@gmail.com") {
+    window.location.href = 'index.html';
+}
+
 // Kategorileri Çekme Fonksiyonu
 function fetchCategories() {
     fetch(apiUrl, {
