@@ -70,10 +70,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     data?.forEach(item => {
                         const cartItem = document.createElement('tr');
 
+                        let replace = null;
+                        if (item.product_image_path != null) {
+                            replace = item.product_image_path.replace("C:\\xampp\\htdocs/", "");
+                        }
+
+                        let imageUrl= replace;
+                        if(replace != null) {
+                            imageUrl= replace.split(",")[0];
+                        }
+                        if (replace != null && !replace.includes("https")) {
+                            imageUrl = 'http://192.168.1.13/' + replace;
+                        }
                         cartItem.innerHTML = `
-                    <td class="align-middle"><img src="img/yeni_gelenler_1.png" alt="" style="width: 90px;">
-                        <span class="item-name text-center">${item.product_name}</span>
-                </td>
+                    <td class="align-middle">
+    <img src="${item.product_image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="" style="width: 90px;">
+    <a href="detail.html?id=${item.product_id}" class="product-name">${item.product_name}</a>
+</td>
                     <td class="align-middle">₺${item.product_price}</td>
                     <td class="align-middle">
                      <div class="favorite-btn">
