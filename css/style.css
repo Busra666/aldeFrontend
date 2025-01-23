@@ -1994,6 +1994,13 @@ select.form-control:focus::-ms-value {
   line-height: 1.5;
 }
 
+.form-control-ml {
+  height: calc(1.5em + 0.9rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 .form-control-lg {
   height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
@@ -2893,11 +2900,13 @@ fieldset:disabled a.btn {
   color: #3D464D;
   border-color: #3D464D;
 }
+.btn-outline-dark2 {
+  color: #3D464D;
+  border-color: #3D464D;
+}
 
 .btn-outline-dark:hover {
-  color: #fff;
-  background-color: transparent;
-  border-color: transparent;
+  color: #3D464D;
 
 }
 
@@ -2912,7 +2921,7 @@ fieldset:disabled a.btn {
 
 .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
-  color: #fff;
+  color: #3D464D;
   background-color: #3D464D;
   border-color: #3D464D;
 }
@@ -9762,6 +9771,9 @@ a.text-dark:hover, a.text-dark:focus {
 .product-item .btn:hover {
   color: #ffffff !important;
 }
+.product-item .btn2:hover {
+  color: #343a40 !important;
+}
 
 .table.table-borderless thead tr,
 .table.table-borderless tbody tr:not(:last-child) {
@@ -10481,10 +10493,17 @@ button:hover {
 
 /* Form düzeni */
 .iade-form-container {
-  border: 1px solid #ccc;
   padding: 20px;
-  border-radius: 5px;
-  width: 50%;
+  width: 100%; /* Container genişliğini tam sığdırır */
+  max-width: 100%; /* Taşmayı önler */
+  box-sizing: border-box; /* Padding ve border'ı dahil eder */
+  overflow: auto; /* Taşan içeriği gizler */
+  height : 100%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
 
@@ -10693,6 +10712,7 @@ button:hover {
 
 .favorite-btn{
   padding: 10px 20px;
+  color: black;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
@@ -11331,7 +11351,7 @@ textarea#fatura-adresi-text {
 
 /* Carousel içindeki resimleri düzenle */
 .carousel-inner img {
-  object-fit: cover; /* Resmi kırpmadan, alanı dolduracak şekilde ölçeklendir */
+  object-fit: contain; /* Resmi kırpmadan, alanı dolduracak şekilde ölçeklendir */
   height: 420px; /* Carousel yüksekliğini belirleyin */
   max-height: 1500px; /* Fazla uzamayı önleyin */
 }
@@ -11388,16 +11408,82 @@ textarea#fatura-adresi-text {
 
 
 
+#product-detail-container {
+  margin-top: 30px;
+}
+
+#product-list-container {
+  justify-content: center;
+}
 
 
 
+.product-name {
+  display: inline-block;      /* Metni blok gibi davranmasını sağlar */
+  max-width: 300px;           /* Maksimum genişliği 300px ile sınırla */
+  white-space: normal;        /* Metnin taşması durumunda alt satıra geçmesini sağlar */
+  word-wrap: break-word;      /* Uzun kelimelerin taşması durumunda kırılmasını sağlar */
+  text-overflow: ellipsis;    /* Taşan metin için '...' ekleyebilir */
+}
 
 
+.dropdown-toggle span {
+  margin-left: 5px;
+}
+
+/* WhatsApp Butonu Stili */
+.whatsapp-button {
+  position: fixed;
+  bottom: 100px;
+  right: 40px;
+  background-color: #25D366;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.whatsapp-button img {
+  width: 35px;
+  height: 35px;
+}
+
+.whatsapp-button:hover {
+  background-color: #1EBE5E;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
 
 
+#product-list-container1 {
+  display: flex;
+  overflow-x: auto; /* Yatay kaydırma etkin */
+  padding: 1rem 0;
+  gap: 1rem; /* Ürünler arasında boşluk */
+}
 
+#product-list-container1::-webkit-scrollbar {
+  height: 8px; /* Kaydırma çubuğunun yüksekliği */
+}
 
+#product-list-container1::-webkit-scrollbar-thumb {
+  background: #c8242f; /* Kaydırma çubuğu rengi */
+  border-radius: 4px;
+}
 
+#product-list-container1::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Kaydırma çubuğu arkaplanı */
+}
+
+.product-item1 {
+  flex: 0 0 auto; /* Flexbox içinde sabit genişlik */
+  width: 250px; /* Her ürünün genişliği */
+}
 
 
 

@@ -153,6 +153,8 @@
     const urlParams = new URLSearchParams(window.location.search);
     const totalPrice = urlParams.get("totalPrice");
     const addressTitle = urlParams.get("addressTitle");
+    const addressId = urlParams.get("addressId");
+    const billingAddressId = urlParams.get("billingAddressId");
 
     // Sipariş özetini doldur
     document.getElementById("totalPrice").textContent = totalPrice;
@@ -163,13 +165,48 @@
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const res = await fetch("http://192.168.1.13/account.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "module": "addresses",
+                "action": "read",
+                "user_id": localStorage.getItem("userId"),
+            })
+        });
+
+        if (!res.ok) {
+            console.error("Sunucudan geçersiz bir yanıt alındı:", res.status, res.statusText);
+            return;
+        }
+
+        try {
+            const data = await res.json(); // Sunucudan gelen JSON'u çözümle
+            console.log("Sunucudan Gelen Veri:", data);
+            // İşlemlerinizi burada gerçekleştirebilirsiniz
+        } catch (error) {
+            console.error("JSON çözümleme hatası:", error);
+        }
+        /*
         let cartItems = localStorage.getItem("cartItems");
         if (cartItems) {
             cartItems = JSON.parse(cartItems); // JSON verisini nesneye dönüştür
         } else {
             cartItems = []; // Eğer hiç item yoksa boş dizi olarak başlat
         }
-        const shippingCost = totalPrice < 1000 ? 39.99 : 0;
+        const shippingCost = totalPrice < 200 ? 39.99 : 0;
+        function generateConversationId() {
+            const timestamp = Date.now(); // Geçerli zaman damgası
+            const randomString = Math.random().toString(36).substring(2, 15); // Rastgele bir dize oluşturuluyor
+            return timestamp + randomString; // Zaman damgası ve rastgele dizeyi birleştir
+        }
+
+        const conversationId = generateConversationId();
+
+        localStorage.setItem("conversationId", conversationId);
+
         // Form bilgilerini al
         const paymentData = {
             totalPrice: totalPrice,
@@ -183,7 +220,7 @@
                 name: item.name,
                 category1: "kitap",
                 itemType: "PHYSICAL",
-                price: item.price,
+                price: item.price * item.quantity,
             })),
             billingAddress: {
                 contactName: document.getElementById("card-holder-name").value,
@@ -199,7 +236,8 @@
                 address: "Beşiktaş, Barbaros Bulvarı",
                 zipCode: "34000"
             },
-            shippingCost:shippingCost
+            shippingCost:shippingCost,
+            conversationId: conversationId,
         };
 
         console.log("Ödeme bilgileri alındı:", paymentData);
@@ -212,23 +250,103 @@
             },
             body: JSON.stringify(paymentData)
         });
+        console.warn(response)
+
         const htmlContent = await response.text(); // HTML içeriği al
         const newWindow = window.open("", "_blank"); // Yeni bir pencere aç
         newWindow.document.write(htmlContent); // HTML içeriğini yazdır
-        newWindow.document.close(); // Pencereyi kapat
-        /*
-        const result = await response.json();
-        console.log("Ödeme sonucu:", result);
 
-        if (result.status === "success") {
-            alert("Ödeme başarılı!");
-            window.location.href = "siparis-tamamlandi.html"; // Başarılıysa yönlendirme
+        newWindow.document.close(); // Pencereyi kapat
+
+        if (conversationId) {
+            const intervalId = setInterval(async () => {
+                try {
+                    const response = await fetch("http://192.168.1.13/account.php", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            action: "verification",
+                            module: "orders",
+                            conversationId: conversationId,
+                            userId: localStorage.getItem("userId")
+                        }),
+                    })
+                        if (!response.ok) {
+                            throw new Error("API'den cevap alınamadı.");
+                        }
+                        let jsonData = await response.json();
+                    if (jsonData && jsonData[0]?.status === "success") {
+
+                        // LocalStorage'dan cartItems verisini al
+                        let cartItems = localStorage.getItem("cartItems");
+                        if (cartItems) {
+                            cartItems = JSON.parse(cartItems); // JSON formatını nesneye çevir
+                        } else {
+                            cartItems = []; // Eğer boşsa, varsayılan boş dizi
+                        }
+
+                        // Toplam fiyat ve diğer bilgileri alın
+                        const totalPrice = parseFloat(urlParams.get("totalPrice")); // URL'den toplam fiyat
+                        const userId = localStorage.getItem("userId") // Kullanıcı ID'si, oturum veya başka bir kaynaktan alınabilir
+
+                        // Gönderilecek JSON verisi
+                        const orderData = {
+                            action: "create",
+                            module: "orders",
+                            user_id: userId,
+                            total_price: totalPrice,
+                            items: cartItems.map((item) => ({
+                                product_id: item.product_id, // Ürün ID'si
+                                quantity: item.quantity, // Ürün miktarı
+                                price: item.price // Ürün fiyatı
+                            }))
+                        };
+
+                        console.log("Gönderilecek Sipariş Verisi:", orderData);
+
+                        // Backend'e gönder
+                        try {
+                            const response = await fetch("http://192.168.1.13/account.php", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(orderData)
+                            });
+
+                            if (!response.ok) {
+                                throw new Error("API'ye erişilemedi.");
+                            }
+
+                            console.warn(response)
+                            const result = await response.json();
+                            console.log("Sipariş Yanıtı:", result);
+
+                            debugger;
+                            clearInterval(intervalId); // Kontrolü durdur
+                            window.location.href = "siparis-tamamlandi.html"; // Başarılıysa yönlendirme
+                        }
+                        catch(error) {
+                            debugger;
+                            console.log(error);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Durum kontrol hatası:", error);
+                }
+            }, 1000); // 3 saniyede bir kontrol
         } else {
-            alert("Ödeme başarısız: " + result.message);
+            console.error("conversationId bulunamadı!");
         }
 
+
          */
+
     });
 </script>
+<script src="js/security.js"></script>
 </body>
 </html>

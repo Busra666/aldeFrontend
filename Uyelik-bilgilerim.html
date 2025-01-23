@@ -59,7 +59,6 @@
     <div class="top-section bg-secondary py-1 px-xl-5">
         <div class="row">
             <div class="col-lg-6 d-none d-lg-block">
-                <a class="text-body mr-3" href="#"><i class="fa fa-truck"></i> Kargom Nerede?</a>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div id="menu" class="btn-group">
@@ -95,11 +94,13 @@
             <div class="col-lg-4">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Arama Yap">
-                        <div class="input-group-append">
+                        <div class="search-container">
+                            <input type="text" class="form-control search-input" placeholder="Arama Yap">
+                            <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
                             </span>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -133,15 +134,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="shop.html?category_id=1" class="nav-item nav-link">KPSS</a>
-                            <a href="shop.html?category_id=2" class="nav-item nav-link">ALES-DGS</a>
-                            <a href="shop.html?category_id=3" class="nav-item nav-link">YKS</a>
-                            <a href="shop.html?category_id=4" class="nav-item nav-link">LGS</a>
-                            <a href="shop.html?category_id=5" class="nav-item nav-link">YDS</a>
-                            <a href="shop.html?category_id=6" class="nav-item nav-link">YKSDİL</a>
-                            <a href="shop.html?category_id=7" class="nav-item nav-link">İNGİLİZCE ÖN HAZIRLIK</a>
-                            <a href="shop.html?category_id=8" class="nav-item nav-link">YAYINEVLERİ</a>
+                        <div class="navbar-nav mr-auto py-0" id="navbar-menu-container">
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="Favorilerim.html" class="btn px-0">
@@ -178,7 +171,7 @@
                 <li><a href="Sepetim.html"><i class="fas fa-shopping-cart"></i> Alışveriş Sepetim</a></li>
                 <li><a href="Favorilerim.html"><i class="fas fa-heart"></i> Favorilerim</a></li>
 <!--                <li><a href="Yorumlarım.html"><i class="fas fa-comments"></i> Yorumlarım</a></li>-->
-                <li><a href="#"><i class="fas fa-file-alt"></i> Sözleşmelerim</a></li>
+                <li><a href="Sozlesmelerim.html"><i class="fas fa-file-alt"></i> Sözleşmelerim</a></li>
                 <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Güvenli Çıkış</a></li>
             </ul>
         </div>
@@ -187,7 +180,7 @@
 
         <!-- Sağ Taraf Form -->
         <div class="form-container">
-            <form>
+            <form id="update-form">
                 <!-- Ad ve Soyad -->
                 <div class="form-row">
                     <div>
@@ -200,28 +193,10 @@
                     </div>
                 </div>
 
-                <!-- Şehir ve İlçe -->
-                <div class="form-row">
-                    <div>
-                        <label for="sehir">Şehir</label>
-                        <select id="sehir">
-                            <option value="">Seçiniz</option>
-                            <option value="ankara">Ankara</option>
-                            <option value="istanbul">İstanbul</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="ilce">İlçe</label>
-                        <select id="ilce">
-                            <option value="">İlçe Seçiniz</option>
-                        </select>
-                    </div>
-                </div>
-
                 <!-- Telefon ve E-posta -->
                 <div class="form-row">
                     <label for="telefon">Cep Telefonunuz</label>
-                    <input type="tel" id="telefon" maxlength="10" placeholder="+90" oninput="validatePhone(this)" pattern="[0-9]+" title="Sadece rakamlar girilebilir" required>
+                    <input type="tel" id="telefon" maxlength="10" placeholder="5xxxxxxxxx" oninput="validatePhone(this)" pattern="[0-9]+" title="Sadece rakamlar girilebilir" required>
                 </div>
                 <script>
                     function validatePhone(input) {
@@ -232,7 +207,7 @@
 
                 <div class="form-row">
                     <label for="email">E-posta Adresiniz</label>
-                    <input type="email" id="email" placeholder="example@email.com">
+                    <input type="email" id="email" placeholder="ornek@gmail.com">
                 </div>
 
 
@@ -240,9 +215,9 @@
                 <div class="form-row">
                     <label>Cinsiyet</label>
                     <div class="gender-options">
-                        <label><input type="radio" name="cinsiyet" value="kadin"> Kadın</label>
-                        <label><input type="radio" name="cinsiyet" value="erkek"> Erkek</label>
-                        <label><input type="radio" name="cinsiyet" value="belirtmek"> Belirtmek İstemiyorum</label>
+                        <label><input type="radio" name="cinsiyet" value="female"> Kadın</label>
+                        <label><input type="radio" name="cinsiyet" value="male"> Erkek</label>
+                        <label><input type="radio" name="cinsiyet" value="other"> Belirtmek İstemiyorum</label>
                     </div>
                 </div>
 
@@ -257,69 +232,71 @@
     </div>
 
 
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
-        <div class="row px-xl-5 pt-5">
-            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <h5 class="text-secondary text-uppercase mb-4">ALDE</h5>
-<!--                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum tempor no vero est magna amet no</p>-->
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>ANKARA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>aldehomedesign@gmail.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>0542 375 05 61</p>
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">ALIŞVERİŞ BİLGİLERİ</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Hesabım</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Siparişlerim</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Gizlilik Sözleşmesi</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Üyelik Sözleşmesi</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Cayma Hakkı</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Gizlilik ve Güvenlik</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">POPÜLER KATEGORİLER</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Genel Yetenek Genel Kültür</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Eğitim Bilimleri</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Lise-Önlisans</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>ÖABT</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>A-Grubu</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>E-KPSS</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">POPÜLER YAYINEVLERİ</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Benim Hocam Yayıncılık</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Çanta Yayıncılık</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Arı Yayıncılık</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Üç Dört Beş Yayıncılık</a>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5" style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center;">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <h5 class="text-secondary text-uppercase mb-4">ALDE</h5>
+            <!--                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum tempor no vero est magna amet no</p>-->
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>ANKARA</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>aldeogrencikafasi@gmail.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>0542 375 05 61</p>
         </div>
-        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="col-md-6 px-xl-0">
-                <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#"></a>All Rights Reserved. Designed
-                    by
-                    <a class="text-primary" href="https://dagliyazilim.com/">Dağlı</a>
-                </p>
-            </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
+        <div class="col-lg-4 col-md-12">
+            <div class="row">
+                <div class="col-md-8 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">ALIŞVERİŞ BİLGİLERİ</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-secondary mb-2" href="hesabim.html"><i class="fa fa-angle-right mr-2"></i>Hesabım</a>
+                        <a class="text-secondary mb-2" href="Siparislerim.html"><i class="fa fa-angle-right mr-2"></i>Siparişlerim</a>
+                        <a class="text-secondary mb-2" href="Sozlesmelerim.html"><i class="fa fa-angle-right mr-2"></i>Sözleşmeler</a>
+                    </div>
+                </div>
+                <!--        -->
+                <!--        <div class="col-md-4 mb-5">-->
+                <!--          <h5 class="text-secondary text-uppercase mb-4">POPÜLER KATEGORİLER</h5>-->
+                <!--          <div class="d-flex flex-column justify-content-start">-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Genel Yetenek Genel Kültür</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Eğitim Bilimleri</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Lise-Önlisans</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>ÖABT</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>A-Grubu</a>-->
+                <!--            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>E-KPSS</a>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <!--        <div class="col-md-4 mb-5">-->
+                <!--          <h5 class="text-secondary text-uppercase mb-4">POPÜLER YAYINEVLERİ</h5>-->
+                <!--          <div class="d-flex flex-column justify-content-start">-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Benim Hocam Yayıncılık</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Çanta Yayıncılık</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Arı Yayıncılık</a>-->
+                <!--            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Üç Dört Beş Yayıncılık</a>-->
+                <!--          </div>-->
+                <!--        </div>-->
+
+
             </div>
         </div>
     </div>
-    <!-- Footer End -->
+    <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+        <div class="col-md-6 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-secondary">
+                &copy; <a class="text-primary" href="#"></a>All Rights Reserved. Designed
+                by
+                <a class="text-primary" href="https://dagliyazilim.com/">Dağlı</a>
+            </p>
+        </div>
+        <div class="col-md-6 px-xl-0 text-center text-md-right">
+            <img class="img-fluid" src="img/payments.png" alt="">
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
 
+<div class="whatsapp-button" onclick="openWhatsApp()">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+</div>
+<script src="js/whatsapp.js"></script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
@@ -335,7 +312,10 @@
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
     <script src="js/loadCategories.js"></script>
+    <script src="js/userProfile.js"></script>
+<script src="js/search.js"></script>
 
+<script src="js/security.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
