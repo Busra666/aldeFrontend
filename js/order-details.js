@@ -56,17 +56,54 @@ document.addEventListener("DOMContentLoaded", function () {
             const orderItem = document.createElement("div");
             orderItem.classList.add("order-item");
 
+            let replace = null;
+            if (item.image_path != null) {
+                replace = item.image_path.replace("C:\\xampp\\htdocs/", "");
+            }
+
+            let imageUrl= replace;
+            if(replace != null) {
+                imageUrl= replace.split(",")[0];
+            }
+            if (replace != null && !replace.includes("https")) {
+                imageUrl = 'http://192.168.1.13/' + replace;
+            }
             orderItem.innerHTML = `
-                <div class="item-info">
-                    <img src="img/favori-1.png" alt="Ürün Görseli">
-                    <div>
-                        <p class="item-name">${item.name}</p>
-                        <p class="item-quantity">Adet: ${item.quantity}</p>
+                
+            <!-- verilen sipariş -->
+            <div class="favorite-item">
+            <img src="${item.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="" style="width: 90px;">
+                    <a href="detail.html?id=${item.product_id}" class="item-name text-center">${item.name}</a>
+
+                    <div class="item-controls">
+                        <!-- Adet Kutusu -->
+                        <label for="adet" class="item-quantity-label">Adet:</label>
+                        <input type="text" id="adet" class="item-quantity" value="${item.quantity}" readonly>
                     </div>
-                </div>
-                <div class="item-price">
-                    <p>${(item.price* item.quantity).toFixed(2)}₺</p>
-                </div>
+
+                    <div class="order-details text-center">
+
+                        <!-- Toplam Tutar -->
+                        <div class="order-total item-controls">
+                            <span class="total-label" style="color: red; font-weight: bold;">Toplam Tutar:</span>
+                            <span class="total-amount">${(item.price* item.quantity).toFixed(2)}₺</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="favorite-btn">
+
+                        <!-- Yorum Yap Butonu -->
+                        <button class="leave-review-btn" onclick="window.location.href='detail.html?id=${item.product_id}'">
+                            <i class="fa fa-pencil"></i> Yorum Yap
+                        </button>
+
+                    </div>
+
+            </div>
+        </div>
             `;
 
             orderDetailsContainer.appendChild(orderItem);

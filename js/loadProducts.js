@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="product-action">
                 <!-- İncele Butonu -->
-                <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}"><i class="fa fa-search"></i></a>
+                <a class="btn btn-outline-dark btn-square" href="detail.html?id=${product.id}" style="border-color: transparent !important; opacity: 0"><i class="fa fa-search"></i></a>
             </div>
         </div>
         <div class="text-center py-4">
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </a>
             </div>
             <div class="d-flex align-items-center justify-content-center mb-1">
-                <a  id="favorite-btn-${product.id}" class="btn btn-outline-dark btn favorite-btn" href="#">
+                <a  id="favorite-btn-${product.id}" class="btn btn-outline-dark btn2 favorite-btn" href="#">
                     <i class="${isFavorite ? 'fa fa-heart text-danger' : 'far fa-heart'}" style="margin-right: 5px;"></i>${isFavorite ? 'Favoriden Çıkar' : 'Favorilere Ekle'}
                 </a>
             </div>
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 addToCartButtons.forEach(button => {
                     button.addEventListener("click", function () {
                         const productId = this.getAttribute("data-product-id")
-                        handleAddToCart(productId);
+                        //handleAddToCart(productId);
                     });
                 });
                 bindFavoriteButtons();

@@ -95,22 +95,35 @@ function loadProductDetail() {
             if (data.image_path != null) {
                 replace = data.image_path.replace("C:\\xampp\\htdocs/", "");
             }
-            let imageUrl = "";
-            if (replace != null) {
+            let imageUrl= replace;
+            if (replace != null && !replace.includes("https")) {
                 imageUrl = 'http://192.168.1.13/' + replace;
             }
-            console.warn(data)
             // Ürün detaylarını ekle
             container.innerHTML = `
                 <div class="row px-xl-5">
-                    <div class="col-lg-5 mb-30">
-                        <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner bg-light">
-                                <div class="carousel-item active">
-                                    <img class="w-100 h-100" src="${data.image_path ? imageUrl : 'img/yeni_gelenler_1.png'}" alt="Image" style="max-width: 100%;object-fit: contain">
-                                </div>
-                            </div>
-                        </div>
+                   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+                    <div class="col-lg-5 mb-30"><div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        ${imageUrl && imageUrl.length > 0 ? imageUrl.split(',').map((image, index) => {
+                console.warn(image); // Her bir resim URL'sini konsola yazdır
+                return `
+            <div class="carousel-item">
+                    <img src="${image.trim()}" class="img-fluid w-100" alt="Resim ${index + 1}">
+            </div>
+        `;
+            }).join('') : `
+    `}
+    </div>
+    <button class="carousel-control-prev" style="background-color: transparent" role="button" data-bs-slide="prev">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="carousel-control-next" style="background-color: transparent" role="button" data-bs-slide="next">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>
+
                     </div>
 
                     <div class="col-lg-7 h-auto mb-30">
@@ -125,7 +138,7 @@ function loadProductDetail() {
                 <i class="fa fa-minus"></i>
             </button>
         </div>
-        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+        <input type="text" class="form-control form-control-ml bg-secondary border-0 text-center" value="1">
         <div class="input-group-btn">
             <button class="btn btn-primary btn-plus">
                 <i class="fa fa-plus"></i>
@@ -144,7 +157,43 @@ function loadProductDetail() {
 
             var addToCartButton = document.getElementById('add-to-cart-btn');
             var stockStatus = document.getElementById('stock-status');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevButton = document.querySelector('.carousel-control-prev');
+            const nextButton = document.querySelector('.carousel-control-next');
 
+// İlk öğeye aktif sınıfı ekle
+            if (carouselItems.length > 0) {
+                carouselItems[0].classList.add('active');
+            }
+
+// Sol ve sağ oklar ile aktif öğeyi değiştirme
+            let currentIndex = 0; // Başlangıçta aktif olan öğe
+
+// Önceki butona tıklanması durumu
+            prevButton.addEventListener('click', () => {
+                // Önceki öğeyi bul
+                const nextIndex = currentIndex === 0 ? carouselItems.length - 1 : currentIndex - 1;
+                updateActiveItem(nextIndex);
+            });
+
+// Sonraki butona tıklanması durumu
+            nextButton.addEventListener('click', () => {
+                // Sonraki öğeyi bul
+                const nextIndex = currentIndex === carouselItems.length - 1 ? 0 : currentIndex + 1;
+                updateActiveItem(nextIndex);
+            });
+
+// Aktif öğeyi güncelleme fonksiyonu
+            function updateActiveItem(nextIndex) {
+                // Aktif olan öğeyi bul ve 'active' sınıfını kaldır
+                carouselItems[currentIndex].classList.remove('active');
+
+                // Yeni öğeyi bul ve 'active' sınıfını ekle
+                carouselItems[nextIndex].classList.add('active');
+
+                // Güncel index'i kaydet
+                currentIndex = nextIndex;
+            }
 // Eğer ürün stokta yoksa
             if (data.is_deleted == 1) {
                 console.warn(data)
