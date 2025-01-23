@@ -1,6 +1,6 @@
 class userProfile {
     constructor() {
-        this.apiUrl = 'http://192.168.1.13/account.php'; // API url adresini buraya ekleyin
+        this.apiUrl = 'https://aldekitap.com/backend/account.php'; // API url adresini buraya ekleyin
         this.form = document.querySelector('form'); // Formu seç
         this.nameInput = document.getElementById('ad');
         this.surnameInput = document.getElementById('soyad');
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.warn(userData);
         // Veriyi update_me servisine gönder
-        fetch('http://192.168.1.13/account.php' + '/update_me', {
+        fetch('https://aldekitap.com/backend/account.php' + '/update_me', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

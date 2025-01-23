@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
     let selectedAddress = null
     let billingAddressId = null
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchAddresses() {
 
         // API'den adresleri çek
-        fetch('http://192.168.1.13/account.php', {
+        fetch('https://aldekitap.com/backend/account.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

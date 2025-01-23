@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // AJAX isteği göndererek ürünleri ara (POST isteği kullanıyoruz)
-        fetch('http://192.168.1.13/search.php', {
+        fetch('https://aldekitap.com/backend/search.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
