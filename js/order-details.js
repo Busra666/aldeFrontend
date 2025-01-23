@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Sipariş detaylarını API'den çek ve görüntüle
-    fetch("http://192.168.1.13/account.php", {
+    fetch("https://aldekitap.com/backend/account.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 imageUrl= replace.split(",")[0];
             }
             if (replace != null && !replace.includes("https")) {
-                imageUrl = 'http://192.168.1.13/' + replace;
+                imageUrl = 'https://aldekitap.com/backend/' + replace;
             }
             orderItem.innerHTML = `
                 

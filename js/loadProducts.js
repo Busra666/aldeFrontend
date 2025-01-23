@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const productList = document.getElementById('product-list');
-    const apiUrl = 'http://192.168.1.13/cart.php'; // Sepet işlemleri API URL'si
-    const favoritesUrl = 'http://192.168.1.13/account.php'; // Favori işlemleri API URL'si
+    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Sepet işlemleri API URL'si
+    const favoritesUrl = 'https://aldekitap.com/backend/account.php'; // Favori işlemleri API URL'si
 
     const urlParams = new URLSearchParams(window.location.search);
     const categoryId = urlParams.get('category_id');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .finally(() => loadProducts());
 
     function loadProducts() {
-        fetch('http://192.168.1.13/products.php', {
+        fetch('https://aldekitap.com/backend/products.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     let imageUrl = null;
                     if(product.image_path != null) {
-                        imageUrl = product.image_path.replaceAll("C:\\xampp\\htdocs/","http://192.168.1.13/");
+                        imageUrl = product.image_path.replaceAll("C:\\xampp\\htdocs/","https://aldekitap.com/backend/");
                     }
                     console.warn(product)
                     let rating = product.average_rating ? parseFloat(product.average_rating) : 0;
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function getTotalFavCount() {
-        const apiUrl = 'http://192.168.1.13/account.php'; // Backend API URL'si
+        const apiUrl = 'https://aldekitap.com/backend/account.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
 
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Sepete Ekle Servisini Çağır
     function addToCart(productId, quantity) {
-        const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
 
         fetch(apiUrl, {
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getTotalProductsCount() {
-        const apiUrl = 'http://192.168.1.13/cart.php'; // Backend API URL'si
+        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
 
