@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Login işlemi
     const login = async (username, password) => {
         try {
-            const response = await fetch('https://aldekitap.com/backend/login.php', {
+            const response = await fetch('http://localhost/backend/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const signup = async (name, surname, username, email, password, phoneNumber, gender, campaignEmail, memberCondition) => {
         gender = gender == "erkek" ? "male" : gender == "kadın" ? "female" : "other";
         try {
-            const response = await fetch('https://aldekitap.com/backend/signup.php', {
+            const response = await fetch('http://localhost/backend/signup.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     };
 
                     // AJAX isteği gönder
-                    fetch("https://aldekitap.com/backend/account.php", {
+                    fetch("http://localhost/backend/account.php", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"

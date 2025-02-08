@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchOrders() {
         if(userId != null) {
 
-        fetch("https://aldekitap.com/backend/account.php", {
+        fetch("http://localhost/backend/account.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

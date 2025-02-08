@@ -21,7 +21,7 @@ function updateQuantity(action, inputElement) {
 
 // Sepete Ekle Servisini Çağır
 function addToCart(productId, quantity) {
-    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+    const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
 
     if(userId !== null) {
@@ -78,7 +78,7 @@ function loadProductDetail() {
     }
 
     // Ürün detaylarını API'den çek
-    fetch('https://aldekitap.com/backend/products.php', {
+    fetch('http://localhost/backend/products.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -100,7 +100,7 @@ function loadProductDetail() {
             }
             let imageUrl= replace;
             if (replace != null && !replace.includes("https")) {
-                imageUrl = 'https://aldekitap.com/backend/' + replace;
+                imageUrl = 'http://localhost/backend/' + replace;
             }
             // Ürün detaylarını ekle
             container.innerHTML = `
@@ -231,7 +231,7 @@ function loadProductDetail() {
 window.onload = loadProductDetail;
 
 function getTotalProductsCount() {
-    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+    const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
     const cartCountElement = document.getElementById('cart-count');
 
@@ -265,7 +265,7 @@ function getTotalProductsCount() {
 }
 
 function getTotalFavCount() {
-    const apiUrl = 'https://aldekitap.com/backend/account.php'; // Backend API URL'si
+    const apiUrl = 'http://localhost/backend/account.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
     const favCountElement = document.getElementById('fav-count');
 
@@ -338,7 +338,7 @@ function renderComments() {
     };
 
     // Fetch ile POST isteği yap
-    fetch('https://aldekitap.com/backend/product-review.php', {
+    fetch('http://localhost/backend/product-review.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -427,7 +427,7 @@ document.querySelector('.add-comment-btn').addEventListener('click', function ()
     if(userId != null) {
 
     // Fetch ile POST isteği yap
-    fetch('https://aldekitap.com/backend/product-review.php', {
+    fetch('http://localhost/backend/product-review.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

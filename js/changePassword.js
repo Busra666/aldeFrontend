@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if(userId != null) {
 
         // AJAX isteği gönder
-        fetch("https://aldekitap.com/backend/account.php", {
+        fetch("http://localhost/backend/account.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

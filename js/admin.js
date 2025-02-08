@@ -1,5 +1,5 @@
 // API URL
-const apiUrl = "https://aldekitap.com/backend/categories.php";
+const apiUrl = "http://localhost/backend/categories.php";
 let eposta = localStorage.getItem("eposta");
 if (eposta != null && eposta != "aldeogrencikafasi@gmail.com") {
     window.location.href = 'index.html';
@@ -55,7 +55,7 @@ document.getElementById('orderForm').addEventListener('submit', async function (
 
 
     // Send the JSON data using fetch
-    fetch('https://aldekitap.com/backend/account.php', {
+    fetch('http://localhost/backend/account.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ document.getElementById('productForm').addEventListener('submit', async function
 
 
     try {
-        let url = 'https://aldekitap.com/backend/products.php'; // Varsayılan servis URL
+        let url = 'http://localhost/backend/products.php'; // Varsayılan servis URL
 
         if (action === 'update') {
             formData.append('id', localStorage.getItem('productId'));
@@ -150,7 +150,7 @@ document.getElementById('productForm').addEventListener('submit', async function
 
 
 function fetchProducts() {
-    const url = 'https://aldekitap.com/backend/products.php'; // Servis URL
+    const url = 'http://localhost/backend/products.php'; // Servis URL
     const data = {action: 'read_all'}; // Gönderilecek parametre
 
     // AJAX isteği (fetch kullanarak)
@@ -307,7 +307,7 @@ function updateTable(products) {
 
 // Ürün ID'sine göre ürün verisini alma
 function getProductById(productId) {
-    const url = 'https://aldekitap.com/backend/products.php';  // API URL
+    const url = 'http://localhost/backend/products.php';  // API URL
     const data = {action: 'read', id: productId};  // Parametreler
 
     return fetch(url, {
@@ -418,7 +418,7 @@ function deleteProduct(productId) {
     console.log('Sil:', productId);
 
     // Silme işlemi için istek gönderiliyor
-    fetch('https://aldekitap.com/backend/products.php', {
+    fetch('http://localhost/backend/products.php', {
         method: 'POST', // HTTP POST yöntemi kullanılıyor
         headers: {
             'Content-Type': 'application/json', // JSON içeriği belirtildi
@@ -507,7 +507,7 @@ function renderImagePreviews(existingImagesArray) {
 // API'den veri almak için fonksiyon
 function fetchOrders() {
 
-    const apiUrl = "https://aldekitap.com/backend/account.php";
+    const apiUrl = "http://localhost/backend/account.php";
     // Siparişleri tabloya ekle
     const tableBody = document.querySelector('#ordersTable tbody');
 
@@ -592,7 +592,7 @@ function canceledUpdateOrder(orderId) {
 
 
     // Send the JSON data using fetch
-    fetch('https://aldekitap.com/backend/account.php', {
+    fetch('http://localhost/backend/account.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

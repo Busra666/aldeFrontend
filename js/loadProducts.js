@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const productList = document.getElementById('product-list');
-    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Sepet işlemleri API URL'si
-    const favoritesUrl = 'https://aldekitap.com/backend/account.php'; // Favori işlemleri API URL'si
+    const apiUrl = 'http://localhost/backend/cart.php'; // Sepet işlemleri API URL'si
+    const favoritesUrl = 'http://localhost/backend/account.php'; // Favori işlemleri API URL'si
 
     const urlParams = new URLSearchParams(window.location.search);
     const categoryId = urlParams.get('category_id');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function loadProducts() {
-        fetch('https://aldekitap.com/backend/products.php', {
+        fetch('http://localhost/backend/products.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function getTotalFavCount() {
-        const apiUrl = 'https://aldekitap.com/backend/account.php'; // Backend API URL'si
+        const apiUrl = 'http://localhost/backend/account.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
 
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Sepete Ekle Servisini Çağır
     function addToCart(productId, quantity) {
-        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+        const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
 
         if(userId != null) {
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getTotalProductsCount() {
-        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+        const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
 

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const categoryList = document.querySelector('.category-list'); // Kategorilerin yükleneceği alan
 
     // Kategorileri API'den çekme
-    fetch('https://aldekitap.com/backend/categories.php', {
+    fetch('http://localhost/backend/categories.php', {
         method: 'POST', // POST isteği
         headers: {
             'Content-Type': 'application/json' // JSON gönderimi için ayarlar

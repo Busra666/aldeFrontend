@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cartTotal = document.getElementById('sepet-toplam'); // Sepet ürünlerini listeleyeceğimiz alan
     const cartListDiv = document.getElementById('sepetim'); // Sepet ürünlerini listeleyeceğimiz alan
     const emptyCart = document.getElementById('sepet-box'); // Sepet ürünlerini listeleyeceğimiz alan
-    const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+    const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
 
     const userId = localStorage.getItem("userId");
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         imageUrl= replace.split(",")[0];
                     }
                     if (replace != null && !replace.includes("https")) {
-                        imageUrl = 'https://aldekitap.com/backend/' + replace;
+                        imageUrl = 'http://localhost/backend/' + replace;
                     }
                     cartItem.innerHTML = `
                     <td class="align-middle">
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const kargoUcretElement = document.getElementById('kargoUcret');
         const sepetToplamElement = document.getElementById('sepetToplam');
 
-        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+        const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
 
         // Kargo ücreti sabit
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sayfa yüklendiğinde sepeti listele
     fetchCart();
     function getTotalProductsCount() {
-        const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
+        const apiUrl = 'http://localhost/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
 

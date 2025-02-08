@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const apiUrl = "https://aldekitap.com/backend//account.php"; // API URL'si
+    const apiUrl = "http://localhost/backend//account.php"; // API URL'si
     let userId = localStorage.getItem("userId");
 
     // İstek göndererek sipariş listesini çek
@@ -188,7 +188,7 @@ cancelBtn.addEventListener('click', () => {
 });
 document.getElementById("iadeForm").addEventListener("submit", async function (event) {
     event.preventDefault(); // Formun varsayılan olarak yeniden yüklenmesini engelle
-    const apiUrl = "https://aldekitap.com/backend/account.php"; // API URL'si
+    const apiUrl = "http://localhost/backend/account.php"; // API URL'si
     let userId = localStorage.getItem("userId");
 
     iadeFormContainer.style.display = 'none';
