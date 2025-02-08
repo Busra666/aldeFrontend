@@ -189,14 +189,13 @@
         } catch (error) {
             console.error("JSON çözümleme hatası:", error);
         }
-        /*
         let cartItems = localStorage.getItem("cartItems");
         if (cartItems) {
             cartItems = JSON.parse(cartItems); // JSON verisini nesneye dönüştür
         } else {
             cartItems = []; // Eğer hiç item yoksa boş dizi olarak başlat
         }
-        const shippingCost = totalPrice < 200 ? 39.99 : 0;
+        const shippingCost = totalPrice < 500 ? 59.99 : 0;
         function generateConversationId() {
             const timestamp = Date.now(); // Geçerli zaman damgası
             const randomString = Math.random().toString(36).substring(2, 15); // Rastgele bir dize oluşturuluyor
@@ -243,7 +242,7 @@
         console.log("Ödeme bilgileri alındı:", paymentData);
 
         // Backend'e ödeme bilgilerini gönder
-        const response = await fetch("http://192.168.1.13/payment.php", {
+        const response = await fetch("https://aldekitap.com/backend/payment.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -261,7 +260,7 @@
         if (conversationId) {
             const intervalId = setInterval(async () => {
                 try {
-                    const response = await fetch("http://192.168.1.13/account.php", {
+                    const response = await fetch("https://aldekitap.com/backend/account.php", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -309,7 +308,7 @@
 
                         // Backend'e gönder
                         try {
-                            const response = await fetch("http://192.168.1.13/account.php", {
+                            const response = await fetch("https://aldekitap.com/backend/account.php", {
                                 method: "POST",
                                 headers: {
                                     "Content-Type": "application/json"
@@ -341,9 +340,6 @@
         } else {
             console.error("conversationId bulunamadı!");
         }
-
-
-         */
 
     });
 </script>

@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         };
 
         try {
+            if(userId != null) {
+
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 populateOrderOptions(data); // Sipariş listesini formda doldur
             } else {
                 console.error("Sipariş bilgileri alınamadı:", response.statusText);
+            }
             }
         } catch (error) {
             console.error("Bir hata oluştu:", error);
@@ -61,6 +64,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         user_id: userId,
     };
 
+    if(userId != null) {
+
     // İstek gönder
     fetch(apiUrl, {
         method: "POST",
@@ -82,6 +87,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         .catch((error) => {
             console.error("Hata oluştu:", error);
         });
+    }
 });
 
 // Listeyi doldurmak için fonksiyon
@@ -204,6 +210,8 @@ document.getElementById("iadeForm").addEventListener("submit", async function (e
     }
 
     try {
+        if(userId != null) {
+
         // İstek gönder
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -222,6 +230,8 @@ document.getElementById("iadeForm").addEventListener("submit", async function (e
         } else {
             alert("İade talebiniz gönderilirken bir hata oluştu.");
             console.error("Error:", response.statusText);
+        }
+
         }
     } catch (error) {
         alert("Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");

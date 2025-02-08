@@ -11424,6 +11424,7 @@ textarea#fatura-adresi-text {
   white-space: normal;        /* Metnin taşması durumunda alt satıra geçmesini sağlar */
   word-wrap: break-word;      /* Uzun kelimelerin taşması durumunda kırılmasını sağlar */
   text-overflow: ellipsis;    /* Taşan metin için '...' ekleyebilir */
+  color: black;
 }
 
 

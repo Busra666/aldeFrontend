@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const userId = localStorage.getItem("userId"); // Kullanıcı ID'sini al (localStorage'den)
 
     // Orders verilerini çekmek için fetch isteği
+
     function fetchOrders() {
+        if(userId != null) {
+
         fetch("https://aldekitap.com/backend/account.php", {
             method: "POST",
             headers: {
@@ -34,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ordersContainer.innerHTML =
                     "<p>Bir hata oluştu. Lütfen tekrar deneyiniz.</p>";
             });
+        }
     }
 
     // Siparişleri ekrana listeleme
@@ -46,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var i = 1;
             orders.forEach((order) => {
-                console.warn(order);
                 // Sipariş detaylarını oluştur
                 const orderItem = document.createElement("div");
                 orderItem.classList.add("favorite-item");

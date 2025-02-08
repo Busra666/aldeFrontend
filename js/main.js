@@ -155,6 +155,8 @@
     const userId = localStorage.getItem("userId");
     const productList = document.getElementById('product-list2');
     const favoritesUrl = 'https://aldekitap.com/backend/account.php'; // Favori işlemleri API URL'si
+    if(userId != null) {
+
     fetch(favoritesUrl, {
         method: 'POST',
         headers: {
@@ -169,11 +171,13 @@
         .then(response => response.json())
         .then(data => {
             favoriteProducts = data.map(fav => fav.product_id);
-            console.log(favoriteProducts);
         })
         .catch(error => console.error('Favoriler alınırken hata oluştu:', error))
         .finally(() => loadProducts());
 
+    } else {
+        loadProducts()
+    }
     function loadProducts() {
         const productListContainer = document.getElementById("product-list-container1");
 
@@ -292,6 +296,8 @@
         const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
 
+        if(userId != null) {
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -314,6 +320,7 @@
                 }
             })
             .catch(error => console.error('Sepet ekleme sırasında bir hata oluştu:', error));
+        }
     }
 
 
@@ -337,6 +344,8 @@
                 const productId = this.id.split('-')[2];
                 const isFavorite = this.querySelector('i').classList.contains('text-danger');
 
+                if(userId != null) {
+
                 fetch(favoritesUrl, {
                     method: 'POST',
                     headers: {
@@ -358,6 +367,7 @@
                         updateFavoriteStatus(productId); // Favori durumu güncelle
                     })
                     .catch(error => console.error('Favori işlemi sırasında hata oluştu:', error));
+                }
             });
 
         });
@@ -494,6 +504,8 @@
         const cartCountElement = document.getElementById('cart-count');
         const cartCountElement1 = document.getElementById('cart-count-1');
 
+        if(userId != null) {
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -533,6 +545,7 @@
                     cartCountElement1.textContent = '0'; // Hata durumunda 0 göster
                 }
             });
+        }
     }
 
     function getTotalFavCount() {
@@ -540,6 +553,8 @@
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
         const favCountElement1 = document.getElementById('fav-count-1');
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -578,6 +593,7 @@
                     favCountElement.textContent = '0'; // Eğer hata varsa, 0 göster
                 }
             });
+        }
     }
 
 })(jQuery);
