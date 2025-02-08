@@ -133,6 +133,7 @@ function loadProductDetail() {
                         <div class="h-100 bg-light p-30">
                             <h3>${data.name}</h3>
                             <h3 class="font-weight-semi-bold mb-4">₺${data.price}</h3>
+                            <h6 class="font-weight-semi-bold mb-4">24 saat içinde kargoda!</h6>
                             <p class="mb-4">${data?.description}</p>
                             <div class="d-flex align-items-center mb-4 pt-2">
     <div class="input-group quantity mr-3" style="width: 130px;">

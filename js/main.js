@@ -155,8 +155,8 @@
     const userId = localStorage.getItem("userId");
     const productList = document.getElementById('product-list2');
     const favoritesUrl = 'http://localhost/backend/account.php'; // Favori işlemleri API URL'si
+    document.addEventListener("DOMContentLoaded", () => {
     if(userId != null) {
-
     fetch(favoritesUrl, {
         method: 'POST',
         headers: {
@@ -178,6 +178,7 @@
     } else {
         loadProducts()
     }
+    });
     function loadProducts() {
         const productListContainer = document.getElementById("product-list-container1");
 
@@ -272,7 +273,6 @@
                 });
                 const addToCartButtons = document.querySelectorAll(".add-to-cart");
                 addToCartButtons.forEach(button => {
-                    console.warn(button)
                     button.removeEventListener("click", handleClick); // Eski olayları kaldır
                     button.addEventListener("click", handleClick);    // Yeni olay ekle
                 });
