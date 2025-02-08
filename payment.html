@@ -156,6 +156,8 @@
     const addressId = urlParams.get("addressId");
     const billingAddressId = urlParams.get("billingAddressId");
 
+    console.warn(addressId)
+    console.log(billingAddressId)
     // Sipariş özetini doldur
     document.getElementById("totalPrice").textContent = totalPrice;
     document.getElementById("addressTitle").textContent = decodeURIComponent(addressTitle);
@@ -177,6 +179,7 @@
             })
         });
 
+        let addresses = [];
         if (!res.ok) {
             console.error("Sunucudan geçersiz bir yanıt alındı:", res.status, res.statusText);
             return;
@@ -184,6 +187,7 @@
 
         try {
             const data = await res.json(); // Sunucudan gelen JSON'u çözümle
+            addresses = data || []; // Gelen adresleri al, boşsa boş dizi ata
             console.log("Sunucudan Gelen Veri:", data);
             // İşlemlerinizi burada gerçekleştirebilirsiniz
         } catch (error) {
@@ -204,6 +208,8 @@
 
         const conversationId = generateConversationId();
 
+        const billingAddressData = addresses.find(addr => addr.id == billingAddressId) || {};
+        const shippingAddressData = addresses.find(addr => addr.id == addressId) || {};
         localStorage.setItem("conversationId", conversationId);
 
         // Form bilgilerini al
@@ -222,18 +228,18 @@
                 price: item.price * item.quantity,
             })),
             billingAddress: {
-                contactName: document.getElementById("card-holder-name").value,
-                city: "İstanbul", // Bu veriler dinamik olarak kullanıcıdan alınabilir
-                country: "Turkey",
-                address: "Beşiktaş, Barbaros Bulvarı",
-                zipCode: "34000"
+                contactName: billingAddressData.name || document.getElementById("card-holder-name").value,
+                city: billingAddressData.city || "İstanbul",
+                country: billingAddressData.country || "Turkey",
+                address: billingAddressData.address || "Beşiktaş, Barbaros Bulvarı",
+                zipCode: billingAddressData.zipCode || "34000"
             },
             shippingAddress: {
-                contactName: document.getElementById("card-holder-name").value,
-                city: "İstanbul", // Aynı şekilde teslimat adresi de kullanıcıdan alınabilir
-                country: "Turkey",
-                address: "Beşiktaş, Barbaros Bulvarı",
-                zipCode: "34000"
+                contactName: shippingAddressData.name || document.getElementById("card-holder-name").value,
+                city: shippingAddressData.city || "İstanbul",
+                country: shippingAddressData.country || "Turkey",
+                address: shippingAddressData.address || "Beşiktaş, Barbaros Bulvarı",
+                zipCode: shippingAddressData.zipCode || "34000"
             },
             shippingCost:shippingCost,
             conversationId: conversationId,
