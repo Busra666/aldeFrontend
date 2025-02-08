@@ -1,11 +1,10 @@
 // API URL
 const apiUrl = "https://aldekitap.com/backend/categories.php";
-
 let eposta = localStorage.getItem("eposta");
-console.warn(eposta)
 if (eposta != null && eposta != "aldeogrencikafasi@gmail.com") {
     window.location.href = 'index.html';
 }
+
 
 // Kategorileri Çekme Fonksiyonu
 function fetchCategories() {
@@ -227,7 +226,7 @@ function updateTable(products) {
         const actionsCell = document.createElement('td');
         if (product.is_deleted == 0) {
             actionsCell.innerHTML = `
-            <button class="btn" style="border: 2px solid #459125; background-color: #41af13; color: white;" onclick="editProduct(${product.id})">Düzenle</button>
+            <button class="btn" style="border: 2px solid #459125; background-color: #41af13; color: white; margin-bottom: 5px" onclick="editProduct(${product.id})">Düzenle</button>
             <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Pasif Et</button>
         `;
         } else {
@@ -558,8 +557,8 @@ function fetchOrders() {
                 // İşlemler butonları
                 const actions = document.createElement('td');
                 actions.innerHTML = `
-                <button class="btn btn-info" onclick="showOrders(${order.order_id})">Görüntüle</button>
-                <button onclick="showUpdateOrderForm(${order.order_id},'${order.order_status}',${order.shipping_id})" class="btn btn-warning">Düzenle</button>
+                <button class="btn btn-info" onclick="showOrders(${order.order_id})" style="margin-bottom: 5px">Görüntüle</button>
+                <button style="margin-bottom: 5px" onclick="showUpdateOrderForm(${order.order_id},'${order.order_status}',${order.shipping_id})" class="btn btn-warning">Düzenle</button>
                 <button class="btn btn-danger" onclick="canceledUpdateOrder(${order.order_id})">İptal Et</button>
             `;
                 row.appendChild(actions);

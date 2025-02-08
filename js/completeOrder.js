@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Adresleri getir ve listele
     async function fetchOrderSummary() {
         try {
+            if( userId != null ) {
+
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -21,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(data => {
                     if (data.status === 'success') {
 
-                        let shippingFee = 39.99;
+                        let shippingFee = 59.99;
                         let totalPrice = parseFloat(data.total_price || 0);
-                        totalPrice == 0 || totalPrice > 200 ? shippingFee = 0 : shippingFee = 39.99;
+                        totalPrice == 0 || totalPrice > 500 ? shippingFee = 0 : shippingFee = 59.99;
                         const result_price = totalPrice + shippingFee;
                         try {
                             const summaryContainer = document.querySelector(".siparis-ozeti ul");
@@ -40,13 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 })
                 .catch(error => console.error('Sepet toplamı alınırken bir hata oluştu:', error));
+            }
         } catch (error) {
           console.error('Sepet toplamı alınırken bir hata oluştu:', error)
         }
+
     }
 
     // Sipariş özeti bilgilerini getir ve güncelle
     async function fetchAddresses() {
+
+        if(userId != null) {
 
         // API'den adresleri çek
         fetch('https://aldekitap.com/backend/account.php', {
@@ -127,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => {
                 console.error('Adresler yüklenirken hata oluştu:', error);
             });
+        }
     }
     async function completeOrder() {
         if (!selectedAddress) {

@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Favori ürünleri çek
     let favoriteProducts = [];
+    if(userId != null) {
+
     fetch(favoritesUrl, {
         method: 'POST',
         headers: {
@@ -33,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Favoriler alınırken hata oluştu:', error))
         .finally(() => loadProducts());
 
+    } else {
+        loadProducts()
+    }
+
     function loadProducts() {
         fetch('https://aldekitap.com/backend/products.php', {
             method: 'POST',
@@ -41,7 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ action: "read_by_category", category_id: categoryId })
         })
-            .then(response => response.json())
+            .then(response => response.text()) // JSON yerine metin olarak al
+            .then(text => {
+                console.log(text); // Gelen yanıtı kontrol et
+                return JSON.parse(text); // Veriyi manuel olarak JSON'a çevir
+            })
             .then(data => {
                 if (data.length === 0) {
                     productList.innerHTML = '<p>Bu kategoriye ait ürün bulunmamaktadır.</p>';
@@ -58,13 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(product.image_path != null) {
                         imageUrl = product.image_path.replaceAll("C:\\xampp\\htdocs/","https://aldekitap.com/backend/");
                     }
-                    console.warn(product)
                     let rating = product.average_rating ? parseFloat(product.average_rating) : 0;
                     let reviewCount = product.review_count || 0;
                     let fullStars = Math.floor(rating); // Tam yıldız sayısı
                     let halfStar = (rating - fullStars) >= 0.5 ? 1 : 0; // Yarı yıldız kontrolü
                     let emptyStars = 5 - fullStars - halfStar; // Boş yıldız sayısı
-                    console.warn(imageUrl)
                     productCard.innerHTML = `
     <div class="product-item bg-light mb-4">
         <div class="product-img position-relative overflow-hidden">
@@ -154,6 +162,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const productId = this.id.split('-')[2];
                 const isFavorite = this.querySelector('i').classList.contains('text-danger');
 
+                if(userId != null) {
+
                 fetch(favoritesUrl, {
                     method: 'POST',
                     headers: {
@@ -175,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             updateFavoriteStatus(productId);
                     })
                     .catch(error => console.error('Favori işlemi sırasında hata oluştu:', error));
+                }
             });
         });
     }
@@ -209,6 +220,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
 
+        if(userId != null) {
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -233,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Favori sayısı alınırken bir hata oluştu:', error);
                 favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
             });
+        }
     }
 
 // Sepete ekleme butonuna tıklama olayını yönetme
@@ -252,6 +266,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function addToCart(productId, quantity) {
         const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -275,12 +291,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(error => console.error('Sepet ekleme sırasında bir hata oluştu:', error));
+        }
     }
 
     function getTotalProductsCount() {
         const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
+
+        if (userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -306,6 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Sepet sayısı alınırken bir hata oluştu:', error);
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
             });
+        }
     }
 
 

@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const userId = localStorage.getItem('userId');
             const productId = this.closest('.product-item').querySelector('.add-to-cart').dataset.productId;
 
+            if(userId != null) {
+
             fetch('https://aldekitap.com/backend/account.php', {
                 method: 'POST',
                 headers: {
@@ -36,12 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 .catch(error => {
                     console.error('Favorilere ekleme sırasında hata:', error);
                 });
+            }
         });
     });
 
     // Favori ürünleri çek
     function fetchFavorites() {
         let favoriteProducts = [];
+        if(userId != null) {
+
         fetch(favoritesUrl, {
             method: 'POST',
             headers: {
@@ -190,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Favoriler alınırken hata oluştu:', error))
             .finally();
+        }
 
     }
 
@@ -199,6 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const apiUrl = 'https://aldekitap.com/backend//cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -224,12 +232,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Sepet sayısı alınırken bir hata oluştu:', error);
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
             });
+        }
     }
 
     function getTotalFavCount() {
         const apiUrl = 'https://aldekitap.com/backend/account.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const favCountElement = document.getElementById('fav-count');
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -255,6 +266,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Favori sayısı alınırken bir hata oluştu:', error);
                 favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
             });
+
+        }
     }
 
 });

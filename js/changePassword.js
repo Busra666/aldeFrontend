@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
             new_password: newPassword
         };
 
+        if(userId != null) {
+
         // AJAX isteği gönder
         fetch("https://aldekitap.com/backend/account.php", {
             method: "POST",
@@ -45,5 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Hata:", error);
                 alert("Bir hata oluştu, lütfen tekrar deneyin.");
             });
+        }
     });
 });

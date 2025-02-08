@@ -81,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const adresKutusu = document.querySelector('.adres-container');
         const adresListesi = document.querySelector('#adres-listesi-ul');
 
+        if(userId != null) {
+
         // API'den adresleri çek
         fetch('https://aldekitap.com/backend/account.php', {
             method: 'POST',
@@ -135,6 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 console.error('Adresler yüklenirken hata oluştu:', error);
             });
+
+        }
     }
 
     /**
@@ -245,6 +249,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const address = document.querySelector("#adres").value;
 
             const actionType = addressId ? "update" : "create";
+
+            if(userId != null) {
+
             // Postman servisinin backend API'ye form verilerini gönder
             fetch('https://aldekitap.com/backend/account.php', {
                 method: 'POST',
@@ -277,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert("Adres eklerken bir hata oluştu.");
                 });
 
+            }
         });
         function clearForm(form) {
             const inputs = form.querySelectorAll('input, select, textarea');

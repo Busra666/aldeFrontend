@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Sepeti Listeleme
     function fetchCart() {
+        if(userId != null) {
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -92,6 +94,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             })
             .catch(error => console.error('Sepet yüklenirken bir hata oluştu:', error));
+
+        }
     }
 
     function updateCartTotal() {
@@ -103,7 +107,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const userId = localStorage.getItem("userId");
 
         // Kargo ücreti sabit
-        let kargoUcreti = 39.99;
+        let kargoUcreti = 59.99;
+
+        if(userId != null) {
+
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -118,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.status === 'success') {
                     const siparisTutar = parseFloat(data.total_price || 0);
-                    siparisTutar == 0 || siparisTutar > 200 ? kargoUcreti = 0 : kargoUcreti = 39.99;
+                    siparisTutar == 0 || siparisTutar > 500 ? kargoUcreti = 0 : kargoUcreti = 59.99;
                     const sepetToplam = siparisTutar + kargoUcreti;
 
                     // DOM öğelerini güncelle
@@ -134,6 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(error => console.error('Sepet toplamı alınırken bir hata oluştu:', error));
+
+        }
     }
 
     // Sayfa yüklendiğinde toplamı hesapla
@@ -148,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (action !== 'remove') {
             quantity = action === 'add' ? 1 : -1;
         }
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -171,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(error => console.error('Sepet güncellenirken bir hata oluştu:', error));
+        }
     }
 
     // Sayfa yüklendiğinde sepeti listele
@@ -179,6 +191,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
         const userId = localStorage.getItem("userId");
         const cartCountElement = document.getElementById('cart-count');
+
+        if(userId != null) {
 
         fetch(apiUrl, {
             method: 'POST',
@@ -204,6 +218,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Sepet sayısı alınırken bir hata oluştu:', error);
                 cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
             });
+
+        }
     }
     let elementById = document.getElementById('complete-order-btn');
     if(elementById != null) {

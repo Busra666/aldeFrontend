@@ -24,6 +24,8 @@ function addToCart(productId, quantity) {
     const apiUrl = 'https://aldekitap.com/backend/cart.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
 
+    if(userId !== null) {
+
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -46,6 +48,7 @@ function addToCart(productId, quantity) {
             }
         })
         .catch(error => console.error('Sepet ekleme sırasında bir hata oluştu:', error));
+    }
 }
 
 // Sepete ekleme butonuna tıklama olayını yönetme
@@ -232,6 +235,8 @@ function getTotalProductsCount() {
     const userId = localStorage.getItem("userId");
     const cartCountElement = document.getElementById('cart-count');
 
+    if (userId != null) {
+
     fetch(apiUrl, {
         method: 'POST',
         headers: {
@@ -256,12 +261,15 @@ function getTotalProductsCount() {
             console.error('Sepet sayısı alınırken bir hata oluştu:', error);
             cartCountElement.textContent = '0'; // Ağ hatasında 0 göster
         });
+    }
 }
 
 function getTotalFavCount() {
     const apiUrl = 'https://aldekitap.com/backend/account.php'; // Backend API URL'si
     const userId = localStorage.getItem("userId");
     const favCountElement = document.getElementById('fav-count');
+
+    if(userId != null) {
 
     fetch(apiUrl, {
         method: 'POST',
@@ -288,6 +296,7 @@ function getTotalFavCount() {
             console.error('Favori sayısı alınırken bir hata oluştu:', error);
             favCountElement.textContent = '0'; // Ağ hatasında, 0 göster
         });
+    }
 }
 
 document.querySelector('.clickable-stars').addEventListener('click', function () {
@@ -298,17 +307,12 @@ document.querySelector('.clickable-stars').addEventListener('click', function ()
 });
 
 let selectedRating = 0;
-console.warn("a1")
 
 document.addEventListener("DOMContentLoaded", function () {
 
-console.warn(document.querySelectorAll('.stars'))
 })
 document.querySelectorAll('.stars .star').forEach(star => {
-    console.warn("a2")
-    console.warn(star)
     star.addEventListener('click', function () {
-        console.warn("a3")
         selectedRating = this.getAttribute('data-value'); // Seçilen puanı sakla
         const stars = this.parentElement.querySelectorAll('.star');
 
@@ -420,6 +424,8 @@ document.querySelector('.add-comment-btn').addEventListener('click', function ()
         comment: comment
     };
 
+    if(userId != null) {
+
     // Fetch ile POST isteği yap
     fetch('https://aldekitap.com/backend/product-review.php', {
         method: 'POST',
@@ -455,6 +461,7 @@ document.querySelector('.add-comment-btn').addEventListener('click', function ()
         .catch(error => {
             alert(`Bir hata oluştu: ${error.message}`);
         });
+    }
 });
 
 // Sayfa yüklendiğinde detayları yükle
