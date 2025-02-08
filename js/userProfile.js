@@ -66,12 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const userId = localStorage.getItem("userId");
         // Gönderilecek veri
-        const userData = {
-        };
 
-        console.warn(userData);
+
+        if (userId != null) {
+
         // Veriyi update_me servisine gönder
-        fetch('https://aldekitap.com/backend/account.php' + '/update_me', {
+        fetch('https://aldekitap.com/backend/account.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Bir hata oluştu.');
             });
 
+        }
     });
 });
 
