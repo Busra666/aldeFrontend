@@ -155,29 +155,31 @@
     const userId = localStorage.getItem("userId");
     const productList = document.getElementById('product-list2');
     const favoritesUrl = 'https://aldekitap.com/backend/account.php'; // Favori işlemleri API URL'si
-    if(userId != null) {
+    document.addEventListener("DOMContentLoaded", () => {
+        if (userId != null) {
 
-    fetch(favoritesUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            module: 'favorites',
-            action: 'read',
-            user_id: userId
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            favoriteProducts = data.map(fav => fav.product_id);
-        })
-        .catch(error => console.error('Favoriler alınırken hata oluştu:', error))
-        .finally(() => loadProducts());
+            fetch(favoritesUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    module: 'favorites',
+                    action: 'read',
+                    user_id: userId
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    favoriteProducts = data.map(fav => fav.product_id);
+                })
+                .catch(error => console.error('Favoriler alınırken hata oluştu:', error))
+                .finally(() => loadProducts());
 
-    } else {
-        loadProducts()
-    }
+        } else {
+            loadProducts()
+        }
+    });
     function loadProducts() {
         const productListContainer = document.getElementById("product-list-container1");
 
