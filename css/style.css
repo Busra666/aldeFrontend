@@ -11351,12 +11351,16 @@ textarea#fatura-adresi-text {
 
 /* Carousel içindeki resimleri düzenle */
 .carousel-inner img {
-  object-fit: contain; /* Resmi kırpmadan, alanı dolduracak şekilde ölçeklendir */
-  height: 420px; /* Carousel yüksekliğini belirleyin */
-  max-height: 1500px; /* Fazla uzamayı önleyin */
+  object-fit: contain;
+  height: 420px;
+  max-height: 1500px;
 }
-
-
+/* Mobil cihazlar için (Maksimum 768px genişlikte) */
+@media (max-width: 1000px) {
+  .carousel-inner img {
+    height: 190px;
+  }
+}
 
 
 
